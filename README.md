@@ -15,7 +15,10 @@ INSTALL
 这$5不算什么，主要是咱没有美国的信用卡或者paypal这东西呀，没办法了 ╮(╯▽╰)╭
 
 
-想安装方式也很简单，先在Chrome中打开[chrome://extensions/](chrome://extensions/)，然后下载[gooreplacer.crx](https://github.com/jiacai2050/gooreplacer4chrome/archive/master.zip)，之后把这个crx拖到Chrome上就可以安装了。
+想安装方式也很简单:
+1. 先在Chrome中打开<a href="chrome://extensions/">chrome://extensions/</a>, 然后打开开发者模式，如下图<img src="http://img01.taobaocdn.com/imgextra/i1/581166664/TB2gof_apXXXXbCXpXXXXXXXXXX_!!581166664.png" alt=" develop"/>
+2. 然后下载[本代码库](https://github.com/jiacai2050/gooreplacer4chrome/archive/master.zip)，解压，之后会发现有个gooreplacer.crx文件
+3. 把这个crx文件拖到Chrome上就可以安装了。
 
 That's all! Enjoy!
 
