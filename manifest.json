@@ -1,0 +1,17 @@
+{
+  "name": "gooreplacer",
+  "version": "0.1",
+  "description": "A replacer for google fonts/api/themes.... to load page faster!",
+  "permissions": [
+      "webRequest", "webRequestBlocking",
+      "*://*.googleapis.com/*",
+      "*://themes.googleusercontent.com/*",
+      "*://fonts.gstatic.com/*"
+  ],
+  "background": {
+    "scripts": [ "background.js" ]
+  },
+  "author": "http://liujiacai.net",
+  "homepage_url": "https://github.com/jiacai2050/gooreplacer4chrome",
+  "manifest_version": 2
+}
