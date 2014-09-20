@@ -1,5 +1,9 @@
+
+
 gooreplacer For Chrome
 ===
+
+[gooreplacer官方网站](http://liujiacai.net/gooreplacer)
 
 A replacer for google fonts/api/themes.... to load page faster!
 
