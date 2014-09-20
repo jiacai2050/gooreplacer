@@ -19,7 +19,8 @@ chrome.webRequest.onBeforeRequest.addListener(
   // filters
   {
     urls: [
-      "*://*.googleapis.com/*",
+      "*://ajax.googleapis.com/*",
+      "*://fonts.googleapis.com/*",
       "*://themes.googleusercontent.com/*",
       "*://fonts.gstatic.com/*"
     ],

@@ -4,7 +4,8 @@
   "description": "A replacer for google fonts/api/themes.... to load page faster!",
   "permissions": [
       "webRequest", "webRequestBlocking",
-      "*://*.googleapis.com/*",
+      "*://ajax.googleapis.com/*",
+      "*://fonts.googleapis.com/*",
       "*://themes.googleusercontent.com/*",
       "*://fonts.gstatic.com/*"
   ],
