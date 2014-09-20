@@ -1,67 +1,112 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta charset='utf-8'/>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1"/>
 
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-
-    <title>Gooreplacer by jiacai2050</title>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen"/>
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print"/>
+ 
+    <title>gooreplacer</title>
   </head>
 
   <body>
-
+    <!-- JiaThis Button BEGIN -->
+    <script type="text/javascript">
+    var jiathis_config = {data_track_clickback:'true'};
+    </script>
+    <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?type=left&amp;move=0&amp;btn=l1.gif&amp;uid=1567950" charset="utf-8"></script>
+    <!-- JiaThis Button END -->   
+    <a href="https://github.com/jiacai2050/gooreplacer"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
     <header>
       <div class="container">
-        <h1>Gooreplacer</h1>
+        <h1>gooreplacer</h1>
         <h2>一个用于替换网页中Google Fonts/API/themes等的Firefox插件，让你快速打开引用这些资源的页面 :-)</h2>
-
-        <section id="downloads">
-          <a href="https://github.com/jiacai2050/gooreplacer/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/jiacai2050/gooreplacer/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/jiacai2050/gooreplacer" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
       </div>
     </header>
 
     <div class="container">
       <section id="main_content">
-        <h3>
-<a name="welcome-to-github-pages" class="anchor" href="#welcome-to-github-pages"><span class="octicon octicon-link"></span></a>Welcome to GitHub Pages.</h3>
+        <h2>
+<a name="backgroud" class="anchor" href="#backgroud"><span class="octicon octicon-link"></span></a>1. 为什么要开发gooreplacer？</h2>
 
-<p>This automatic page generator is the easiest way to create beautiful pages for all of your projects. Author your page content here using GitHub Flavored Markdown, select a template crafted by a designer, and publish. After your page is generated, you can check out the new branch:</p>
+<p> 众所周知，Google在某国造到全面封杀，导致无法访问google的一切资源。</p>
+<p> Google在全球范围内提供一些js库、css库的CDN服务，本是一件相当好的事情，但是在某国情况就不一样了</p>
+<p> 如果一个网站引用了Google的这些库（比如<a href="stackoverflow.com">stackoverflow</a>、<a href="reddit.com">reddit</a>）,那么在某国的访问速度那是真慢，不是一般的慢!
+<p> 有图有真相：</p>
+<img src="images/google-slow.png"/>
+<img src="images/google-font-wp.png"/>
+<img src="images/google-font.png"/>
 
-<pre><code>$ cd your_repo_root/repo_name
-$ git fetch origin
-$ git checkout gh-pages
-</code></pre>
+<p>更多的我就不举例子...</p>
 
-<p>If you're using the GitHub for Mac, simply sync your repository and you'll see the new branch.</p>
+<p>gooreplacer就是为了解决这种问题而开发的。</p>
 
-<h3>
-<a name="designer-templates" class="anchor" href="#designer-templates"><span class="octicon octicon-link"></span></a>Designer Templates</h3>
+<h2>
+<a name="intro" class="anchor" href="#intro"><span class="octicon octicon-link"></span></a>2. gooreplacer是什么</h2>
 
-<p>We've crafted some handsome templates for you to use. Go ahead and continue to layouts to browse through them. You can easily go back to edit your page before publishing. After publishing your page, you can revisit the page generator and switch to another theme. Your Page content will be preserved if it remained markdown format.</p>
+<p>gooreplacer是浏览器插件，目前有Firefox版与Chrome版。</p>
 
-<h3>
-<a name="rather-drive-stick" class="anchor" href="#rather-drive-stick"><span class="octicon octicon-link"></span></a>Rather Drive Stick?</h3>
+<p> gooreplacer = a replacer for Google fonts/apis/themes...</p>
+<p> 如英文描述，gooreplacer在你打开网页时，检测是否引用了google fonts/apis/themes这些墙外的东西，如果有，进行重定向，重定向到<a href="https://servers.ustclug.org/2014/07/ustc-blog-force-google-fonts-proxy/">科大为google提供的国内替换库。</a>替换规则如下：</p>
+<pre>
+<code>
+fonts.googleapis.com-------------->fonts.lug.ustc.edu.cn
+ajax.googleapis.com--------------->ajax.lug.ustc.edu.cn
+themes.googleusercontent.com------>google-themes.lug.ustc.edu.cn
+fonts.gstatic.com----------------->fonts-gstatic.lug.ustc.edu.cn
+</code>
+</pre>
+<h2>
+<a name="why-gooreplacer" class="anchor" href="#why-gooreplacer"><span class="octicon octicon-link"></span></a>3. 为什么要使用gooreplacer</h2>
 
-<p>If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator written by our own Tom Preston-Werner. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.</p>
+<p>当然，如果你有(tu)钱(hao)，可以购买VPN，那么世界也是很美好！</p>
 
-<h3>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>Authors and Contributors</h3>
+<p>但如果你一直用的是免费的vpn、goagent等，那么gooreplacer绝对适合你，gooreplacer可以让你很快的打开一些wordpress博客，秒开stackoverflow、reddit......</p>
 
-<p>You can <a href="https://github.com/blog/821" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor's GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
+<p>世界是残酷的， 我们(programmer)有理由把它变得美好些。Enjoy！</p>
 
-<h3>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
+<h2>
+<a name="why-gooreplacer" class="anchor" href="#why-gooreplacer"><span class="octicon octicon-link"></span></a>4. 安装gooreplacer</h2>
+<section id="downloads">
+  <a href="https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/" class="btn">Firefox版本</a>
+  <a href="https://github.com/jiacai2050/gooreplacer4chrome#install" class="btn">Chrome版本</a>
+</section>
 
-<p>Having trouble with Pages? Check out the documentation at <a href="http://help.github.com/pages">http://help.github.com/pages</a> or contact <a href="mailto:support@github.com">support@github.com</a> and we’ll help you sort it out.</p>
+<h2>
+<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>5. 作者与贡献者</h2>
+
+<p>gooreplacer由<a class="user-mention" href="http://liujiacai.net">@我</a>一个人独立开发，当然少不了网友的支持，这里要感谢V2EX的<a href="http://v2ex.com/member/jzhone" class="user-mention">@jzhone</a>耐心为gooreplacer测试，并推荐使用科大库。</p>
+
+<h2>
+<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>6. 支持与维护</h2>
+
+<p>如果你有使用gooreplacer方面的任何问题，如果对gooreplacer有什么好的建议，可以在下面留言</p>
+<p>当然，照顾到大家有可能比较害羞，可以邮件<a href="mailto:jiacai2050@gmail.com?subject=gooreplacer建议反馈">jiacai2050#gmail.com</a>交流。:-) </p>
+
+<div class="ds-thread" data-url="http://liujiacai.net/gooreplacer"></div>
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"gooreplacer"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+<!-- 多说公共JS代码 end -->
+<script type="text/javascript">
+    var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb0b1b4cd028dcda54126eddc8346a00c' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+
       </section>
     </div>
 
     
   </body>
 </html>
+
