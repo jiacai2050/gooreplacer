@@ -1,3 +1,10 @@
+#ds-thread #ds-reset .ds-comment-body p {
+    color: #eaeaea;
+}
+
+#ds-thread #ds-reset .ds-user-name {
+    color: #b5e853 !important;
+}
 body {
   margin: 0;
   padding: 0;
