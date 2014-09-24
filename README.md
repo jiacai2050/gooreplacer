@@ -14,12 +14,16 @@ A replacer for google fonts/api/themes.... to load page faster!
 
 INSTALL
 ===
-首先说明一下，这个插件我没上传到Chome Webstore上面，原因是在我上传时遇到了如下图的情景：
+<del>首先说明一下，这个插件我没上传到Chome Webstore上面，原因是在我上传时遇到了如下图的情景：</del>
 <img src="http://img01.taobaocdn.com/imgextra/i1/581166664/TB2jSskapXXXXXJXXXXXXXXXXXX_!!581166664.png" alt=" paid-for-google-develop"/>
 
-这$5不算什么，主要是咱没有美国的信用卡或者paypal这东西呀，没办法了 ╮(╯▽╰)╭
+<del>这$5不算什么，主要是咱没有美国的信用卡或者paypal这东西呀，没办法了 ╮(╯▽╰)╭</del>
 
-想安装方式也很简单:
+感谢V2EX的[@Semidio](http://v2ex.com/member/Semidio)把这个插件发布到了WebStore上。
+
+[WebStore地址](https://chrome.google.com/webstore/detail/gooreplacer/jlmmdfhaddlgkgcigccmlfhapliiacoh)
+
+如果你有梯(fan)子(qiang)，可以去上面的WebStore地址下载。如果没有，那就按照下面的方式安装：
 
 1. 先在Chrome中打开chrome://extensions/, 打开开发者模式，如下图<img src="http://img01.taobaocdn.com/imgextra/i1/581166664/TB2gof_apXXXXbCXpXXXXXXXXXX_!!581166664.png" alt=" develop"/>
 2. 然后下载[gooreplacer.crx](https://github.com/jiacai2050/gooreplacer4chrome/blob/master/gooreplacer.crx?raw=true)
