@@ -14,5 +14,6 @@
   },
   "author": "http://liujiacai.net",
   "homepage_url": "https://github.com/jiacai2050/gooreplacer4chrome",
+  "update_url": "https://github.com/599316527/gooreplacer4chrome/raw/master/updates.xml",
   "manifest_version": 2
 }
