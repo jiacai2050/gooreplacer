@@ -10,24 +10,24 @@ A replacer for google fonts/api/themes.... to load page faster!
 
 一个用于替换网页中Google Fonts,API,themes等的Chrome插件，让你快速打开这些页面！
 
+[WebStore地址](https://chrome.google.com/webstore/detail/gooreplacer/jlmmdfhaddlgkgcigccmlfhapliiacoh)
+
 [Firefox版本](https://github.com/jiacai2050/gooreplacer)
 
 INSTALL
 ===
-<del>首先说明一下，这个插件我没上传到Chome Webstore上面，原因是在我上传时遇到了如下图的情景：</del>
-<img src="http://img01.taobaocdn.com/imgextra/i1/581166664/TB2jSskapXXXXXJXXXXXXXXXXXX_!!581166664.png" alt=" paid-for-google-develop"/>
-
-<del>这$5不算什么，主要是咱没有美国的信用卡或者paypal这东西呀，没办法了 ╮(╯▽╰)╭</del>
-
-感谢V2EX的[@Semidio](http://v2ex.com/member/Semidio)把这个插件发布到了WebStore上。
-
-[WebStore地址](https://chrome.google.com/webstore/detail/gooreplacer/jlmmdfhaddlgkgcigccmlfhapliiacoh)
 
 如果你有梯(fan)子(qiang)，可以去上面的WebStore地址下载。如果没有，那就按照下面的方式安装：
 
+针对Linux/Mac用户：
 1. 先在Chrome中打开chrome://extensions/, 打开开发者模式，如下图<img src="http://img01.taobaocdn.com/imgextra/i1/581166664/TB2gof_apXXXXbCXpXXXXXXXXXX_!!581166664.png" alt=" develop"/>
 2. 然后下载[gooreplacer.crx](https://github.com/jiacai2050/gooreplacer4chrome/blob/master/gooreplacer.crx?raw=true)
 3. 最后把gooreplacer.crx文件拖到Chrome上就可以安装了。<img src="http://img03.taobaocdn.com/imgextra/i3/581166664/TB2rBMEapXXXXb1XpXXXXXXXXXX_!!581166664.jpg" alt=" chrome-drag"/>
+
+对于Windows用户：
+从2014年5月开始，[Google为了照顾你的安全](http://chrome.blogspot.com/2014/05/protecting-chrome-users-from-malicious.html)，不再允许直接安装本地扩展，但直接可以采用注册表安装，下载[force_install_for_windows.reg](https://github.com/jiacai2050/gooreplacer4chrome/raw/master/force_install_for_windows.reg)，双击安装，之后重启Chrome就可以了。
+
+如果想卸载，用[remove_install_for_windows.reg](https://github.com/jiacai2050/gooreplacer4chrome/raw/master/remove_install_for_windows.reg)文件清除注册表即可。
 
 That's all! Enjoy!
 

@@ -1,6 +1,6 @@
 {
   "name": "gooreplacer",
-  "version": "0.1",
+  "version": "0.1.5",
   "description": "A replacer for google fonts/api/themes.... to load page faster!",
   "permissions": [
       "webRequest", "webRequestBlocking",
@@ -14,6 +14,6 @@
   },
   "author": "http://liujiacai.net",
   "homepage_url": "https://github.com/jiacai2050/gooreplacer4chrome",
-  "update_url": "https://github.com/599316527/gooreplacer4chrome/raw/master/updates.xml",
+  "update_url": "https://github.com/jiacai2050/gooreplacer4chrome/raw/master/updates.xml",
   "manifest_version": 2
 }

@@ -1,7 +1,7 @@
 Windows Registry Editor Version 5.00
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Google\Chrome\ExtensionInstallForcelist]
-"1"="paopmncpffekhhffcndhnmjincfplbma;https://github.com/599316527/gooreplacer4chrome/raw/master/updates.xml"
+"1"="paopmncpffekhhffcndhnmjincfplbma;https://github.com/jiacai2050/gooreplacer4chrome/raw/master/updates.xml"
 
 [HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Chromium\ExtensionInstallForcelist]
-"1"="paopmncpffekhhffcndhnmjincfplbma;https://github.com/599316527/gooreplacer4chrome/raw/master/updates.xml"
+"1"="paopmncpffekhhffcndhnmjincfplbma;https://github.com/jiacai2050/gooreplacer4chrome/raw/master/updates.xml"
