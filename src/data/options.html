@@ -1,0 +1,61 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>gooreplacer自定义规则</title>
+    <link rel="shortcut icon" href="gooreplacer.ico">
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <script type="text/javascript" src="jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="options.js"></script>
+</head>
+<body>
+
+<h1>gooreplacer</h1>
+<h5>想去哪儿，就去哪儿</h5>
+
+<div class="actions">
+    <button id="homepage">主页</button>
+    <button id="import">导入</button>
+    <button id="export">导出</button>
+    <button id="help">帮助</button>
+
+</div>
+
+<div id="config" class="dialog">
+    <h2>使用帮助</h2>
+    <ol>
+        <li>每条重定向规则有“开启/停用”两种状态</li>
+        <li>在自定义规则时，可以使用通配符*，来进行模糊匹配</li>
+        <li>在自定义规则时，不能包含 (, ), [, ], {, }, ?, \, + 这些特殊字符</li>
+        <li>使用“导出”功能，可以把当前的重定向规则导出到本地</li>
+        <li>使用“导入”功能，可以从本地加载重定向规则</li>
+    </ol>
+    <div class="button-row">
+        <button id="close">关闭</button>
+    </div>
+</div>
+<table id="rules" align="center">
+    <tr>
+        <th>
+            原始URL
+        </th>
+        <th></th>    
+        <th>
+            目的URL
+        </th>    
+    </tr>
+
+</table>
+
+<div class="centered">
+    <button id="more">更多</button>
+    <button id="ok">确定</button>
+</div>
+<div class="line"></div>
+<div class="centered">
+    <h3>系统中已有以下规则</h3>
+</div>
+<table id="list" align="center"></table>
+</body>
+</html>

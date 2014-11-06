@@ -4,6 +4,7 @@
   "description": "A replacer for google fonts/api/themes.... to load page faster!",
   "permissions": [
       "webRequest", "webRequestBlocking",
+      "storage",
       "*://ajax.googleapis.com/*",
       "*://fonts.googleapis.com/*",
       "*://themes.googleusercontent.com/*",
@@ -12,6 +13,13 @@
   "background": {
     "scripts": [ "background.js" ]
   },
+  "browser_action": {
+    "default_icon": "data/images/gooreplacer.png",
+    "default_title": "DIY",
+    "default_popup": "data/popup.html"
+
+  },
+  "options_page": "data/options.html",
   "author": "http://liujiacai.net",
   "homepage_url": "https://github.com/jiacai2050/gooreplacer4chrome",
   "update_url": "https://github.com/jiacai2050/gooreplacer4chrome/raw/master/updates.xml",

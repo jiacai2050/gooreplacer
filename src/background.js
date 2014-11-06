@@ -1,6 +1,6 @@
 chrome.webRequest.onBeforeRequest.addListener(
-  function(info) {
-    var requestUrl = info.url;
+  function(request) {
+    var requestUrl = request.url;
     var redirectMap = {
         'googleapis.com': 'lug.ustc.edu.cn',        
         'themes.googleusercontent.com': 'google-themes.lug.ustc.edu.cn',
