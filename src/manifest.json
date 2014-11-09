@@ -11,7 +11,7 @@
       "*://fonts.gstatic.com/*"
   ],
   "background": {
-    "scripts": [ "background.js" ]
+    "scripts": [ "db.js" ,"background.js"]
   },
   "browser_action": {
     "default_icon": "data/images/gooreplacer.png",

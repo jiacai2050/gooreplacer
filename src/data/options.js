@@ -5,32 +5,38 @@ function getLabel(status) {
         return "开启";
     }
 }
-function reset(data) {
+function reset(rules) {
+    console.log(rules);
     $("#list").html("");
     var html = [];
-    for(key in data) {
+    for(key in rules) {
+        var srcURL = key;
         var rowHTML = [];
-        if (data[key].enable) {
+        if (rules[key].enable) {
             rowHTML.push("<tr>");
         } else {
             rowHTML.push("<tr class='disable'>");
         }
-    }
-    rowHTML.push(
-        "<td>"+key+"</td>",
-        "<td>----></td>",
-        "<td>"+data[key].dstURL+"</td>",
-        "<td><input type=button id=change"+key+" value="+data[key].enable+"></td>",
-        "<td><input type=button id=del"+key+" value='删除'></td>",
-        "</tr>");
+        var asteriskRE = /\.\*/g;
+        if (key.match(asteriskRE)) {
+            srcURL = key.replace(asteriskRE, "*");
+        };
+        rowHTML.push(
+            "<td>"+srcURL+"</td>",
+            "<td>----></td>",
+            "<td>"+rules[key].dstURL+"</td>",
+            "<td><input type=button id=change"+key+" value="+rules[key].enable+"></td>",
+            "<td><input type=button id=del"+key+" value='删除'></td>",
+            "</tr>");
 
-    $("#list").append(rowHTML.join(""));
+        $("#list").append(rowHTML.join(""));
+    }
 
     $("input[id^=del]").each(function() {
         var key = this.id.substring(3);
         this.onclick = function() {
             if (confirm("确定要删除这条规则吗？")) {
-                self.port.emit("del", key);    
+                chrome.storage.sync.remove(key, null); 
             };
         }
     });    
@@ -38,7 +44,15 @@ function reset(data) {
         var key = this.id.substring(6);
         this.value = getLabel(this.value);
         this.onclick = function() {
-            self.port.emit("change", key);    
+            chrome.storage.sync.get(key, function(item) {
+                chrome.storage.sync.set({
+                    key : {
+                        "dstURL": item.key.dstURL,
+                        "enable": !item.key.dstURL,
+                    } 
+                }, null); 
+                reset(item);
+            });
         }
     });
 }
@@ -68,9 +82,12 @@ $(function() {
         }, function() {
             alert("成功添加" + number + "个规则");    
         }); 
-        reset(rules);
+
+        
     });  
-    
+    chrome.storage.sync.get("rules", function(prefs) {
+        reset(prefs); 
+    }); 
     $("#more").click(function() {
         addRows();
     }); 
