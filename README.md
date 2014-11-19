@@ -49,6 +49,6 @@ Development
 - 使用[Chrome extension webRequest](https://developer.chrome.com/extensions/webRequest)模块开发
 - 使用[科大公共库](https://servers.ustclug.org/2014/07/ustc-blog-force-google-fonts-proxy/)开替换Google资源,之前曾使用360公共库，但是[360并不支持https访问](https://servers.ustclug.org/2014/06/blog-googlefonts-speedup/)，所以最终选择了科大。
 
-PS：吐槽下，用Chrome的开发extension比Firefox的方便好多！！
+PS：如果你的工作依赖Google Apps,可以试试[CubeBackup](http://www.cubebackup.com/).
 
 如果你发现有任何问题，请与我联系。谢谢！
