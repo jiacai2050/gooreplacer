@@ -6,7 +6,6 @@ function getLabel(status) {
     }
 }
 function reset(rules) {
-    console.log(rules);
     $("#list").html("");
     var html = [];
     for(key in rules) {
@@ -36,7 +35,14 @@ function reset(rules) {
         var key = this.id.substring(3);
         this.onclick = function() {
             if (confirm("确定要删除这条规则吗？")) {
-                chrome.storage.sync.remove(key, null); 
+                chrome.storage.sync.get("rules", function(prefs) {
+                    var rules = prefs.rules;
+                    delete rules[key];
+                    chrome.storage.sync.set({"rules": rules}, function() {
+                        localStorage.setItem('rules',JSON.stringify(rules));
+                        reset(rules); 
+                    });
+                }); 
             };
         }
     });    
@@ -44,15 +50,14 @@ function reset(rules) {
         var key = this.id.substring(6);
         this.value = getLabel(this.value);
         this.onclick = function() {
-            chrome.storage.sync.get(key, function(item) {
-                chrome.storage.sync.set({
-                    key : {
-                        "dstURL": item.key.dstURL,
-                        "enable": !item.key.dstURL,
-                    } 
-                }, null); 
-                reset(item);
-            });
+            chrome.storage.sync.get("rules", function(prefs) {
+                var rules = prefs.rules;
+                rules[key]["enable"] = !rules[key]["enable"];
+                chrome.storage.sync.set({"rules": rules}, function() {
+                    localStorage.setItem('rules',JSON.stringify(rules));
+                    reset(rules); 
+                });
+            }); 
         }
     });
 }
@@ -77,24 +82,31 @@ $(function() {
                 number += 1;
             }
         });
-        chrome.storage.sync.set({
-            rules: rules
-        }, function() {
-            alert("成功添加" + number + "个规则");    
-        }); 
+        chrome.storage.sync.get('rules', function(prefs) {
+            var newRules = $.extend(prefs.rules, rules);
+            chrome.storage.sync.set({
+                rules: newRules 
+            }, function() {
+                alert("成功添加" + number + "个规则");    
+                localStorage.setItem('rules',JSON.stringify(newRules));
+                reset(newRules);
+            }); 
+
+        });
 
         
     });  
     chrome.storage.sync.get("rules", function(prefs) {
-        reset(prefs); 
+        reset(prefs.rules); 
     }); 
     $("#more").click(function() {
         addRows();
     }); 
     addRows();     
-
+    $("#export").click(function() {
+    //https://developer.chrome.com/apps/app_storage
+    });
 });
-
 var total=0;
 var addRows = function() {
     var addLimit = 5 + total;
