@@ -5,11 +5,18 @@
   "permissions": [
       "webRequest", "webRequestBlocking",
       "storage",
+      "downloads",
       "http://*/*",
       "https://*/*"
   ],
   "background": {
     "scripts": [ "db.js" ,"background.js"]
+  },
+  "icons": {
+    "32": "data/gooreplacer.ico",
+    "16": "logo/16.png",
+    "48": "logo/48.png",
+    "128": "logo/128.png"
   },
   "options_page": "data/options.html",
   "author": "http://liujiacai.net",

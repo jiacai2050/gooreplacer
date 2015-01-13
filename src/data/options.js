@@ -5,6 +5,7 @@ function getLabel(status) {
         return "开启";
     }
 }
+var db = new DB();
 function reset(rules) {
     $("#list").html("");
     var html = [];
@@ -35,36 +36,70 @@ function reset(rules) {
         var key = this.id.substring(3);
         this.onclick = function() {
             if (confirm("确定要删除这条规则吗？")) {
-                chrome.storage.sync.get("rules", function(prefs) {
-                    var rules = prefs.rules;
-                    delete rules[key];
-                    chrome.storage.sync.set({"rules": rules}, function() {
-                        localStorage.setItem('rules',JSON.stringify(rules));
-                        reset(rules); 
-                    });
-                }); 
-            };
+                var rules = db.getRules();
+                delete rules[key];
+                db.setRules(rules);
+                reset(rules); 
+            }; 
         }
     });    
     $("input[id^=change]").each(function() {
         var key = this.id.substring(6);
         this.value = getLabel(this.value);
         this.onclick = function() {
-            chrome.storage.sync.get("rules", function(prefs) {
-                var rules = prefs.rules;
-                rules[key]["enable"] = !rules[key]["enable"];
-                chrome.storage.sync.set({"rules": rules}, function() {
-                    localStorage.setItem('rules',JSON.stringify(rules));
-                    reset(rules); 
-                });
-            }); 
-        }
+            var rules = db.getRules();
+            rules[key]["enable"] = !rules[key]["enable"];
+            db.setRules(rules);
+            reset(rules); 
+        }; 
     });
+    $('input[type="text"]').blur(function() {
+        var val = this.value.trim();
+        var stopwords = [
+            "\\(",
+            "\\)",
+            "\\[",
+            "\\]",
+            "\\{",
+            "\\}",
+            "\\?",
+            "\\\\",
+            "\\+"
+        ].join("|");
+        var keywordsRE = new RegExp(stopwords, 'g');
+        if (val.match(keywordsRE)) {
+            alert("URL中不能包含 (, ), [, ], {, }, ?, \\, + 这些特殊字符！");
+            this.value = "";
+            $(this).focus();
+            return false;
+        }; 
+    });   
 }
 
 
 $(function() {
-
+    $("#homepage").click(function() {
+        window.open("http://liujiacai.net/gooreplacer/");
+    });
+    $("#import").click(function() {
+        importRules();
+    });
+    $("#export").click(function() {
+        exportRules();
+    });
+    $("#help").click(function() {
+        jQuery.fn.center = function () {
+            this.css("position","absolute");
+            this.css("top", (($(window).height() - this.outerHeight()) / 2) + $(window).scrollTop() + "px");
+            this.css("left", (($(window).width() - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
+            return this;
+        }
+        $('#config').center().css('top', '-=40px').show();
+    });
+    $('#close').click(function() {
+        $('#config').hide();
+    });
+    
     $("#ok").click(function() {
         var rules = {};
         var number = 0;
@@ -76,36 +111,22 @@ $(function() {
                     dstURL : value,
                     enable : true
                 };
-
                 this.value = "";
                 $("#" + dstURL).val("");
                 number += 1;
             }
         });
-        chrome.storage.sync.get('rules', function(prefs) {
-            var newRules = $.extend(prefs.rules, rules);
-            chrome.storage.sync.set({
-                rules: newRules 
-            }, function() {
-                alert("成功添加" + number + "个规则");    
-                localStorage.setItem('rules',JSON.stringify(newRules));
-                reset(newRules);
-            }); 
-
-        });
-
-        
+        var oldRules = db.getRules();
+        var newRules = $.extend(oldRules, rules);
+        db.setRules(newRules);
+        alert("成功添加" + number + "个规则");    
+        reset(newRules);
     });  
-    chrome.storage.sync.get("rules", function(prefs) {
-        reset(prefs.rules); 
-    }); 
+    reset(db.getRules()); 
     $("#more").click(function() {
         addRows();
     }); 
     addRows();     
-    $("#export").click(function() {
-    //https://developer.chrome.com/apps/app_storage
-    });
 });
 var total=0;
 var addRows = function() {
@@ -113,13 +134,46 @@ var addRows = function() {
     while(total < addLimit) {
         
         var rowHTML = ["<tr>",
-            "<td><input id='srcURL"+total+"'></td>",
+            "<td><input type='text' id='srcURL"+total+"'></td>",
             "<td>----></td>",
-            "<td><input id='dstURL"+total+"'></td>",
+            "<td><input type='text' id='dstURL"+total+"'></td>",
             "</tr>"].join("");
         $("#rules").append(rowHTML);
 
         total+=1;
     } 
+    reset(db.getRules());
 }
-
+function exportRules() {
+    var rules = db.getRules();
+    var gson = {
+        createBy: "http://liujiacai.net/gooreplacer/",
+        createAt: new Date().toString(),
+        rules: rules
+    };
+    var blob = new Blob([JSON.stringify(gson)], {type: 'text/plain'});
+    chrome.downloads.download({url:window.URL.createObjectURL(blob), 
+        saveAs: true,
+        filename: "gooreplacer.gson"
+    });
+}
+function importRules() {
+    var gsonChooser = document.getElementById("gsonChooser");
+    gsonChooser.value = "";
+    gsonChooser.onchange = function() {
+        var files = this.files;
+        var gsonFile = files[0];
+        var reader = new FileReader();
+        reader.onloadend = function(response) {
+            var res = JSON.parse(response.target.result);
+            if(typeof res.rules == "string") {
+                res.rules = JSON.parse(res.rules);
+            }
+            var newRules = $.extend(db.getRules(), res.rules);
+            db.setRules(newRules);
+            reset(newRules);
+        };
+        reader.readAsText(gsonFile);
+    }
+    gsonChooser.click();
+}

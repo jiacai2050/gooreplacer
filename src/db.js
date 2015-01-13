@@ -7,9 +7,6 @@ var rules = {
     'http.*://apis.google.com/js/api.js': {dstURL: 'http://liujiacai.net/gooreplacer/proxy/api.js', enable: true},
     'http.*://apis.google.com/js/plusone.js': {dstURL: 'http://liujiacai.net/gooreplacer/proxy/plusone.js', enable: true}
 };
-chrome.storage.sync.set({
-    'rules': rules 
-}, function() {
-    localStorage.setItem('rules', JSON.stringify(rules));
-});
-
+if(!localStorage.getItem("rules")) {
+    localStorage.setItem("rules", JSON.stringify(rules));
+}
