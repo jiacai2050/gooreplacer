@@ -150,10 +150,14 @@ function exportRules() {
         createAt: new Date().toString(),
         rules: rules
     };
-    var blob = new Blob([JSON.stringify(gson)], {type: 'text/plain'});
-    chrome.downloads.download({url:window.URL.createObjectURL(blob), 
+    var contentType = 'application/json';
+    var filename = "gooreplacer.gson";
+    var content = new Blob([JSON.stringify(gson)], {type: contentType});
+
+    chrome.downloads.download({
+        url:window.URL.createObjectURL(content), 
         saveAs: true,
-        filename: "gooreplacer.gson"
+        filename: filename,
     });
 }
 function importRules() {
