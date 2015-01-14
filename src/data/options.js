@@ -53,27 +53,6 @@ function reset(rules) {
             reset(rules); 
         }; 
     });
-    $('input[type="text"]').blur(function() {
-        var val = this.value.trim();
-        var stopwords = [
-            "\\(",
-            "\\)",
-            "\\[",
-            "\\]",
-            "\\{",
-            "\\}",
-            "\\?",
-            "\\\\",
-            "\\+"
-        ].join("|");
-        var keywordsRE = new RegExp(stopwords, 'g');
-        if (val.match(keywordsRE)) {
-            alert("URL中不能包含 (, ), [, ], {, }, ?, \\, + 这些特殊字符！");
-            this.value = "";
-            $(this).focus();
-            return false;
-        }; 
-    });   
 }
 
 
@@ -142,7 +121,27 @@ var addRows = function() {
 
         total+=1;
     } 
-    reset(db.getRules());
+    $('input[type="text"]').blur(function() {
+        var val = this.value.trim();
+        var stopwords = [
+            "\\(",
+            "\\)",
+            "\\[",
+            "\\]",
+            "\\{",
+            "\\}",
+            "\\?",
+            "\\\\",
+            "\\+"
+        ].join("|");
+        var keywordsRE = new RegExp(stopwords, 'g');
+        if (val.match(keywordsRE)) {
+            alert("URL中不能包含 (, ), [, ], {, }, ?, \\, + 这些特殊字符！");
+            this.value = "";
+            $(this).focus();
+            return false;
+        }; 
+    });   
 }
 function exportRules() {
     var rules = db.getRules();
