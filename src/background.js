@@ -1,29 +1,21 @@
 chrome.webRequest.onBeforeRequest.addListener(
-  function(info) {
-    var requestUrl = info.url;
-    var redirectMap = {
-        'googleapis.com': 'lug.ustc.edu.cn',        
-        'themes.googleusercontent.com': 'google-themes.lug.ustc.edu.cn',
-        'fonts.gstatic.com': 'fonts-gstatic.lug.ustc.edu.cn'   
-    };
-    for(var key in redirectMap) {
-        var redirectReg = new RegExp(key);
-        if( requestUrl.match(redirectReg) ) {
-            var newUrl = requestUrl.replace(redirectReg, redirectMap[key]);    
-
-            return {redirectUrl: newUrl};
-         }
-    }
-
-  },
-  // filters
-  {
-    urls: [
-      "*://ajax.googleapis.com/*",
-      "*://fonts.googleapis.com/*",
-      "*://themes.googleusercontent.com/*",
-      "*://fonts.gstatic.com/*"
-    ],
-  },
-  // extraInfoSpec
-  ["blocking"]);
+    function(request) {
+        var requestUrl = request.url;
+        var newUrl = "";
+        var found = false;
+        var redirectRules = JSON.parse(localStorage.getItem('rules'));
+        for(var key in redirectRules) {
+            var redirectRE = new RegExp(key);
+            if( redirectRules[key].enable && requestUrl.match(redirectRE)) {
+                newUrl = requestUrl.replace(redirectRE, redirectRules[key].dstURL);    
+                return {redirectUrl: newUrl};
+            }
+        }
+    },
+    // filters
+    {
+        urls: ["<all_urls>"]
+    },
+    // extraInfoSpec
+    ["blocking"]
+);
