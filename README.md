@@ -1,4 +1,4 @@
-官方网站
+Homepage
 ===
 
 http://liujiacai.net/gooreplacer
@@ -11,6 +11,21 @@ A replacer for google fonts/api/themes.... to load page faster!
 一个用于替换网页中Google Fonts,API,themes等的Chrome插件，让你快速打开这些页面！
 
 [Firefox版本](https://github.com/jiacai2050/gooreplacer)
+
+Feature
+===
+
+最新的v0.2版增加了“自定义”与“导入/导出”功能，欢迎大家使用并反馈bug :-)
+
+新版本的“导入/导出”功能与Firefox版本是互通的，也就是说Chrome版本可以导入Firefox版本导出的规则，反之亦然。
+
+大家在chrome://extensions/ 中找到gooreplacer，点击options（如果是中文系统，此处应该为“配置”）即可进行自定义。如下图:
+
+<img src="http://img03.taobaocdn.com/imgextra/i3/581166664/TB2r.ifaXXXXXb1XpXXXXXXXXXX_!!581166664.png" alt=" chrome-gooreplacer-options"/>
+
+自定义页面截图：
+
+<img src="http://img04.taobaocdn.com/imgextra/i4/581166664/TB2MaCHbFXXXXcFXXXXXXXXXXXX_!!581166664.png" alt=" chrome-settings"/>
 
 INSTALL
 ===
@@ -42,19 +57,6 @@ TEST
 4. http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js
 
 如果能转到lug.ustc.edu.cn相应的资源即说明跳转成功。
-
-Usage
-===
-
-最新的v0.2版增加了自定义功能，欢迎大家使用并反馈bug :-)
-
-大家在chrome://extensions/ 中找到gooreplacer，点击options（如果是中文系统，此处应该为“配置”）即可进行自定义。如下图:
-
-<img src="http://img03.taobaocdn.com/imgextra/i3/581166664/TB2r.ifaXXXXXb1XpXXXXXXXXXX_!!581166664.png" alt=" chrome-gooreplacer-options"/>
-
-自定义页面截图：
-
-<img src="http://img04.taobaocdn.com/imgextra/i4/581166664/TB2MaCHbFXXXXcFXXXXXXXXXXXX_!!581166664.png" alt=" chrome-settings"/>
 
 Development
 ===
