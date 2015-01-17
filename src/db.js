@@ -10,3 +10,6 @@ var rules = {
 if(!localStorage.getItem("rules")) {
     localStorage.setItem("rules", JSON.stringify(rules));
 }
+if(!localStorage.getItem("isRedirect")) {
+    localStorage.setItem("isRedirect", true);
+}

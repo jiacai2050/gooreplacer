@@ -5,7 +5,10 @@ function DB() {
     this.setRules = function(newRules) {
         localStorage.setItem("rules", JSON.stringify(newRules));
     }
-    this.init = function() {
-    
+    this.getIsRedirect = function() {
+        return JSON.parse(localStorage.getItem("isRedirect")); 
+    }
+    this.setIsRedirect = function(isRedirect) {
+        localStorage.setItem("isRedirect", isRedirect); 
     }
 }

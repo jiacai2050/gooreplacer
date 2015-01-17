@@ -1,6 +1,6 @@
 {
   "name": "gooreplacer",
-  "version": "0.2",
+  "version": "0.3",
   "description": "A replacer for google fonts/api/themes.... to load page faster!",
   "permissions": [
       "webRequest", "webRequestBlocking",
@@ -10,13 +10,16 @@
       "https://*/*"
   ],
   "background": {
-    "scripts": [ "db.js" ,"background.js"]
+    "scripts": [ "db.js" ,"background.js", "popup.js"]
   },
   "icons": {
-    "32": "data/gooreplacer.ico",
-    "16": "logo/16.png",
-    "48": "logo/48.png",
-    "128": "logo/128.png"
+    "32": "data/img/gooreplacer.ico",
+    "16": "data/img/16.png",
+    "48": "data/img/48.png"
+  },
+  "browser_action": {
+    "default_title": "gooreplacer 想去哪儿，就去哪儿",
+    "default_popup": "data/popup.html"
   },
   "options_page": "data/options.html",
   "author": "http://liujiacai.net",
