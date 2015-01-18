@@ -151,14 +151,11 @@ function exportRules() {
         rules: rules
     };
     var contentType = 'application/json';
-    var filename = "gooreplacer.gson";
     var content = new Blob([JSON.stringify(gson)], {type: contentType});
 
-    chrome.downloads.download({
-        url:window.URL.createObjectURL(content), 
-        saveAs: true,
-        filename: filename,
-    });
+    var gsonExport = document.getElementById("gsonExport");
+    gsonExport.href = window.URL.createObjectURL(content);
+    gsonExport.click();
 }
 function importRules() {
     var gsonChooser = document.getElementById("gsonChooser");
@@ -169,9 +166,6 @@ function importRules() {
         var reader = new FileReader();
         reader.onloadend = function(response) {
             var res = JSON.parse(response.target.result);
-            if(typeof res.rules == "string") {
-                res.rules = JSON.parse(res.rules);
-            }
             var newRules = $.extend(db.getRules(), res.rules);
             db.setRules(newRules);
             reset(newRules);
