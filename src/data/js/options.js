@@ -22,7 +22,7 @@ function reset(rules) {
             srcURL = key.replace(asteriskRE, "*");
         };
         rowHTML.push(
-            "<td>"+srcURL+"</td>",
+            "<td><input class=shiftCheckbox type=checkbox value=" + key +"/>"+srcURL+"</td>",
             "<td>----></td>",
             "<td>"+rules[key].dstURL+"</td>",
             "<td><input type=button id=change"+key+" value="+rules[key].enable+"></td>",
@@ -53,6 +53,8 @@ function reset(rules) {
             reset(rules); 
         }; 
     });
+
+    $('.shiftCheckbox').shiftcheckbox();
 }
 
 
