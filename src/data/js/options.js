@@ -39,10 +39,10 @@ function reset(rules) {
                 var rules = db.getRules();
                 delete rules[key];
                 db.setRules(rules);
-                reset(rules); 
-            }; 
+                reset(rules);
+            };
         }
-    });    
+    });
     $("input[id^=change]").each(function() {
         var key = this.id.substring(6);
         this.value = getLabel(this.value);
@@ -50,11 +50,22 @@ function reset(rules) {
             var rules = db.getRules();
             rules[key]["enable"] = !rules[key]["enable"];
             db.setRules(rules);
-            reset(rules); 
-        }; 
+            reset(rules);
+        };
     });
 
     $('.shiftCheckbox').shiftcheckbox();
+
+    $("#shiftDel").click(function() {
+            for (key in rules) {
+                if($("input[value='"+key+"/']").get(0).checked){
+                    delete rules[key];
+                }
+            }
+            db.setRules(rules);
+            reset(rules);
+        }
+    )
 }
 
 
@@ -80,7 +91,7 @@ $(function() {
     $('#close').click(function() {
         $('#config').hide();
     });
-    
+
     $("#ok").click(function() {
         var rules = {};
         var number = 0;
@@ -100,20 +111,20 @@ $(function() {
         var oldRules = db.getRules();
         var newRules = $.extend(oldRules, rules);
         db.setRules(newRules);
-        alert("成功添加" + number + "个规则");    
+        alert("成功添加" + number + "个规则");
         reset(newRules);
-    });  
-    reset(db.getRules()); 
+    });
+    reset(db.getRules());
     $("#more").click(function() {
         addRows();
-    }); 
-    addRows();     
+    });
+    addRows();
 });
 var total=0;
 var addRows = function() {
     var addLimit = 5 + total;
     while(total < addLimit) {
-        
+
         var rowHTML = ["<tr>",
             "<td><input type='text' id='srcURL"+total+"'></td>",
             "<td>----></td>",
@@ -122,7 +133,7 @@ var addRows = function() {
         $("#rules").append(rowHTML);
 
         total+=1;
-    } 
+    }
     $('input[type="text"]').blur(function() {
         var val = this.value.trim();
         var stopwords = [
@@ -142,8 +153,8 @@ var addRows = function() {
             this.value = "";
             $(this).focus();
             return false;
-        }; 
-    });   
+        };
+    });
 }
 function exportRules() {
     var rules = db.getRules();
