@@ -1,10 +1,10 @@
-
 <!DOCTYPE html>
 <html>
 <head>
     <title>gooreplacer自定义规则</title>
     <link rel="shortcut icon" href="img/gooreplacer.ico">
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/options.css">
     <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
     <script type="text/javascript" src="js/db.js"></script>
@@ -21,7 +21,7 @@
     <button id="import">导入</button>
     <button id="export">导出</button>
     <button id="help">帮助</button>
-    <input type="file" id="gsonChooser" accept=".gson" style="display:none" />
+    <input type="file" id="gsonChooser" accept=".gson" style="display:none"/>
     <a id="gsonExport" style="display:none" download="gooreplacer.gson"></a>
 
 </div>
@@ -44,10 +44,10 @@
         <th>
             原始URL
         </th>
-        <th></th>    
+        <th></th>
         <th>
             目的URL
-        </th>    
+        </th>
     </tr>
 
 </table>
@@ -61,6 +61,8 @@
 <div class="centered">
     <h3>系统中已有以下规则</h3>
 </div>
-<table id="list" align="center"></table>
+<div class="container">
+<table id="list" class="col-xs-10 col-xs-offset-0 table table-striped table-hover table-condensed" ></table>
+</div>
 </body>
 </html>

@@ -7,9 +7,9 @@ function getLabel(status) {
 }
 var db = new DB();
 function reset(rules) {
-    $("#list").html("");
+    $("#list").html("<thead><td>源地址</td><td></td><td>转发地址</td><td>Button</td></thead><tbody>");
     var html = [];
-    for(key in rules) {
+    for (key in rules) {
         var srcURL = key;
         var rowHTML = [];
         if (rules[key].enable) {
@@ -20,33 +20,33 @@ function reset(rules) {
         var asteriskRE = /\.\*/g;
         if (key.match(asteriskRE)) {
             srcURL = key.replace(asteriskRE, "*");
-        };
+        }
         rowHTML.push(
-            "<td><input class=shiftCheckbox type=checkbox value=" + key +"/>"+srcURL+"</td>",
+            "<td><input class=shiftCheckbox type=checkbox value=" + key + "/>" + srcURL + "</td>",
             "<td>----></td>",
-            "<td>"+rules[key].dstURL+"</td>",
-            "<td><input type=button id=change"+key+" value="+rules[key].enable+"></td>",
-            "<td><input type=button id=del"+key+" value='删除'></td>",
+            "<td>" + rules[key].dstURL + "</td>",
+            "<td><input type=button id=change" + key + " value=" + rules[key].enable + "></td>",
+            "<td><input type=button id=del" + key + " value='删除'></td>",
             "</tr>");
 
         $("#list").append(rowHTML.join(""));
     }
-
-    $("input[id^=del]").each(function() {
+    $("#list").append("</tbody>");
+    $("input[id^=del]").each(function () {
         var key = this.id.substring(3);
-        this.onclick = function() {
+        this.onclick = function () {
             if (confirm("确定要删除这条规则吗？")) {
                 var rules = db.getRules();
                 delete rules[key];
                 db.setRules(rules);
                 reset(rules);
-            };
+            }
         }
     });
-    $("input[id^=change]").each(function() {
+    $("input[id^=change]").each(function () {
         var key = this.id.substring(6);
         this.value = getLabel(this.value);
-        this.onclick = function() {
+        this.onclick = function () {
             var rules = db.getRules();
             rules[key]["enable"] = !rules[key]["enable"];
             db.setRules(rules);
@@ -56,9 +56,9 @@ function reset(rules) {
 
     $('.shiftCheckbox').shiftcheckbox();
 
-    $("#shiftDel").click(function() {
+    $("#shiftDel").click(function () {
             for (key in rules) {
-                if($("input[value='"+key+"/']").get(0).checked){
+                if ($("input[value='" + key + "/']").get(0).checked) {
                     delete rules[key];
                 }
             }
@@ -69,39 +69,39 @@ function reset(rules) {
 }
 
 
-$(function() {
-    $("#homepage").click(function() {
+$(function () {
+    $("#homepage").click(function () {
         window.open("http://liujiacai.net/gooreplacer/");
     });
-    $("#import").click(function() {
+    $("#import").click(function () {
         importRules();
     });
-    $("#export").click(function() {
+    $("#export").click(function () {
         exportRules();
     });
-    $("#help").click(function() {
+    $("#help").click(function () {
         jQuery.fn.center = function () {
-            this.css("position","absolute");
+            this.css("position", "absolute");
             this.css("top", (($(window).height() - this.outerHeight()) / 2) + $(window).scrollTop() + "px");
             this.css("left", (($(window).width() - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
             return this;
-        }
+        };
         $('#config').center().css('top', '-=40px').show();
     });
-    $('#close').click(function() {
+    $('#close').click(function () {
         $('#config').hide();
     });
 
-    $("#ok").click(function() {
+    $("#ok").click(function () {
         var rules = {};
         var number = 0;
-        $("input[id^=srcURL]").each(function() {
-            if(this.value.trim() !== "") {
+        $("input[id^=srcURL]").each(function () {
+            if (this.value.trim() !== "") {
                 var dstURL = this.id.replace("srcURL", "dstURL");
                 var value = $("#" + dstURL).val();
                 rules[this.value] = {
-                    dstURL : value,
-                    enable : true
+                    dstURL: value,
+                    enable: true
                 };
                 this.value = "";
                 $("#" + dstURL).val("");
@@ -115,26 +115,26 @@ $(function() {
         reset(newRules);
     });
     reset(db.getRules());
-    $("#more").click(function() {
+    $("#more").click(function () {
         addRows();
     });
     addRows();
 });
-var total=0;
-var addRows = function() {
+var total = 0;
+var addRows = function () {
     var addLimit = 5 + total;
-    while(total < addLimit) {
+    while (total < addLimit) {
 
         var rowHTML = ["<tr>",
-            "<td><input type='text' id='srcURL"+total+"'></td>",
+            "<td><input type='text' id='srcURL" + total + "'></td>",
             "<td>----></td>",
-            "<td><input type='text' id='dstURL"+total+"'></td>",
+            "<td><input type='text' id='dstURL" + total + "'></td>",
             "</tr>"].join("");
         $("#rules").append(rowHTML);
 
-        total+=1;
+        total += 1;
     }
-    $('input[type="text"]').blur(function() {
+    $('input[type="text"]').blur(function () {
         var val = this.value.trim();
         var stopwords = [
             "\\(",
@@ -153,9 +153,9 @@ var addRows = function() {
             this.value = "";
             $(this).focus();
             return false;
-        };
+        }
     });
-}
+};
 function exportRules() {
     var rules = db.getRules();
     var gson = {
@@ -173,17 +173,17 @@ function exportRules() {
 function importRules() {
     var gsonChooser = document.getElementById("gsonChooser");
     gsonChooser.value = "";
-    gsonChooser.onchange = function() {
+    gsonChooser.onchange = function () {
         var files = this.files;
         var gsonFile = files[0];
         var reader = new FileReader();
-        reader.onloadend = function(response) {
+        reader.onloadend = function (response) {
             var res = JSON.parse(response.target.result);
             var newRules = $.extend(db.getRules(), res.rules);
             db.setRules(newRules);
             reset(newRules);
         };
         reader.readAsText(gsonFile);
-    }
+    };
     gsonChooser.click();
 }
