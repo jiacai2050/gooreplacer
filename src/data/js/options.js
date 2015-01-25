@@ -7,7 +7,7 @@ function getLabel(status) {
 }
 var db = new DB();
 function reset(rules) {
-    $("#list").html("<thead><td>源地址</td><td></td><td>转发地址</td><td>Button</td></thead><tbody>");
+    $("#list").html("<thead><td style='width: 40%'>源地址</td><td style='width: 40%'>转发地址</td><td style='width: 6%'>Button</td></thead><tbody>");
     var html = [];
     for (key in rules) {
         var srcURL = key;
@@ -23,7 +23,7 @@ function reset(rules) {
         }
         rowHTML.push(
             "<td><input class=shiftCheckbox type=checkbox value=" + key + "/>" + srcURL + "</td>",
-            "<td>----></td>",
+//            "<td>----></td>",
             "<td>" + rules[key].dstURL + "</td>",
             "<td><input type=button id=change" + key + " value=" + rules[key].enable + "></td>",
             "<td><input type=button id=del" + key + " value='删除'></td>",
@@ -81,12 +81,9 @@ $(function () {
     });
     $("#help").click(function () {
         jQuery.fn.center = function () {
-            this.css("position", "absolute");
-            this.css("top", (($(window).height() - this.outerHeight()) / 2) + $(window).scrollTop() + "px");
-            this.css("left", (($(window).width() - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
             return this;
         };
-        $('#config').center().css('top', '-=40px').show();
+        $('#config').show();
     });
     $('#close').click(function () {
         $('#config').hide();
