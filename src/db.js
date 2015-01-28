@@ -8,6 +8,9 @@ var rules = {
     'http.*://apis.google.com/js/plusone.js': {dstURL: 'http://liujiacai.net/gooreplacer/proxy/plusone.js', enable: true}
 };
 if(!localStorage.getItem("rules")) {
+	for(url in rules){
+		localStorage.setItem(url,JSON.stringify(rules[url]))
+	}
     localStorage.setItem("rules", JSON.stringify(rules));
 }
 if(!localStorage.getItem("isRedirect")) {

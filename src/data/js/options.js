@@ -5,6 +5,24 @@ function getLabel(status) {
         return "开启";
     }
 }
+$(function(){
+	var debug = true;
+	if (debug){
+		$("#debug").show()
+	}else{
+		$("#debug").hide()
+	}
+	$('#testButton').click(function (){
+		console.log($('#test').val())
+		var url = $('#test').val()
+		for(i in window.localStorage){
+			if (localStorage[i].match('dst')){
+				console.log(i);
+				url.match(i);
+			}
+		}
+	})
+})
 var db = new DB();
 function reset(rules) {
     $("#list").html("<thead><td style='width: 40%'>源地址</td><td style='width: 40%'>转发地址</td><td style='width: 6%'>Button</td></thead><tbody>");
