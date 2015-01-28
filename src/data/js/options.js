@@ -15,10 +15,23 @@ $(function(){
 	$('#testButton').click(function (){
 		console.log($('#test').val())
 		var url = $('#test').val()
+		var L = 0;
 		for(i in window.localStorage){
 			if (localStorage[i].match('dst')){
 				console.log(i);
-				url.match(i);
+				var reg = new  RegExp(i);
+				console.log(reg);
+				matchURL=reg.exec(url);
+				if(matchURL){
+					console.log('match!!');
+					var LL=matchURL[0].length;
+					if(L<LL){
+						L=LL;
+						var M=i;
+						console.log("M",M);
+					}
+					//return
+				}
 			}
 		}
 	})
