@@ -6,7 +6,7 @@ function getLabel(status) {
     }
 }
 $(function(){
-	var debug = true;
+	var debug = false;
 	if (debug){
 		$("#debug").show()
 	}else{
@@ -95,6 +95,7 @@ function reset(rules) {
             if (confirm("确定要删除这条规则吗？")) {
                 var rules = db.getRules();
                 delete rules[key];
+				localStorage.removeItem(key);
                 db.setRules(rules);
                 reset(rules);
             }
@@ -107,6 +108,7 @@ function reset(rules) {
             var rules = db.getRules();
             rules[key]["enable"] = !rules[key]["enable"];
             db.setRules(rules);
+			localStorage[key]=JSON.stringify(rules[key]);
             reset(rules);
         };
     });
