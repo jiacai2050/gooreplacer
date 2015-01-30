@@ -18,9 +18,9 @@ $(function(){
 		var L = 0;
 		for(i in window.localStorage){
 			if (localStorage[i].match('dst')){
-				console.log(i);
+				//console.log(i);
 				var reg = new  RegExp(i);
-				console.log(reg);
+				//console.log(reg);
 				matchURL=reg.exec(url);
 				if(matchURL){
 					console.log('match!!');
@@ -29,11 +29,37 @@ $(function(){
 						L=LL;
 						var M=i;
 						console.log("M",M);
+						R=reg;
 					}
 					//return
 				}
 			}
 		}
+		//console.log(JSON.parse(localStorage[M])['dstURL']);
+		//console.log(url.replace(R,JSON.parse(localStorage[M])['dstURL']))
+		//console.log(url.replace(R,JSON.parse(localStorage[M])['dstURL']));
+		return url.replace(R,JSON.parse(localStorage[M])['dstURL'])
+	});
+	$('#restoreDB').click(function (){
+		localStorage.clear();
+		var rules = {
+    'ajax.googleapis.com': {dstURL: 'ajax.lug.ustc.edu.cn', enable: true},        
+    'fonts.googleapis.com': {dstURL:'fonts.lug.ustc.edu.cn', enable: true},        
+    'themes.googleusercontent.com': {dstURL:'google-themes.lug.ustc.edu.cn', enable: true},
+    'fonts.gstatic.com': {dstURL:'fonts-gstatic.lug.ustc.edu.cn', enable: true},
+    'http.*://platform.twitter.com/widgets.js': {dstURL: 'http://liujiacai.net/gooreplacer/proxy/widgets.js', enable: true},
+    'http.*://apis.google.com/js/api.js': {dstURL: 'http://liujiacai.net/gooreplacer/proxy/api.js', enable: true},
+    'http.*://apis.google.com/js/plusone.js': {dstURL: 'http://liujiacai.net/gooreplacer/proxy/plusone.js', enable: true}
+};
+if(!localStorage.getItem("rules")) {
+	for(url in rules){
+		localStorage.setItem(url,JSON.stringify(rules[url]))
+	}
+    localStorage.setItem("rules", JSON.stringify(rules));
+}
+if(!localStorage.getItem("isRedirect")) {
+    localStorage.setItem("isRedirect", true);
+}
 	})
 })
 var db = new DB();
@@ -131,6 +157,7 @@ $(function () {
                     dstURL: value,
                     enable: true
                 };
+				localStorage.setItem(this.value, JSON.stringify(rules[this.value])); 
                 this.value = "";
                 $("#" + dstURL).val("");
                 number += 1;
@@ -162,27 +189,27 @@ var addRows = function () {
 
         total += 1;
     }
-    $('input[type="text"]').blur(function () {
-        var val = this.value.trim();
-        var stopwords = [
-            "\\(",
-            "\\)",
-            "\\[",
-            "\\]",
-            "\\{",
-            "\\}",
-            "\\?",
-            "\\\\",
-            "\\+"
-        ].join("|");
-        var keywordsRE = new RegExp(stopwords, 'g');
-        if (val.match(keywordsRE)) {
-            alert("URL中不能包含 (, ), [, ], {, }, ?, \\, + 这些特殊字符！");
-            this.value = "";
-            $(this).focus();
-            return false;
-        }
-    });
+   // $('input[type="text"]').blur(function () {
+   //     var val = this.value.trim();
+   //     var stopwords = [
+   //         "\\(",
+   //         "\\)",
+   //         "\\[",
+   //         "\\]",
+   //         "\\{",
+   //         "\\}",
+   //         "\\?",
+   //         "\\\\",
+   //         "\\+"
+   //     ].join("|");
+   //     var keywordsRE = new RegExp(stopwords, 'g');
+   //     if (val.match(keywordsRE)) {
+   //         alert("URL中不能包含 (, ), [, ], {, }, ?, \\, + 这些特殊字符！");
+   //         this.value = "";
+   //         $(this).focus();
+   //         return false;
+   //     }
+   // });
 };
 function exportRules() {
     var rules = db.getRules();
