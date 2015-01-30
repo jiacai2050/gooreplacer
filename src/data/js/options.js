@@ -235,6 +235,11 @@ function importRules() {
         var gsonFile = files[0];
         var reader = new FileReader();
         reader.onloadend = function (response) {
+			
+	for(url in response.target.result){
+		localStorage.setItem(url,JSON.stringify(response.target.result[url]))
+	}
+	
             var res = JSON.parse(response.target.result);
             var newRules = $.extend(db.getRules(), res.rules);
             db.setRules(newRules);
