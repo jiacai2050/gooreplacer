@@ -6,7 +6,7 @@ function getLabel(status) {
     }
 }
 $(function(){
-	var debug = false;
+	var debug = true;
 	if (debug){
 		$("#debug").show()
 	}else{
@@ -37,7 +37,7 @@ $(function(){
 		}
 		//console.log(JSON.parse(localStorage[M])['dstURL']);
 		//console.log(url.replace(R,JSON.parse(localStorage[M])['dstURL']))
-		//console.log(url.replace(R,JSON.parse(localStorage[M])['dstURL']));
+		console.log(url.replace(R,JSON.parse(localStorage[M])['dstURL']));
 		return url.replace(R,JSON.parse(localStorage[M])['dstURL'])
 	});
 	$('#restoreDB').click(function (){

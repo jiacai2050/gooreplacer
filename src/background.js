@@ -11,6 +11,7 @@ chrome.webRequest.onBeforeRequest.addListener(
             //        return {redirectUrl: newUrl};
             //    }
             //}
+            L=0;
 			for(i in window.localStorage){
 				if (localStorage[i].match('dst')){
 					//console.log(i);
@@ -30,7 +31,9 @@ chrome.webRequest.onBeforeRequest.addListener(
 					}
 				}
 			}
-			return url.replace(R,JSON.parse(localStorage[M])['dstURL'])
+			//console.log(url.replace(R,JSON.parse(localStorage[M])['dstURL']));
+            //alert(requestUrl.replace(R,JSON.parse(localStorage[M])['dstURL']))
+			return requestUrl.replace(R,JSON.parse(localStorage[M])['dstURL'])
         }
     },
     // filters
