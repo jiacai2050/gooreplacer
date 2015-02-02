@@ -13,7 +13,7 @@ chrome.webRequest.onBeforeRequest.addListener(
             //}
             L=0;
 			for(i in window.localStorage){
-				if (localStorage[i].match('dst')){
+				if (localStorage[i].match('dst') && JSON.parse(localStorage[i]).enable){
 					//console.log(i);
 					var reg = new  RegExp(i);
 					//console.log(reg);
