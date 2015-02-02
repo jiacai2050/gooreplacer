@@ -6,7 +6,7 @@ function getLabel(status) {
     }
 }
 $(function(){
-	var debug = true;
+	var debug = false;
 	if (debug){
 		$("#debug").show()
 	}else{

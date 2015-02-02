@@ -33,7 +33,8 @@ chrome.webRequest.onBeforeRequest.addListener(
 			}
 			//console.log(url.replace(R,JSON.parse(localStorage[M])['dstURL']));
             //alert(requestUrl.replace(R,JSON.parse(localStorage[M])['dstURL']))
-			return requestUrl.replace(R,JSON.parse(localStorage[M])['dstURL'])
+            newUrl = requestUrl.replace(R,JSON.parse(localStorage[M])['dstURL']);
+			return {redirectUrl: newUrl};
         }
     },
     // filters
