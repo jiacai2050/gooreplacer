@@ -42,7 +42,10 @@ button {
     width: 600px;
 }
 .Absolute-Center {
-    position: fixed;
+    position:absolute;
+    width:100%;
+    *width:728px;
+    margin:0px auto;
     z-index: 999;
 }
 .button-row {
