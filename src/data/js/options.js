@@ -85,7 +85,6 @@ function reset(rules) {
             "<td><input type=button id=change" + key + " value=" + rules[key].enable + "></td>",
             "<td><input type=button id=del" + key + " value='删除'></td>",
             "</tr>");
-
         $("#list").append(rowHTML.join(""));
     }
     $("#list").append("</tbody>");
@@ -151,6 +150,7 @@ $(function () {
     $("#ok").click(function () {
         var rules = {};
         var number = 0;
+<<<<<<< HEAD
         $("input[id^=srcURL]").each(function () {
             if (this.value.trim() !== "") {
                 var dstURL = this.id.replace("srcURL", "dstURL");
@@ -158,10 +158,24 @@ $(function () {
                 rules[this.value] = {
                     dstURL: value,
                     enable: true
+=======
+        $("input[id^=srcURL]").each(function() {
+            var srcUrlValue = this.value.trim();
+            if(srcUrlValue !== "") {
+                var dstUrlTag = this.id.replace("srcURL", "dstURL");
+                var dstUrlValue = $("#" + dstUrlTag).val().trim();
+
+                srcUrlValue = srcUrlValue.replace(/\*/g,".*");
+                dstUrlValue = dstUrlValue.replace(/\*/g,".*");
+                
+                rules[srcUrlValue] = {
+                    dstURL : dstUrlValue,
+                    enable : true
+>>>>>>> 3169207485db04fd6afaea8daef17e46f80c29d6
                 };
 				localStorage.setItem(this.value, JSON.stringify(rules[this.value])); 
                 this.value = "";
-                $("#" + dstURL).val("");
+                $("#" + dstUrlTag).val("");
                 number += 1;
             }
         });
