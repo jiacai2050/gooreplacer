@@ -41,23 +41,15 @@ button {
     text-align: center;
     width: 600px;
 }
-.dialog {
-    background: -webkit-linear-gradient(top, #fff, #AFCFFE);
-    border-radius:8px;
-    display:none; 
-    width: 500px;
-    height: 220px;
-    position:fixed;
-    margin:0 auto; 
-    padding:10px;
-    font-size: 11pt;
-    box-shadow: 0px 0px 4px black;
+.Absolute-Center {
+    position:absolute;
+    width:100%;
+    *width:728px;
+    margin:0px auto;
+    z-index: 999;
 }
-.dialog li {
-    margin:auto auto 5px auto;
-}
-.button-row { 
-    text-align:center; 
+.button-row {
+    text-align:center;
     display:block !important;
 }
 .centered {

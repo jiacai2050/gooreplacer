@@ -1,13 +1,14 @@
-
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/html">
 <head>
     <title>gooreplacer自定义规则</title>
     <link rel="shortcut icon" href="img/gooreplacer.ico">
     <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/options.css">
     <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
     <script type="text/javascript" src="js/db.js"></script>
+    <script type="text/javascript" src="js/jquery.shiftcheckbox.js"></script>
     <script type="text/javascript" src="js/options.js"></script>
 </head>
 <body>
@@ -20,33 +21,37 @@
     <button id="import">导入</button>
     <button id="export">导出</button>
     <button id="help">帮助</button>
-    <input type="file" id="gsonChooser" accept=".gson" style="display:none" />
+    <input type="file" id="gsonChooser" accept=".gson" style="display:none"/>
     <a id="gsonExport" style="display:none" download="gooreplacer.gson"></a>
 
 </div>
-
-<div id="config" class="dialog">
-    <h2>使用帮助</h2>
-    <ol>
-        <li>每条重定向规则有“开启/停用”两种状态</li>
-        <li>在自定义规则时，可以使用通配符*，来进行模糊匹配</li>
-        <li>在自定义规则时，不能包含 (, ), [, ], {, }, ?, \, + 这些特殊字符</li>
-        <li>使用“导出”功能，可以把当前的重定向规则导出到本地</li>
-        <li>使用“导入”功能，可以从本地加载重定向规则</li>
-    </ol>
-    <div class="button-row">
-        <button id="close">关闭</button>
+<div class="container Absolute-Center" id="config" style="display: none">
+    <div class="jumbotron col-xs-7 col-xs-offset-3">
+        <h2>使用帮助</h2>
+        <ol>
+            <li>每条重定向规则有“开启/停用”两种状态</li>
+            <li>在自定义规则时，可以使用通配符*，来进行模糊匹配</li>
+            <li>在自定义规则时，不能包含 (, ), [, ], {, }, ?, \, + 这些特殊字符</li>
+            <li>使用“导出”功能，可以把当前的重定向规则导出到本地</li>
+            <li>使用“导入”功能，可以从本地加载重定向规则</li>
+        </ol>
+        <button class="btn btn-success center-block" id="close">关闭</button>
     </div>
+</div>
+<div id='debug'>
+<input id='test' type='text'></input><button class='btn btn-warning' id='testButton'>testButton</button>
+<button class="btn btn-success" id='restoreDB'>重置数据库</button>
+
 </div>
 <table id="rules" align="center">
     <tr>
         <th>
             原始URL
         </th>
-        <th></th>    
+        <th></th>
         <th>
             目的URL
-        </th>    
+        </th>
     </tr>
 
 </table>
@@ -54,11 +59,14 @@
 <div class="centered">
     <button id="more">更多</button>
     <button id="ok">确定</button>
+    <button id="shiftDel">批量删除</button>
 </div>
 <div class="line"></div>
 <div class="centered">
     <h3>系统中已有以下规则</h3>
 </div>
-<table id="list" align="center"></table>
+<div class="container">
+    <table id="list" class="col-sm-8 col-sm-offset-2 col-xs-8 col-xs-offset-1 table-striped table-hover table-condensed"></table>
+</div>
 </body>
 </html>
