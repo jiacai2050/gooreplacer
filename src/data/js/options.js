@@ -150,15 +150,6 @@ $(function () {
     $("#ok").click(function () {
         var rules = {};
         var number = 0;
-<<<<<<< HEAD
-        $("input[id^=srcURL]").each(function () {
-            if (this.value.trim() !== "") {
-                var dstURL = this.id.replace("srcURL", "dstURL");
-                var value = $("#" + dstURL).val();
-                rules[this.value] = {
-                    dstURL: value,
-                    enable: true
-=======
         $("input[id^=srcURL]").each(function() {
             var srcUrlValue = this.value.trim();
             if(srcUrlValue !== "") {
@@ -171,7 +162,6 @@ $(function () {
                 rules[srcUrlValue] = {
                     dstURL : dstUrlValue,
                     enable : true
->>>>>>> 3169207485db04fd6afaea8daef17e46f80c29d6
                 };
 				localStorage.setItem(this.value, JSON.stringify(rules[this.value])); 
                 this.value = "";
