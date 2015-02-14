@@ -45,8 +45,8 @@ button {
     background: -webkit-linear-gradient(top, #fff, #AFCFFE);
     border-radius:8px;
     display:none; 
-    width: 500px;
-    height: 220px;
+    width: 400px;
+    height: 200px;
     position:fixed;
     margin:0 auto; 
     padding:10px;
