@@ -11,6 +11,18 @@
 
     <meta name="description" content="一个用于替换网页中Google Fonts/APIS/themes等的浏览器插件，让你快速打开引用这些资源的页面" /> 
     <title>gooreplacer</title>
+    <script type="text/javascript">
+    var sizes = [240, 430];
+    var cursors = ["zoom-in", "zoom-out"];
+    var i = 0;
+    function changeSize(o) {
+        i = (i+1) % 2;
+        o.width = sizes[i];
+        o.height = sizes[i];
+        o.style.cursor = cursors[i];
+    }
+    
+    </script>
   </head>
 
   <body>
@@ -97,7 +109,13 @@ fonts.gstatic.com----------------->fonts-gstatic.lug.ustc.edu.cn
 <h2>
 <a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>6. 支持与维护</h2>
 
-<p>如果你有使用gooreplacer方面的任何问题，或有什么好的建议，可以在下面留言。让我们一起改进、完善gooreplacer。当然，照顾到大家有可能比较害羞，可以<a href="mailto:jiacai2050@gmail.com?subject=gooreplacer建议反馈">邮件</a>交流。:-) </p>
+<p>我最初开发gooreplacer是因为不能愉快地浏览国外一些网站，加上自己的热情，gooreplacer的功能越来越丰富，我是由衷的开心。虽然还<a href="https://github.com/jiacai2050/gooreplacer/issues">有些bug</a>没有解决，但是我今后一定会持续更新的。</p>
+<p>如果gooreplacer给你的生活、学习效率带来提高，我无耻地希望你能“慷慨解囊”，拿起你的支付宝钱包，打赏点零花钱请我吃个雪糕，当然这是完全自愿的。我只是想证明：我也在改变这个世界！</p>
+<div style="background:#d9e1ef; color:#000" align="center">
+<img onclick="changeSize(this)" style="cursor: zoom-in;" src="images/alipay.png" width="240" height="240">
+</div >
+<p>如果你有使用gooreplacer方面的任何问题，或有什么好的建议，可以在下面留言。让我们一起改进、完善gooreplacer。</p>
+<p>当然，照顾到大家有可能比较害羞，可以<a href="mailto:jiacai2050@gmail.com?subject=gooreplacer建议反馈">邮件</a>交流。:-) </p>
 
 <div class="ds-thread" data-url="http://liujiacai.net/gooreplacer"></div>
 <script type="text/javascript">
