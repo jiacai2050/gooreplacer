@@ -36,7 +36,7 @@ button {
     width:100%;
     height:0
 }
-.actions {
+.nav {
     margin: 10px auto;
     text-align: center;
     width: 600px;
@@ -60,7 +60,38 @@ button {
     text-align:center; 
     display:block !important;
 }
-.centered {
-    margin:20px auto 10px auto;
+table.gridtable {
+    font-size:12px;
     text-align: center;
+    color:#333333;
+    border-width: 1px;
+    border-color: #666666;
+    border-collapse: collapse;
+}
+table.gridtable th {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #dedede;
+}
+table.gridtable td {
+    border-width: 1px;
+    padding: 8px;
+    border-style: solid;
+    border-color: #666666;
+    background-color: #ffffff;
+}
+select {
+   font-size: 12px;
+   height: 30px;
+   border: 1px solid #bbb;
+}
+input {
+    width: 100%;
+    padding: 10px;
+    margin: 0px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
 }

@@ -1,8 +1,9 @@
+gooDB.init();
 chrome.webRequest.onBeforeRequest.addListener(
     function(request) {
         var requestUrl = request.url;
-        var isRedirect= JSON.parse(localStorage.getItem("isRedirect"));
-        var redirectRules = JSON.parse(localStorage.getItem('rules'));
+        var isRedirect= gooDB.getIsRedirect();
+        var redirectRules = gooDB.getRules();
         if(isRedirect) {
             for(var key in redirectRules) {
                 var redirectRE = new RegExp(key);
