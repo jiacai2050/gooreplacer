@@ -21,7 +21,7 @@ Feature
 INSTALL
 ===
 
-如果你有梯(fan)子(qiang)，可以去[Chrome WebStore](https://chrome.google.com/webstore/detail/gooreplacer/jlmmdfhaddlgkgcigccmlfhapliiacoh)下载。如果没有，那就按照下面的方式安装：
+如果你有<ruby>梯<rp>(</rp><rt>fan</rt><rp>)</rp>子<rp>(</rp><rt>qiang</rt><rp>)</rp></ruby>，可以去[Chrome WebStore](https://chrome.google.com/webstore/detail/gooreplacer/jlmmdfhaddlgkgcigccmlfhapliiacoh)下载。如果没有，那就按照下面的方式安装：
 
 对于Windows用户：
 
