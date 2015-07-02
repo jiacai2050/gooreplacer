@@ -1,6 +1,6 @@
 {
   "name": "gooreplacer",
-  "version": "0.5",
+  "version": "0.5.1",
   "description": "A replacer for google fonts/api/themes.... to load page faster!",
   "permissions": [
       "webRequest", "webRequestBlocking",

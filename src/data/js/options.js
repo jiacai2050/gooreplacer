@@ -241,6 +241,7 @@ $(function() {
 });
 function initRules() {
     rules = gooDB.getRules();
+    $("#rules tbody").html("");
     var html = [];
     for(key in rules) {
         var gooRule = new GooRule(key, rules[key]);
