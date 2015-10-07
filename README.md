@@ -58,3 +58,7 @@ Development
 PS：如果你的工作依赖Google Apps,可以试试[CubeBackup](http://www.cubebackup.com/).
 
 如果你发现有任何问题，请与我联系。谢谢！
+
+License
+===
+[MIT License](http://liujiacai.net/license/MIT/) © Jiacai Liu
