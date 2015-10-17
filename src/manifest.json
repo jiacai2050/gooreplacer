@@ -1,15 +1,17 @@
 {
   "name": "gooreplacer",
-  "version": "0.5.1",
+  "version": "0.6",
   "description": "A replacer for google fonts/api/themes.... to load page faster!",
   "permissions": [
       "webRequest", "webRequestBlocking",
       "storage",
+      "alarms",
       "http://*/*",
       "https://*/*"
   ],
   "background": {
-    "scripts": [ "data/js/db.js" ,"background.js", "popup.js"]
+    "scripts": [ "data/js/db.js" ,"background.js", "popup.js", 
+                 "updateOnlineRules.js", "listener.js"]
   },
   "icons": {
     "32": "data/img/gooreplacer.ico",

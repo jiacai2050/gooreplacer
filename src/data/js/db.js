@@ -2,10 +2,22 @@ var GooRule = function(srcURL, dstObj) {
     var WILDCARD = "wildcard",
         REGEXP   = "regexp";
 
-    this.srcURL = srcURL;
+    var replaceWildcard = function(url) {
+            //js不支持look-behind，所以这里采用将字符串倒转，之后采用look-ahead方式
+            //这里需要将*与?替换为.*与.?，而\*与\?保留不变
+            var reverse = function(str) {
+                return str.split("").reverse().join("");
+            };
+            var reversedUrl = reverse(url);
+            return reverse(reversedUrl.replace(/([\*|\?])(?!\\)/g,"$1."));
+    };
     this.kind   = dstObj.kind || WILDCARD; //规则默认为WILDCARD类型
     this.dstURL = dstObj.dstURL;
     this.enable = dstObj.hasOwnProperty("enable")? dstObj.enable : true;   //规则默认开启
+    this.isWildcard = function() {
+        return this.kind === WILDCARD;
+    }
+    this.srcURL = this.isWildcard() ? replaceWildcard(srcURL) : srcURL;
     
     this.toJson = function() {
         var json = {};
@@ -23,76 +35,108 @@ var GooRule = function(srcURL, dstObj) {
         }; 
     }
     this.getKindLabel = function() {
-        if (this.kind === REGEXP) {
-            return "正则式";
-        } else {
+        if (this.isWildcard()) {
             return "通配符";
+        } else {
+            return "正则式";
         }
     }
     this.getSrcURLLabel = function() {
-        var replaceWildcard = function(url) {
-            //js不支持look-behind，所以这里采用将字符串倒转，之后采用look-ahead方式
-            //这里需要将*与?替换为.*与.?，而\*与\?保留不变
-            var reverse = function(str) {
-                return str.split("").reverse().join("");
-            };
-            var reversedUrl = reverse(url);
-            return reverse(reversedUrl.replace(/([\*|\?])(?!\\)/g,"$1."));
-        };
-        if (this.kind == "wildcard" && this.srcURL.match(/\.(\*|\?)/g)) {
+        if (this.isWildcard() && this.srcURL.match(/\.(\*|\?)/g)) {
             return this.srcURL.replace(/\.(\*|\?)/g, "$1");
         } else {
             return this.srcURL;
         }
     }
 }
+var GooOnlineURL = function(url, interval, enable) {
+    this.url = url;
+    this.interval = interval;
+    this.enable = enable;
+    this.toJson = function() {
+        return {
+            url: this.url,
+            interval: this.interval, 
+            enable: this.enable
+        };
+    }
+}
 
 var gooDB = new (function () {
     var RULES_KEY      = "rules",
-        ISREDIRECT_KEY = "isRedirect",
-        rules          = {
-            'ajax.googleapis.com': {dstURL: 'ajax.lug.ustc.edu.cn', enable: true},        
-            'fonts.googleapis.com': {dstURL:'fonts.lug.ustc.edu.cn', enable: true},        
-            'themes.googleusercontent.com': {dstURL:'google-themes.lug.ustc.edu.cn', enable: true},
-            'fonts.gstatic.com': {dstURL:'fonts-gstatic.lug.ustc.edu.cn', enable: true},
-            'http.*://platform.twitter.com/widgets.js': {dstURL: 'https://raw.githubusercontent.com/jiacai2050/gooreplacer/gh-pages/proxy/widgets.js', enable: true},
-            'http.*://apis.google.com/js/api.js': {dstURL: 'https://raw.githubusercontent.com/jiacai2050/gooreplacer/gh-pages/proxy/api.js', enable: true},
-            'http.*://apis.google.com/js/plusone.js': {dstURL: 'https://raw.githubusercontent.com/jiacai2050/gooreplacer/gh-pages/proxy/plusone.js', enable: true}
+        ISREDIRECT_KEY = "isRedirect";
+    var ONLINE_URL_KEY = "onlineRulesURL",
+        online_url = {
+            url: "https://raw.githubusercontent.com/jiacai2050/gooreplacer4chrome/master/gooreplacer.gson", 
+            interval: 60, 
+            enable: true
         };
+    var LAST_UPDATE_KEY = "onlineLastUpdateTime";    
+    var ONLINE_RULES_KEY = "onlineRules";
     this.init = function() {
-        if(!localStorage.getItem(RULES_KEY)) {
-            localStorage.setItem(RULES_KEY, JSON.stringify(rules));
-        }
         if(!localStorage.getItem(ISREDIRECT_KEY)) {
             localStorage.setItem(ISREDIRECT_KEY, true);
         }
+        if(!localStorage.getItem(ONLINE_URL_KEY)) {
+            localStorage.setItem(ONLINE_URL_KEY, JSON.stringify(online_url));
+        }
     }
-    this.getRules = function() {
-        return JSON.parse(localStorage.getItem(RULES_KEY));
+    this.getOnlineURL = function() {
+        return JSON.parse(localStorage.getItem(ONLINE_URL_KEY));
     }
-    this.setRules = function(rules) {
-        return localStorage.setItem(RULES_KEY, JSON.stringify(rules));
+    this.setOnlineURL = function(onlineURL) {
+        localStorage.setItem(ONLINE_URL_KEY, JSON.stringify(onlineURL.toJson()));
     }
-    this.addRule = function(rule) {
-        var rules = this.getRules();
-        rules[rule.getKey()] = rule.getValue();
-        return localStorage.setItem(RULES_KEY, JSON.stringify(rules));
+    this.getLastUpdateTime = function() {
+        return parseInt(localStorage.getItem(LAST_UPDATE_KEY)) || 0;
     }
-    this.deleteRule = function(ruleKey) {
-        var rules = this.getRules();
-        delete rules[ruleKey];
-        this.setRules(rules);
+    this.setLastUpdateTime = function(updateTime) {
+        localStorage.setItem(LAST_UPDATE_KEY, updateTime);
     }
-    this.updateRule = function(srcURL, rule) {
-        var rules = this.getRules();
-        delete rules[srcURL];
-        rules[rule.getKey()] = rule.getValue();
-        this.setRules(rules);
+    this.getRules = function(db) {
+        var db = db || RULES_KEY;
+        var arr = [];
+        var jsonRules = JSON.parse(localStorage.getItem(db));
+        for(var k in jsonRules) {
+            arr.push(new GooRule(k, jsonRules[k]));
+        }
+        return arr;
     }
-    this.toggleRule = function(ruleKey) {
-        var rules = this.getRules();
-        rules[ruleKey]["enable"] = ! rules[ruleKey]["enable"];
-        this.setRules(rules);
+    this.setRules = function(rules, db) {
+        var db = db || RULES_KEY;
+        for (var i = 0; i < rules.length; i++) {
+            this.addRule(rules[i], db);
+        };
+    }
+    this.addRule = function(rule, db) {
+        var db = db || RULES_KEY;
+        var jsonRules = JSON.parse(localStorage.getItem(db)) || {};
+        jsonRules[rule.getSrcURLLabel()] = rule.getValue();
+        localStorage.setItem(db, JSON.stringify(jsonRules));
+    }
+    this.deleteRule = function(ruleKey, db) {
+        var db = db || RULES_KEY;
+        var jsonRules = JSON.parse(localStorage.getItem(db));
+        if (ruleKey) {
+            delete jsonRules[ruleKey];
+            localStorage.setItem(db, JSON.stringify(jsonRules));    
+        } else {
+            //如果 ruleKey == null， 清空之前的所有规则
+            localStorage.removeItem(db);
+        }
+    }
+    this.updateRule = function(srcURL, rule, db) {
+        var db = db || RULES_KEY;
+        var jsonRules = JSON.parse(localStorage.getItem(db));
+        delete jsonRules[srcURL];
+        jsonRules[rule.getSrcURLLabel()] = rule.getValue();
+        localStorage.setItem(db, JSON.stringify(jsonRules));
+    }
+    this.toggleRule = function(ruleKey, db) {
+        var db = db || RULES_KEY;
+        var jsonRules = JSON.parse(localStorage.getItem(db));
+        jsonRules[ruleKey]["enable"] = ! jsonRules[ruleKey]["enable"];
+        localStorage.setItem(db, JSON.stringify(jsonRules));   
         return rules[ruleKey]["enable"];
     }
     this.getIsRedirect = function() {

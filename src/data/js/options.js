@@ -1,10 +1,15 @@
 var fileUtil = new (function() {
     this.exportRules = function() {
-        var rules = gooDB.getRules();
+        var gooRules = gooDB.getRules();
+        var jsonRules = {};
+        for (var i = 0; i < gooRules.length; i++) {
+            var gooRule = gooRules[i];
+            jsonRules[gooRule.getSrcURLLabel()] = gooRule.getValue();
+        }
         var gson = {
             createBy: "http://liujiacai.net/gooreplacer/",
             createAt: new Date().toString(),
-            rules: rules
+            rules: jsonRules
         };
         var contentType = 'application/json';
         var content = new Blob([JSON.stringify(gson, null, 4)], {type: contentType});
@@ -22,8 +27,10 @@ var fileUtil = new (function() {
             var reader = new FileReader();
             reader.onloadend = function(response) {
                 var res = JSON.parse(response.target.result);
-                var newRules = $.extend(gooDB.getRules(), res.rules);
-                gooDB.setRules(newRules);
+                var jsonRules = res.rules;
+                for(var key in jsonRules) {
+                    gooDB.addRule(new GooRule(key, jsonRules[key]));
+                }
                 initRules();
             };
             reader.readAsText(gsonFile);
@@ -34,7 +41,7 @@ var fileUtil = new (function() {
 
 var gooRuleDAO = new(function() {
     var dao = this;
-    
+
     this["delete"] = function(e) {
         if (confirm("确定要删除这条规则吗？")) {
             var par = $(e.target).parent().parent(); //tr
@@ -237,14 +244,37 @@ $(function() {
         $('#config').hide();
     });
     $("#add").click(addRow);
+
+    var onlineURL = gooDB.getOnlineURL();
+    $("#onlineURL").val(onlineURL.url);
+    $("#onlineInterval").val(onlineURL.interval);
+    $("#onlineEnable").val(onlineURL.enable + "");
+    var d = new Date(gooDB.getLastUpdateTime());
+    $("#lastUpdateTime").html(d.toLocaleString());
+    $("#onlineSave").click(function() {
+        var url = $("#onlineURL").val();
+        var interval = $("#onlineInterval").val();
+        var enable = $("#onlineEnable").val();
+        gooDB.setOnlineURL(new GooOnlineURL(url, interval, enable));
+        chrome.runtime.sendMessage({onlineSave: interval}, function(response) {
+            alert(response.msg);
+        });
+    });
+    $("#onlineUpdate").click(function() {
+        chrome.runtime.sendMessage({onlineUpdate: "update"}, function(response) {
+            var d = new Date(parseInt(response.updateTime));
+            $("#lastUpdateTime").html(d.toLocaleString());
+            alert("更新成功 ！");
+        });
+    });
+
     initRules();
 });
 function initRules() {
-    rules = gooDB.getRules();
     $("#rules tbody").html("");
-    var html = [];
-    for(key in rules) {
-        var gooRule = new GooRule(key, rules[key]);
+    var gooRules = gooDB.getRules();
+    for (var i = 0; i < gooRules.length; i++) {
+        var gooRule = gooRules[i];
         var srcURL      = gooRule.srcURL,
             srcURLLabel = gooRule.getSrcURLLabel(),
             enable      = gooRule.enable,

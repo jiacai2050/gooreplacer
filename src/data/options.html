@@ -36,6 +36,49 @@
             <button id="close">关闭</button>
         </div>
     </div>
+    <table id="online" class="gridtable" align="center">
+        <thead>
+            <tr>
+                <th>规则在线URL</th>
+                <th>更新频率</th>
+                <th>状态</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><input type="text" id="onlineURL" style="width:300px"/></td>
+                <td>
+                    <select id="onlineInterval">
+                        <option value="15">15 分钟</option>
+                        <option value="30">30 分钟</option>
+                        <option value="45">45 分钟</option>
+                        <option value="60"" selected="selected">1 小时</option>
+                        <option value="180">3 小时</option>
+                        <option value="360">6 小时</option>
+                        <option value="720">12 小时</option>
+                        <option value="1440">1 天</option>
+                    </select>
+                </td>
+                <td>
+                    <select id="onlineEnable">
+                        <option value="true">开启</option>
+                        <option value="false">关闭</option>
+                    </select>
+                </td>
+                <td>
+                    <button id="onlineSave">保存</button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3">上次更新时间：<span id="lastUpdateTime"></span></td>
+                <td>
+                    <button id="onlineUpdate">立即更新</button> 
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h3>本地规则</h3>
     <table id="rules" class="gridtable" align="center">
         <thead>
             <tr>
@@ -47,7 +90,7 @@
         </thead>
         <tbody></tbody>
         <tfoot>
-            <tr>
+            <tr align="center">
                 <td colspan="4"><img src='img/add.png' id='add' title='新增' style='cursor: pointer;'/></td>
             </tr>
         </tfoot>
