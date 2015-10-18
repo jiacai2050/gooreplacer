@@ -17,10 +17,8 @@ function findRedirectUrl(requestURL, gooRules) {
                         redirectURL = redirectURL.replace("$" + (i + 1), redirectMatch[i]);
                     }
                 }
+                return redirectURL;
             }
-            return redirectURL;
-        } else {
-            return null;
         }
     }
 }

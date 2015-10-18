@@ -1,15 +1,10 @@
 ## [gooreplacer For Chrome](http://liujiacai.net/gooreplacer)
 
-A replacer for google fonts/api/themes.... to load page faster!
+> A replacer for google fonts/api/themes.... to load page faster!
 
 一个用于替换网页中Google Fonts,API,themes等的Chrome插件，让你快速打开这些页面！
 
-[Firefox版本](https://github.com/jiacai2050/gooreplacer)
-
-## 特色
-
-- 规则与 Firefox 版本是互通的，支持在线规则
-- 规则支持正则表达式与通配符两种
+- [Firefox版本](https://github.com/jiacai2050/gooreplacer)
 
 <a name="install"></a>
 ## 安装
@@ -37,8 +32,10 @@ A replacer for google fonts/api/themes.... to load page faster!
 2. https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js
 3. http://fonts.googleapis.com/css?family=Open+Sans
 4. http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js
+5. http://platform.twitter.com/widgets.js
+6. https://platform.twitter.com/widgets.js
 
-如果能转到`lug.ustc.edu.cn`相应的资源即说明跳转成功。
+如果能转到`lug.ustc.edu.cn`或`raw.githubusercontent.com`相应的资源即说明重定向成功。
 
 <a name="dev"></a>
 ## 开发环境
