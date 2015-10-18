@@ -12,15 +12,20 @@ function fetchRules(cb) {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", onlineURL, true);
         xhr.onreadystatechange = function() {
-            if (xhr.readyState == 4 && xhr.status == 200) {
-                var jsonRules = JSON.parse(xhr.responseText).rules;
-                var db = "onlineRules";
-                gooDB.deleteRule(null, db);
-                for(var key in jsonRules) {
-                    gooDB.addRule(new GooRule(key, jsonRules[key]), db);
+            if (xhr.readyState == 4) {
+                if (xhr.status == 200) {
+                    var jsonRules = JSON.parse(xhr.responseText).rules;
+                    var db = "onlineRules";
+                    gooDB.deleteRule(null, db);
+                    for(var key in jsonRules) {
+                        gooDB.addRule(new GooRule(key, jsonRules[key]), db);
+                    }
+                    var now = Date.now();
+                    gooDB.setLastUpdateTime(now);    
+                    cb({code: 0, msg: "更新成功！", updateTime: now});
+                } else {
+                    cb({code: xhr.status, msg: "更新失败！Status Code: " + xhr.status});
                 }
-                gooDB.setLastUpdateTime(Date.now());
-                cb();
             }
         }
         xhr.send();    

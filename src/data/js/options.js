@@ -262,9 +262,11 @@ $(function() {
     });
     $("#onlineUpdate").click(function() {
         chrome.runtime.sendMessage({onlineUpdate: "update"}, function(response) {
-            var d = new Date(parseInt(response.updateTime));
-            $("#lastUpdateTime").html(d.toLocaleString());
-            alert("更新成功 ！");
+            if (response.code === 0) {
+                var d = new Date(parseInt(response.updateTime));
+                $("#lastUpdateTime").html(d.toLocaleString());
+            };
+            alert(response.msg);
         });
     });
 
@@ -275,8 +277,7 @@ function initRules() {
     var gooRules = gooDB.getRules();
     for (var i = 0; i < gooRules.length; i++) {
         var gooRule = gooRules[i];
-        var srcURL      = gooRule.srcURL,
-            srcURLLabel = gooRule.getSrcURLLabel(),
+        var srcURLLabel = gooRule.getSrcURLLabel(),
             enable      = gooRule.enable,
             kindLabel   = gooRule.getKindLabel(),
             dstURL      = gooRule.dstURL;
@@ -291,7 +292,7 @@ function initRules() {
             ruleStatus = "rule_enable";
         }
         rowHTML.push(
-            "<td><span>" + srcURLLabel + "</span><input type='hidden' value='" + gooRule.getKey() + "'/></td>",
+            "<td><span>" + srcURLLabel + "</span><input type='hidden' value='" + srcURLLabel + "'/></td>",
             "<td><span>" + kindLabel + "</span><input type='hidden' value='" + gooRule.kind + "'/></td>",
             "<td>" + dstURL + "</td>",
             "<td>" + imageUtil[ruleStatus] + imageUtil.edit + imageUtil["delete"] + "</td>",

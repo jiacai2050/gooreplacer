@@ -24,12 +24,8 @@ chrome.runtime.onMessage.addListener(
                 popup.disableIcon();
             }
         } else if (request.hasOwnProperty("onlineUpdate")) {
-            fetchRules(function() {
-                var now = Date.now();
-                gooDB.setLastUpdateTime(now);
-                sendResponse({
-                    updateTime: now
-                });
+            fetchRules(function(ret) {
+                sendResponse(ret);
             });
             // 返回 true，意味着 sendResponse 会被异步调用
             // https://developer.chrome.com/extensions/runtime#event-onMessage
