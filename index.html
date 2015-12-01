@@ -117,16 +117,14 @@ fonts.gstatic.com----------------->fonts-gstatic.lug.ustc.edu.cn
 <p>如果你有使用gooreplacer方面的任何问题，或有什么好的建议，可以在下面留言。让我们一起改进、完善gooreplacer。</p>
 <p>当然，照顾到大家有可能比较害羞，可以<a href="mailto:jiacai2050@gmail.com?subject=gooreplacer建议反馈">邮件</a>交流。:-) </p>
 
-<div class="ds-thread" data-url="http://liujiacai.net/gooreplacer"></div>
+<div id="disqus_thread"></div>
 <script type="text/javascript">
     var duoshuoQuery = {short_name:"gooreplacer"};
     (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
+        var d = document, s = d.createElement('script');
+        s.src = 'http://gooreplacer.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
     })();
     var _bdhmProtocol = (("https:" == document.location.protocol) ? " https://" : " http://");
     document.write(unescape("%3Cscript src='" + _bdhmProtocol + "hm.baidu.com/h.js%3Fb0b1b4cd028dcda54126eddc8346a00c' type='text/javascript'%3E%3C/script%3E"));
