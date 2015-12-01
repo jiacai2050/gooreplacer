@@ -1,13 +1,13 @@
 var alarmName = "updateOnlineRules",
-       online = gooDB.getOnlineURL();
-    onlineURL = online.url;
-     interval = online.interval;
+       interval = gooDB.getOnlineURL().interval;
+
 chrome.alarms.create(alarmName, {
     when: Date.now() + 5000,
     periodInMinutes: parseInt(interval)
 });
 function fetchRules(cb) {
     cb = cb || function () {};
+    var onlineURL = gooDB.getOnlineURL().url;
     if (onlineURL.trim() !== "") {
         var xhr = new XMLHttpRequest();
         xhr.open("GET", onlineURL, true);
