@@ -137,7 +137,7 @@ var gooDB = new (function () {
         var jsonRules = JSON.parse(localStorage.getItem(db));
         jsonRules[ruleKey]["enable"] = ! jsonRules[ruleKey]["enable"];
         localStorage.setItem(db, JSON.stringify(jsonRules));   
-        return rules[ruleKey]["enable"];
+        return jsonRules[ruleKey]["enable"];
     }
     this.getIsRedirect = function() {
         return JSON.parse(localStorage.getItem(ISREDIRECT_KEY));
