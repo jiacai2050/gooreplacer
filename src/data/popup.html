@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="utf-8">
-    <link rel="shortcut icon" href="gooreplacer.ico">
-    <meta charset="utf-8">
-    <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
-    <script type="text/javascript" src="js/db.js"></script>
-    <script type="text/javascript" src="js/popup.js"></script>
-    <link rel="stylesheet" href="css/bootstrap.min.css" >
-    <style type="text/css">
-        .group {
-            margin-top:8px;
-            text-align:center;
-        }
-        body {
-            background: -webkit-linear-gradient(top , #afcffe, #fff) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
-        }
-    </style>
-
-</head>
-<body>
-<div class="group">
-    <label style="white-space: nowrap">
-        <input type="checkbox" id="toggle" />开启重定向
-    </label>
-</div>
-<div class="group">
-    <button type="button" id="gosetting" class="btn btn-default btn-sm">自定义规则</button>
-</div>
-</body>
+	<head>
+		<meta charset="utf-8">
+		<link rel="shortcut icon" href="gooreplacer.ico">
+		<meta charset="utf-8">
+		<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+		<script type="text/javascript" src="js/db.js"></script>
+		<script type="text/javascript" src="js/popup.js"></script>
+		<style type="text/css">
+			body {
+				background: -webkit-linear-gradient(top , #afcffe, #fff) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+				font-family:"Microsoft YaHei",微软雅黑,"Microsoft JhengHei",华文细黑,STHeiti,MingLiu;
+			}
+			button {
+				background: -webkit-linear-gradient(top, #ccc, #fff) repeat scroll 0 0 rgba(0, 0, 0, 0);
+				border: 1px solid grey;
+				border-radius: 4px;
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<div style="height:160px;width:240px;margin-top: 4px;margin-bottom: 4px;">
+			<label style="display:inline-block; margin-top: 4px;margin-bottom: 4px;"><input type="checkbox" id="toggle" />开启重定向功能（gooreplacer）</label>
+			<button style="margin-top: 4px;margin-bottom: 4px;" type="button" id="gosetting" class="btn btn-default btn-sm">配置重定向规则</button>
+		</div>
+		<div style="width:240px;margin-top: 4px;margin-bottom: 4px;">
+			<a href="http://liujiacai.net/gooreplacer/" target="_blank" style="text-align:right;width:100%;display:inline-block;">gooreplacer   ——想去哪儿，就去哪儿</a>
+		</div>
+	</body>
 </html>

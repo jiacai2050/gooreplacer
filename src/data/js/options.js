@@ -7,8 +7,8 @@ var fileUtil = new (function() {
             jsonRules[gooRule.getSrcURLLabel()] = gooRule.getValue();
         }
         var gson = {
-            createBy: "http://liujiacai.net/gooreplacer/",
-            createAt: new Date().toString(),
+            createBy: "Export",
+            createAt: new Date().toGMTString(),
             rules: jsonRules
         };
         var contentType = 'application/json';
@@ -77,18 +77,22 @@ var gooRuleDAO = new(function() {
             tdKindOldHtml   = tdKind.html(),
             tdDstURLOldHtml = tdDstURL.html(),
             tdButtonsOldHtml= tdButtons.html();
-        var srcURLVal = tdSrcURL.children("span").html(),
+        var srcURLVal = tdSrcURL.children("span").text(),
             ruleKey   = tdSrcURL.children("input[type=hidden]").val(),
             kindVal   = tdKind.children("input[type=hidden]").val(),
-            dstURLVal = tdDstURLOldHtml;
+            dstURLVal = tdDstURL.children("span").text();
 
-        tdSrcURL.html("<input type='text' size='" + srcURLVal.length + "' value='" + srcURLVal + "'/>");
+        tdSrcURL.html("<input type='text' value='' style='width:197px;'/>");
+		tdSrcURL.children("input").val(srcURLVal);
+		
         var select = "<select><option value='wildcard' selected>通配符</option><option value='regexp'>正则式</option></select>";
         if (kindVal === "regexp") {
             select = "<select><option value='wildcard'>通配符</option><option value='regexp' selected>正则式</option></select>";
         };
         tdKind.html(select);
-        tdDstURL.html("<input type='text' size='" + dstURLVal.length + "' value='" + dstURLVal + "'/>");
+		
+        tdDstURL.html("<input type='text' value='' style='width:197px;'/>");
+		tdDstURL.children("input").val(dstURLVal);
 
         td.html(imageUtil.save + imageUtil.undo);
         imageUtil.bindClick("save", function(e) {
@@ -133,9 +137,17 @@ var gooRuleDAO = new(function() {
             enable: true
         });
         gooDB.addRule(gooRule);
-        tdSrcURL.html("<span>" + gooRule.getSrcURLLabel() + "</span><input type='hidden' value='" + gooRule.getKey() + "'/>");
-        tdKind.html("<span>" + gooRule.getKindLabel() + "</span><input type='hidden' value='" + gooRule.kind + "'/>");
-        tdDstURL.html(gooRule.dstURL);
+        tdSrcURL.html("<span style=\"display:inline-block;width:197px;overflow-x:auto;white-space:nowrap;\"></span><input type='hidden' value=''/>");
+		tdSrcURL.children("span").text(gooRule.getSrcURLLabel());
+		tdSrcURL.children("input").val(gooRule.getKey());
+		
+        tdKind.html("<span></span><input type='hidden' value=''/>");
+		tdKind.children("span").text(gooRule.getKindLabel());
+		tdKind.children("input").val(gooRule.kind);
+		
+        tdDstURL.html("<span style=\"display:inline-block;width:197px;overflow-x:auto;white-space:nowrap;\"></span>");
+		tdDstURL.children("span").text(gooRule.dstURL);
+		
         tdButtons.html(imageUtil.rule_disable +  imageUtil.edit + imageUtil["delete"]);
 
         imageUtil.bindClick("rule_enable");
@@ -292,12 +304,19 @@ function initRules() {
             ruleStatus = "rule_enable";
         }
         rowHTML.push(
-            "<td><span>" + srcURLLabel + "</span><input type='hidden' value='" + srcURLLabel + "'/></td>",
-            "<td><span>" + kindLabel + "</span><input type='hidden' value='" + gooRule.kind + "'/></td>",
-            "<td>" + dstURL + "</td>",
+            "<td style=\"padding:8px;\"><span style=\"display:inline-block;width:197px;overflow-x:auto;white-space:nowrap;\"></span><input type='hidden' value=''/></td>",
+            "<td style=\"padding:8px;\"><span></span><input type='hidden' value=''/></td>",
+            "<td style=\"padding:8px;\"><span style=\"display:inline-block;width:197px;overflow-x:auto;white-space:nowrap;\"></span></td>",
             "<td>" + imageUtil[ruleStatus] + imageUtil.edit + imageUtil["delete"] + "</td>",
             "</tr>");
-        $("#rules tbody").append(rowHTML.join(""));
+        var row = $(rowHTML.join("")).appendTo("#rules tbody");
+		
+		$(row.children()[0].getElementsByTagName("span")).text(srcURLLabel);
+		$(row.children()[0].getElementsByTagName("input")).val(srcURLLabel);
+		$(row.children()[1].getElementsByTagName("span")).text(kindLabel);
+		$(row.children()[1].getElementsByTagName("input")).val(gooRule.kind);
+		$(row.children()[2].getElementsByTagName("span")).text(dstURL);
+		
         
         imageUtil.bindClick(ruleStatus);
         imageUtil.bindClick("edit");
