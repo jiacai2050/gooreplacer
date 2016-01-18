@@ -8,10 +8,12 @@
 - [Firefox PC 版](https://github.com/jiacai2050/gooreplacer)
 - [Firefox Android 版](https://github.com/jiacai2050/gooreplacer/tree/android)
 
+如果你在使用 gooreplacer 过程中有任何问题与建议，欢迎在 [issue](https://github.com/jiacai2050/gooreplacer4chrome/issues) 中提出，让我们一起把 gooreplacer 做的更好。😊
+
 <a name="install"></a>
 ## 安装
 
-如果你有<ruby>梯<rp>(</rp><rt>fan</rt><rp>)</rp>子<rp>(</rp><rt>qiang</rt><rp>)</rp></ruby>，可以去[Chrome WebStore](https://chrome.google.com/webstore/detail/gooreplacer/jlmmdfhaddlgkgcigccmlfhapliiacoh)下载。如果没有，那就按照下面的方式安装：
+如果你有<ruby>梯<rp>(</rp><rt>fan</rt><rp>)</rp>子<rp>(</rp><rt>qiang</rt><rp>)</rp></ruby>，可以去[Chrome WebStore](https://chrome.google.com/webstore/detail/jnlkjeecojckkigmchmfoigphmgkgbip)下载。如果没有，那就按照下面的方式安装：
 
 ### Windows用户：
 
@@ -25,29 +27,13 @@
 2. 然后下载[gooreplacer.crx](https://github.com/jiacai2050/gooreplacer4chrome/blob/master/gooreplacer.crx?raw=true)
 3. 最后把gooreplacer.crx文件拖到Chrome上就可以安装了。<img src="http://img03.taobaocdn.com/imgextra/i3/581166664/TB2rBMEapXXXXb1XpXXXXXXXXXX_!!581166664.jpg" alt=" chrome-drag"/>
 
-<a name="test"></a>
-## 测试
-
-安装本插件后，可以在 Chrome 地址栏输入下面的链接检查是否起作用:
-
-1. https://fonts.googleapis.com/css?family=Open+Sans
-2. https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js
-3. http://fonts.googleapis.com/css?family=Open+Sans
-4. http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js
-5. http://platform.twitter.com/widgets.js
-6. https://platform.twitter.com/widgets.js
-
-如果能转到`lug.ustc.edu.cn`或`raw.githubusercontent.com`相应的资源即说明重定向成功。
-
 <a name="dev"></a>
 ## 开发环境
 
 - 使用[Chrome extension webRequest](https://developer.chrome.com/extensions/webRequest)模块开发
 - 使用[科大公共库](https://servers.ustclug.org/2014/07/ustc-blog-force-google-fonts-proxy/)开替换Google资源,之前曾使用360公共库，但是[360并不支持https访问](https://servers.ustclug.org/2014/06/blog-googlefonts-speedup/)，所以最终选择了科大。
 
-PS：如果你的工作依赖Google Apps,可以试试[CubeBackup](http://www.cubebackup.com/).
-
-如果你有任何问题与建议，欢迎 PR。
+PS：如果你的工作依赖Google Apps，可以试试[CubeBackup](http://www.cubebackup.com/).
 
 ## License
 
