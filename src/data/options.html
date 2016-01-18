@@ -1,99 +1,103 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>gooreplacer自定义规则</title>
-    <link rel="shortcut icon" href="img/gooreplacer.ico">
-    <meta charset="utf-8">
-    <link rel="stylesheet" type="text/css" href="css/options.css">
-    <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
-    <script type="text/javascript" src="js/db.js"></script>
-    <script type="text/javascript" src="js/options.js"></script>
+	<title>gooreplacer自定义规则</title>
+	<link rel="shortcut icon" href="img/gooreplacer.ico">
+	<meta charset="utf-8">
+	<link rel="stylesheet" type="text/css" href="css/options.css">
+	<script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+	<script type="text/javascript" src="js/db.js"></script>
+	<script type="text/javascript" src="js/options.js"></script>
 </head>
 <body>
+	<div style="margin-left:auto;margin-right:auto;width:500px;">
+		<h1>gooreplacer</h1>
+		<p style="text-align:right;width:100%;display:inline-block;">想去哪儿，就去哪儿</p>
+	</div>
+	
+	<div class="nav">
+		<button id="homepage">主页</button>
+		<button id="help">帮助</button>
+	</div>
 
-    <h1>gooreplacer</h1>
-    <h5>想去哪儿，就去哪儿</h5>
-
-    <div class="nav">
-        <button id="homepage">主页</button>
-        <button id="import">导入</button>
-        <button id="export">导出</button>
-        <button id="help">帮助</button>
-        <input type="file" id="gsonChooser" accept=".gson" style="display:none" />
-        <a id="gsonExport" style="display:none" download="gooreplacer.gson"></a>
-    </div>
-
-    <div id="config" class="dialog">
-        <h2>使用帮助</h2>
-        <ol>
-            <li>每条重定向规则有“开启/停用”两种状态</li>
-            <li>使用“导出”功能，可以把当前的重定向规则导出到本地</li>
-            <li>使用“导入”功能，可以从本地加载重定向规则</li>
-            <li>关于如何用自定义重定向，可以去<a href="https://github.com/jiacai2050/gooreplacer#diy" target="_blank">github查看说明</a>。</li>
-        </ol>
-        <div class="button-row">
-            <button id="close">关闭</button>
-        </div>
-    </div>
-    <table id="online" class="gridtable" align="center">
-        <thead>
-            <tr>
-                <th>规则在线URL</th>
-                <th>更新频率</th>
-                <th>状态</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><input type="text" id="onlineURL" style="width:300px"/></td>
-                <td>
-                    <select id="onlineInterval">
-                        <option value="15">15 分钟</option>
-                        <option value="30">30 分钟</option>
-                        <option value="45">45 分钟</option>
-                        <option value="60"" selected="selected">1 小时</option>
-                        <option value="180">3 小时</option>
-                        <option value="360">6 小时</option>
-                        <option value="720">12 小时</option>
-                        <option value="1440">1 天</option>
-                    </select>
-                </td>
-                <td>
-                    <select id="onlineEnable">
-                        <option value="true">开启</option>
-                        <option value="false">关闭</option>
-                    </select>
-                </td>
-                <td>
-                    <button id="onlineSave">保存</button>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">上次更新时间：<span id="lastUpdateTime"></span></td>
-                <td>
-                    <button id="onlineUpdate">立即更新</button> 
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <h3>本地规则</h3>
-    <table id="rules" class="gridtable" align="center">
-        <thead>
-            <tr>
-                <th>原始URL</th>
-                <th>类型</th>    
-                <th>目的URL</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-        <tfoot>
-            <tr align="center">
-                <td colspan="4"><img src='img/add.png' id='add' title='新增' style='cursor: pointer;'/></td>
-            </tr>
-        </tfoot>
-    </table>
+	<div id="config" class="dialog">
+		<h1>使用帮助</h1>
+		<ol>
+			<li>每条重定向规则有“开启/停用”两种状态</li>
+			<li>使用“导出”功能，可以把当前的重定向规则导出到本地</li>
+			<li>使用“导入”功能，可以从本地加载重定向规则</li>
+			<li>关于如何用自定义重定向，可以<a href="https://github.com/jiacai2050/gooreplacer#diy" target="_blank">去Github上的相关页面查看说明</a>。</li>
+		</ol>
+		<div class="button-row">
+			<button id="close">关闭</button>
+		</div>
+	</div>
+	
+	<h2>订阅规则</h2>
+	<table id="online" class="gridtable" align="center">
+		<thead>
+			<tr>
+				<th style="padding:8px;width:403px;">规则在线URL</th>
+				<th style="padding:8px;">更新频率</th>
+				<th style="padding:8px;">状态</th>
+				<th style="padding:8px;"></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input type="text" id="onlineURL"></input></td>
+				<td>
+					<select id="onlineInterval">
+						<option value="15">15 分钟</option>
+						<option value="30">30 分钟</option>
+						<option value="45">45 分钟</option>
+						<option value="60"" selected="selected">1 小时</option>
+						<option value="180">3 小时</option>
+						<option value="360">6 小时</option>
+						<option value="720">12 小时</option>
+						<option value="1440">1 天</option>
+					</select>
+				</td>
+				<td>
+					<select id="onlineEnable">
+						<option value="true">开启</option>
+						<option value="false">关闭</option>
+					</select>
+				</td>
+				<td>
+					<button id="onlineSave">保存</button>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3">上次更新时间：<span id="lastUpdateTime"></span></td>
+				<td>
+					<button id="onlineUpdate">立即更新</button> 
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<h2>本地规则</h2>
+	<div class="nav">
+		<button id="import">导入</button>
+		<button id="export">导出</button>
+		<input type="file" id="gsonChooser" accept=".gson" style="display:none" />
+		<a id="gsonExport" style="display:none" download="gooreplacer.gson"></a>
+	</div>
+	<table id="rules" class="gridtable" align="center">
+		<thead>
+			<tr>
+				<th style="padding:8px;width:213px;">原始URL</th>
+				<th style="padding:8px;width:73px;">类型</th>	
+				<th style="padding:8px;width:213px;">目的URL</th>
+				<th style="padding:8px;width:89px;">操作</th>
+			</tr>
+		</thead>
+		<tbody></tbody>
+		<tfoot>
+			<tr align="center">
+				<td colspan="4"><img src='img/add.png' id='add' title='新增' style='cursor: pointer;'/></td>
+			</tr>
+		</tfoot>
+	</table>
 </body>
 </html>
