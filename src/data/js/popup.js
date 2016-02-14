@@ -1,6 +1,8 @@
 $(function() {
     var toggle = $("#toggle");
     var gosetting = $("#gosetting");
+    var header = $("header");
+    var update = $("#update");
     
     toggle.attr("checked", gooDB.getIsRedirect());
 
@@ -11,5 +13,11 @@ $(function() {
     });
     toggle.click(function() {
         chrome.runtime.sendMessage({isRedirect: this.checked});
+    });
+    header.click(function() {
+        open("http://liujiacai.net/gooreplacer/");
+    });
+    update.click(function() {
+        chrome.runtime.sendMessage({onlineUpdate: "update"});
     });
 });

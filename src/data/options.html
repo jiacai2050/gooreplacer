@@ -1,99 +1,135 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-    <title>gooreplacer自定义规则</title>
+    <title>gooreplacer 自定义规则</title>
     <link rel="shortcut icon" href="img/gooreplacer.ico">
     <meta charset="utf-8">
+    <link rel="stylesheet" href="css/bootstrap.min.css" >
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css" >
     <link rel="stylesheet" type="text/css" href="css/options.css">
-    <script type="text/javascript" src="js/jquery-1.6.2.min.js"></script>
+    <script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/db.js"></script>
     <script type="text/javascript" src="js/options.js"></script>
 </head>
-<body>
-
-    <h1>gooreplacer</h1>
-    <h5>想去哪儿，就去哪儿</h5>
-
-    <div class="nav">
-        <button id="homepage">主页</button>
-        <button id="import">导入</button>
-        <button id="export">导出</button>
-        <button id="help">帮助</button>
-        <input type="file" id="gsonChooser" accept=".gson" style="display:none" />
-        <a id="gsonExport" style="display:none" download="gooreplacer.gson"></a>
+<body class="container">
+    <div class="jumbotron">
+    <h1><img src="img/48.png"></img>gooreplacer<br/></h1>
+    <p>想去哪儿，就去哪儿</p>
+    
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <div class="btn-toolbar">
+                <button id="homepage" class="btn btn-default">
+                    <span class='glyphicon glyphicon-home'/>主页
+                </button>
+                <button data-toggle="modal" data-target="#helpModal" class="btn btn-default">
+                    <span class='glyphicon glyphicon-question-sign'/>帮助
+                </button>
+                <div class="btn-group">
+                    <button id="import" class="btn btn-default">
+                        <span class='glyphicon glyphicon-import'/>导入
+                    </button>
+                    <button id="export" class="btn btn-default">
+                        <span class='glyphicon glyphicon-export'/>导出
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-4"></div>
     </div>
-
-    <div id="config" class="dialog">
-        <h2>使用帮助</h2>
-        <ol>
-            <li>每条重定向规则有“开启/停用”两种状态</li>
-            <li>使用“导出”功能，可以把当前的重定向规则导出到本地</li>
-            <li>使用“导入”功能，可以从本地加载重定向规则</li>
-            <li>关于如何用自定义重定向，可以去<a href="https://github.com/jiacai2050/gooreplacer#diy" target="_blank">github查看说明</a>。</li>
-        </ol>
-        <div class="button-row">
-            <button id="close">关闭</button>
+    
+    <input type="file" id="gsonChooser" accept=".gson" style="display:none" />
+    <a id="gsonExport" style="display:none" download="gooreplacer.gson"></a>
+    </div>
+    
+        <div class="panel panel-primary">
+            <div class="panel-heading lead">规则在线URL</div>
+            <div class="form-horizontal panel-body">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">更新地址</label>
+                    <div class="col-sm-10">
+                        <div class="input-group">
+                            <input class="form-control" type="url" id="onlineURL" spellcheck="false"/>
+                            <span class="input-group-btn">
+                                <button class="btn btn-warning" type="button" id="openURL"><span class="glyphicon glyphicon-chevron-right"/></button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">更新频率</label>
+                    <div class="col-sm-2">
+                        <select class="form-control" id="onlineInterval">
+                            <option value="15">15 分钟</option>
+                            <option value="30">30 分钟</option>
+                            <option value="45">45 分钟</option>
+                            <option value="60" selected>1 小时</option>
+                            <option value="180">3 小时</option>
+                            <option value="360">6 小时</option>
+                            <option value="720">12 小时</option>
+                            <option value="1440">1 天</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-2 checkbox"><label><input id="onlineEnable" type="checkbox"/>启用</label></div>
+                    <div class="col-sm-6">
+                        <div class="btn-group btn-group-justified">
+                            <a class="btn btn-danger" id="reset">
+                            <span class="glyphicon glyphicon-repeat"/>重置</a>
+                            <a class="btn btn-success" id="onlineSave">
+                            <span class="glyphicon glyphicon-floppy-disk"/>保存</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer clearfix">
+                <label>上次更新时间：<span id="lastUpdateTime"></span></label>
+                <button class="btn btn-info pull-right" id="onlineUpdate">
+                <span class="glyphicon glyphicon-refresh"/>立即更新</button> 
+            </div>
+        </div>
+    <div class="panel panel-info">
+        <div class="panel-heading lead clearfix">本地规则
+            <button id='removeAll' class="btn btn-danger btn-sm pull-right"><span class="glyphicon glyphicon-remove"/>删除全部</button>
+        </div>
+        <table id="rules" class="table table-hover table-bordered">
+            <thead>
+                <tr>
+                    <th class="col-sm-4">原始URL</th>
+                    <th class="col-sm-2">类型</th>    
+                    <th class="col-sm-4">目的URL</th>
+                    <th class="col-sm-2">操作</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+        <div class="panel-footer clearfix">
+            <button id='add' class="btn btn-success btn-lg col-sm-6 col-md-offset-3"><span class="glyphicon glyphicon-plus"/>添加</button>
         </div>
     </div>
-    <table id="online" class="gridtable" align="center">
-        <thead>
-            <tr>
-                <th>规则在线URL</th>
-                <th>更新频率</th>
-                <th>状态</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td><input type="text" id="onlineURL" style="width:300px"/></td>
-                <td>
-                    <select id="onlineInterval">
-                        <option value="15">15 分钟</option>
-                        <option value="30">30 分钟</option>
-                        <option value="45">45 分钟</option>
-                        <option value="60"" selected="selected">1 小时</option>
-                        <option value="180">3 小时</option>
-                        <option value="360">6 小时</option>
-                        <option value="720">12 小时</option>
-                        <option value="1440">1 天</option>
-                    </select>
-                </td>
-                <td>
-                    <select id="onlineEnable">
-                        <option value="true">开启</option>
-                        <option value="false">关闭</option>
-                    </select>
-                </td>
-                <td>
-                    <button id="onlineSave">保存</button>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="3">上次更新时间：<span id="lastUpdateTime"></span></td>
-                <td>
-                    <button id="onlineUpdate">立即更新</button> 
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <h3>本地规则</h3>
-    <table id="rules" class="gridtable" align="center">
-        <thead>
-            <tr>
-                <th>原始URL</th>
-                <th>类型</th>    
-                <th>目的URL</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody></tbody>
-        <tfoot>
-            <tr align="center">
-                <td colspan="4"><img src='img/add.png' id='add' title='新增' style='cursor: pointer;'/></td>
-            </tr>
-        </tfoot>
-    </table>
+    <!-- 帮助框 -->
+    <div id="helpModal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button class="close" data-dismiss="modal"><span>&times;</span></button>
+                    <h4 class="modal-title">使用帮助</h4>
+                </div>
+                <div class="modal-body">
+                    <ol>
+                        <li>每条重定向规则有“开启/停用”两种状态</li>
+                        <li>使用“导出”功能，可以把当前的重定向规则导出到本地</li>
+                        <li>使用“导入”功能，可以从本地加载重定向规则</li>
+                        <li>关于如何用自定义重定向，可以去<a href="https://github.com/jiacai2050/gooreplacer#diy" target="_blank">github查看说明</a>。</li>
+                    </ol>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 结束 -->
 </body>
 </html>
