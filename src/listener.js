@@ -1,5 +1,7 @@
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
+		// 返回 true，意味着 sendResponse 会被异步调用
+		// https://developer.chrome.com/extensions/runtime#event-onMessage
         if (request.hasOwnProperty("gosetting")) {
             var isRedirect = request["gosetting"];
             if (!isRedirect) {
@@ -25,11 +27,17 @@ chrome.runtime.onMessage.addListener(
             }
         } else if (request.hasOwnProperty("onlineUpdate")) {
             fetchRules(function(ret) {
-                sendResponse(ret);
-            });
-            // 返回 true，意味着 sendResponse 会被异步调用
-            // https://developer.chrome.com/extensions/runtime#event-onMessage
-            return true;
+				if(ret.code===0){
+					// 发送"onlineUpdated"消息提示更新时间
+					chrome.runtime.sendMessage({onlineUpdated:true,updateTime:ret.updateTime,msg:ret.msg});
+					alert(ret.msg+"\n操作时间："+
+					new Date(parseInt(ret.updateTime))
+					.toLocaleString());
+				}else{
+					chrome.runtime.sendMessage({onlineUpdateFail:true});
+					alert(ret.msg);
+				}
+			});
         } else if (request.hasOwnProperty("onlineSave")) {
             chrome.alarms.clear(alarmName, function(wasCleared) {
                 if (wasCleared) {

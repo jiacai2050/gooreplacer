@@ -1,122 +1,22 @@
-body {
-    background: -webkit-linear-gradient(top, #afcffe, #fff) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
-    font-family: Tahoma, Arial, sans-serif;
-    font-size: 10pt;
-    margin: 0;
-    min-height: 100%;
-    padding: 0;
+body {background:-webkit-linear-gradient(top,cornflowerblue,lightskyblue) fixed;}
+.jumbotron{background:rgba(0,0,0,0.25);margin-top:2em;}
+.container .jumbotron{border-radius:25px;}
+.jumbotron h1{
+    display:-webkit-box;
+    -webkit-box-pack:center;
+    text-shadow:0 0 10px black;
+    color:white;
+    margin-bottom:0;
 }
-
-h1 {
-    color: #555;
-    font-size: 34pt;
-    letter-spacing: 2px;
-    margin: 20px 0 0;
-    padding: 0;
-    text-align: center;
-    text-shadow: 0 0 15px white;
-}
-
-h3 {
-    color: #555;
-    font-size: 24pt;
-    letter-spacing: 2px;
-    margin: 20px 20px;
-    padding: 0;
-    text-align: center;
-    text-shadow: 0 0 15px white;
-}
-
-h5 {
-    margin: 0;
-    padding-left: 180px;
-    text-align: center;
-}
-
-button {
-    background: -webkit-linear-gradient(top, #ccc, #fff) repeat scroll 0 0 rgba(0, 0, 0, 0);
-    border: 1px solid grey;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.disable {
-    color: #AAA;
-}
-
-.line {
-    border-style: dotted;
-    border-color: red;
-    border-width: 5;
-    width: 100%;
-    height: 0
-}
-
-.nav {
-    margin: 10px auto;
-    text-align: center;
-    width: 600px;
-}
-
-.dialog {
-    background: -webkit-linear-gradient(top, #fff, #AFCFFE);
-    border-radius: 8px;
-    display: none;
-    width: 400px;
-    height: 200px;
-    position: fixed;
-    margin: 0 auto;
-    padding: 10px;
-    font-size: 11pt;
-    box-shadow: 0px 0px 4px black;
-}
-
-.dialog li {
-    margin: auto auto 5px auto;
-}
-
-.button-row {
-    text-align: center;
-    display: block !important;
-}
-
-table.gridtable {
-    font-size: 12px;
-    font-family: arial, sans-serif;
-    text-align: left;
-    color: #333333;
-    border-width: 1px;
-    border-color: #666666;
-    border-collapse: collapse;
-}
-
-table.gridtable th {
-    border-width: 1px;
-    padding: 8px;
-    border-style: solid;
-    border-color: #666666;
-    background-color: #dedede;
-}
-
-table.gridtable td {
-    border-width: 1px;
-    padding: 8px;
-    border-style: solid;
-    border-color: #666666;
-    background-color: #ffffff;
-}
-
-select {
-    font-size: 12px;
-    height: 30px;
-    border: 1px solid #bbb;
-}
-
-input {
-    width: 100%;
-    padding: 10px;
-    margin: 0px;
-    box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-}
+.jumbotron p{display:-webkit-box;-webkit-box-pack:center;font-family:"Microsoft YaHei";}
+.glyphicon:before{margin-right:5px}
+.panel{box-shadow:0 5px 10px rgba(0,0,0,.25);border-radius:11px;}
+.panel-heading{border-radius:10px 10px 0 0;}
+.panel-footer{border-radius:0 0 10px 10px;}
+td>span{display:-webkit-box;-webkit-box-align:center;height:34px;padding-left:1em;}
+td:last-child>span{padding-left:5px;height:initial;}
+td>span.glyphicon{display:-webkit-box;}
+tbody>tr{animation:tableFade 0.5s}
+@keyframes tableFade
+{from{opacity:0}
+to{opacity:1}}

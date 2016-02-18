@@ -43,8 +43,8 @@ var gooRuleDAO = new(function() {
     var dao = this;
 
     this["delete"] = function(e) {
-        if (confirm("确定要删除这条规则吗？")) {
-            var par = $(e.target).parent().parent(); //tr
+       if (confirm("确定要删除这条规则吗？")) {
+            var par = $(e.target).parents("tr"); //tr
             var tdSrcURL  = par.children("td:nth-child(1)");
             var ruleKey = tdSrcURL.children("input[type=hidden]").val();
             gooDB.deleteRule(ruleKey);
@@ -53,7 +53,7 @@ var gooRuleDAO = new(function() {
     };
     this.toggle = function(e) {
         var toggleBtn = $(e.target);
-        var par = toggleBtn.parent().parent(); //tr
+        var par = toggleBtn.parents("tr"); //tr
         var tdSrcURL  = par.children("td:nth-child(1)");
         var ruleKey   = tdSrcURL.children("input[type=hidden]").val();
         var enable = gooDB.toggleRule(ruleKey);
@@ -67,7 +67,7 @@ var gooRuleDAO = new(function() {
         imageUtil.bindClick("rule_enable");
     }
     this.edit = function(e) {
-        var td = $(e.target).parent(); //td
+        var td = $(e.target).parents("td"); //td
         var par = td.parent(); //tr
         var tdSrcURL  = par.children("td:nth-child(1)"),
             tdKind    = par.children("td:nth-child(2)"),
@@ -80,17 +80,17 @@ var gooRuleDAO = new(function() {
         var srcURLVal = tdSrcURL.children("span").html(),
             ruleKey   = tdSrcURL.children("input[type=hidden]").val(),
             kindVal   = tdKind.children("input[type=hidden]").val(),
-            dstURLVal = tdDstURLOldHtml;
+            dstURLVal = tdDstURL.children("span").html();
 
-        tdSrcURL.html("<input type='text' size='" + srcURLVal.length + "' value='" + srcURLVal + "'/>");
-        var select = "<select><option value='wildcard' selected>通配符</option><option value='regexp'>正则式</option></select>";
+        tdSrcURL.html("<input class='form-control' spellcheck='false' type='text' size='" + srcURLVal.length + "' value='" + srcURLVal + "'/>");
+        var select = "<select class='form-control'><option value='wildcard' selected>通配符</option><option value='regexp'>正则式</option></select>";
         if (kindVal === "regexp") {
-            select = "<select><option value='wildcard'>通配符</option><option value='regexp' selected>正则式</option></select>";
+            select = "<select class='form-control'><option value='wildcard'>通配符</option><option value='regexp' selected>正则式</option></select>";
         };
         tdKind.html(select);
-        tdDstURL.html("<input type='text' size='" + dstURLVal.length + "' value='" + dstURLVal + "'/>");
+        tdDstURL.html("<input class='form-control' spellcheck='false' type='text' size='" + dstURLVal.length + "' value='" + dstURLVal + "'/>");
 
-        td.html(imageUtil.save + imageUtil.undo);
+        td.html("<span>" + imageUtil.save + imageUtil.undo + "</span>");
         imageUtil.bindClick("save", function(e) {
             gooDB.deleteRule(ruleKey);
             gooRuleDAO.save(e);    
@@ -108,7 +108,7 @@ var gooRuleDAO = new(function() {
         addEnterListener();
     }
     this.save = function(e) {
-        var par = $(e.target).parent().parent(); //tr
+        var par = $(e.target).parents("tr"); //tr
         var tdSrcURL  = par.children("td:nth-child(1)"),
             tdKind    = par.children("td:nth-child(2)"),
             tdDstURL  = par.children("td:nth-child(3)"),
@@ -135,8 +135,8 @@ var gooRuleDAO = new(function() {
         gooDB.addRule(gooRule);
         tdSrcURL.html("<span>" + gooRule.getSrcURLLabel() + "</span><input type='hidden' value='" + gooRule.getKey() + "'/>");
         tdKind.html("<span>" + gooRule.getKindLabel() + "</span><input type='hidden' value='" + gooRule.kind + "'/>");
-        tdDstURL.html(gooRule.dstURL);
-        tdButtons.html(imageUtil.rule_disable +  imageUtil.edit + imageUtil["delete"]);
+        tdDstURL.html("<span>" + gooRule.dstURL + "</span>");
+        tdButtons.html("<span>" + imageUtil.rule_disable +  imageUtil.edit + imageUtil["delete"] + "</span>");
 
         imageUtil.bindClick("rule_enable");
         imageUtil.bindClick("edit");
@@ -148,50 +148,62 @@ var imageUtil = new (function() {
     var assets = {
         edit: {
             src: "img/edit.png",
+               glyphicon:"glyphicon-pencil",
+               color:"gold",
             title: "编辑",
             "class": "btnEdit",
             onclick: gooRuleDAO.edit
         },
         save: {
             src: "img/save.png",
+               glyphicon:"glyphicon-floppy-disk",
+               color:"purple",
             title: "保存",    
             "class": "btnSave",
             onclick: gooRuleDAO.save
         },
         undo: {
             src: "img/undo.png",
+               glyphicon:"glyphicon-share-alt",
+               color:"royalblue",
             title: "取消",
             "class": "btnUndo"
         },
         "delete": {
             src: "img/delete.png",
+               glyphicon:"glyphicon-trash",
             title: "删除",
             "class": "btnDelete",
             onclick: gooRuleDAO["delete"]
         },
         rule_enable: {
             src: "img/rule_enable.png",
+               glyphicon:"glyphicon-ok",
+               color:"green",
             title: "开启",
             "class": "btnToggle",
             onclick: gooRuleDAO.toggle
         },
         rule_disable: {
             src: "img/rule_disable.png",
+               glyphicon:"glyphicon-ban-circle",
+               color:"red",
             title: "禁用",
             "class": "btnToggle",
             onclick: gooRuleDAO.toggle
         }
     };
-    var getImageElementByName = function(name) {
+    var getGlyphiconByName = function(name) {
         var res = assets[name];
-        return "<img class='" + res["class"] + "' src='" + res.src + "' title='" + res.title + "' style='cursor: pointer;'/>";   
+          return '<span title="'+res.title+'" class="'+res["class"]+' glyphicon '+res.glyphicon+'" style="font-size:1.5em;text-shadow:0 0 2px gray;color:'+(res.color?res.color:"black")+'"></span>'
+        //return "<img class='" + res["class"] + "' src='" + res.src + "' title='" + res.title + "' style='cursor: pointer;'/>";   
     }
-    this.edit = getImageElementByName("edit");
-    this.save = getImageElementByName("save");
-    this["delete"] = getImageElementByName("delete");
-    this.undo = getImageElementByName("undo");
-    this.rule_enable = getImageElementByName("rule_enable");
-    this.rule_disable = getImageElementByName("rule_disable");
+    this.edit = getGlyphiconByName("edit");
+    this.save = getGlyphiconByName("save");
+    this["delete"] = getGlyphiconByName("delete");
+    this.undo = getGlyphiconByName("undo");
+    this.rule_enable = getGlyphiconByName("rule_enable");
+    this.rule_disable = getGlyphiconByName("rule_disable");
     this.bindClick = function(name, cb) {
         var cls = $("." + assets[name]["class"]);
         cb = cb || assets[name].onclick || function() {};
@@ -203,7 +215,7 @@ var imageUtil = new (function() {
 var addEnterListener = function() {
     $("table.gridtable input[type=text]").keyup(function(e){
         if(e.keyCode == 13){  //Enter键
-            var par = $(e.target).parent().parent(); //tr
+            var par = $(e.target).parents("tr"); //tr
             var tdButtons = par.children("td:nth-child(4)");
             tdButtons.children("img[class=btnSave]").click();
         }
@@ -211,67 +223,70 @@ var addEnterListener = function() {
 }
 var addRow = function() {
     var rowHTML = ["<tr>",
-        "<td><input type='text'/></td>",
-        "<td><select><option value='wildcard'>通配符</option><option value='regexp'>正则式</option></td>",
-        "<td><input type='text'/></td>",
+        "<td><input class='form-control' spellcheck='false' type='text'/></td>",
+        "<td><select class='form-control'><option value='wildcard'>通配符</option><option value='regexp'>正则式</option></td>",
+        "<td><input class='form-control' spellcheck='false' type='text'/></td>",
         "<td>" + imageUtil.save + "</td>",
         "</tr>"].join("");
     $("#rules tbody").append(rowHTML);
     imageUtil.bindClick("save");
     addEnterListener();
+     scrollTo(0,document.body.scrollHeight);
 }
-
 $(function() {
     $("#homepage").click(function() {
         window.open("http://liujiacai.net/gooreplacer/");
     });
+     $("#openURL").click(function() {
+          open($("#onlineURL").val());
+     });
+     $("#reset").click(function() {
+          if(confirm("确定重置在线数据吗？")){
+               gooDB.resetOnline();
+               readOnline();
+          }
+     });
     $("#import").click(function() {
         fileUtil.importRules();
     });
     $("#export").click(function() {
         fileUtil.exportRules();
     });
-    $("#help").click(function() {
-        jQuery.fn.center = function () {
-            this.css("position","absolute");
-            this.css("top", (($(window).height() - this.outerHeight()) / 2) + $(window).scrollTop() + "px");
-            this.css("left", (($(window).width() - this.outerWidth()) / 2) + $(window).scrollLeft() + "px");
-            return this;
-        }
-        $('#config').center().css('top', '-=40px').show();
-    });
     $('#close').click(function() {
         $('#config').hide();
     });
     $("#add").click(addRow);
+     $("#removeAll").click(function(){
+          if(confirm("确定要清空吗？")){
+               gooDB.deleteRule();
+               location.reload();
+          }
+     });
 
-    var onlineURL = gooDB.getOnlineURL();
-    $("#onlineURL").val(onlineURL.url);
-    $("#onlineInterval").val(onlineURL.interval);
-    $("#onlineEnable").val(onlineURL.enable + "");
-    var d = new Date(gooDB.getLastUpdateTime());
-    $("#lastUpdateTime").html(d.toLocaleString());
+    readOnline();
     $("#onlineSave").click(function() {
         var url = $("#onlineURL").val();
         var interval = $("#onlineInterval").val();
-        var enable = $("#onlineEnable").val();
+        var enable = document.getElementById("onlineEnable").checked;
         gooDB.setOnlineURL(new GooOnlineURL(url, interval, enable));
         chrome.runtime.sendMessage({onlineSave: interval}, function(response) {
             alert(response.msg);
         });
     });
     $("#onlineUpdate").click(function() {
-        chrome.runtime.sendMessage({onlineUpdate: "update"}, function(response) {
-            if (response.code === 0) {
-                var d = new Date(parseInt(response.updateTime));
-                $("#lastUpdateTime").html(d.toLocaleString());
-            };
-            alert(response.msg);
-        });
+        chrome.runtime.sendMessage({onlineUpdate: "update"});
     });
 
     initRules();
 });
+function readOnline(){
+     var onlineURL = gooDB.getOnlineURL();
+    $("#onlineURL").val(onlineURL.url);
+    $("#onlineInterval").val(onlineURL.interval);
+    document.getElementById("onlineEnable").checked = onlineURL.enable;
+    var d = new Date(gooDB.getLastUpdateTime());
+    $("#lastUpdateTime").html(d.toLocaleString());
+}
 function initRules() {
     $("#rules tbody").html("");
     var gooRules = gooDB.getRules();
@@ -294,8 +309,8 @@ function initRules() {
         rowHTML.push(
             "<td><span>" + srcURLLabel + "</span><input type='hidden' value='" + srcURLLabel + "'/></td>",
             "<td><span>" + kindLabel + "</span><input type='hidden' value='" + gooRule.kind + "'/></td>",
-            "<td>" + dstURL + "</td>",
-            "<td>" + imageUtil[ruleStatus] + imageUtil.edit + imageUtil["delete"] + "</td>",
+            "<td><span>" + dstURL + "</span></td>",
+            "<td><span>" + imageUtil[ruleStatus] + imageUtil.edit + imageUtil["delete"] + "</span></td>",
             "</tr>");
         $("#rules tbody").append(rowHTML.join(""));
         
@@ -304,3 +319,17 @@ function initRules() {
         imageUtil.bindClick("delete");
     }
 };
+
+// 听到"onlineUpdated"事件，更新信息
+// 改成这样，是为popup.html发出更新，options.html也能接收并更新时间显示、
+chrome.runtime.onMessage.addListener(
+     function(request, sender, sendResponse) {
+          if(request.hasOwnProperty("onlineUpdated")){
+               $("#lastUpdateTime")
+                    .html(new Date(parseInt(request.updateTime))
+                    .toLocaleString());
+          }else if(request.hasOwnProperty("onlineUpdateFail")){
+               
+          }
+     }
+);

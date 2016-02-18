@@ -145,4 +145,8 @@ var gooDB = new (function () {
     this.setIsRedirect = function(isRedirect) {
         return localStorage.setItem(ISREDIRECT_KEY, isRedirect);
     }
+    this.resetOnline = function() {
+        gooDB.setOnlineURL(new GooOnlineURL(online_url.url, online_url.interval, online_url.enable));
+        alert("数据已经重置");
+    }
 });
