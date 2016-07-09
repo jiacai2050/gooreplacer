@@ -1,39 +1,74 @@
 {
     "createBy": "http://liujiacai.net/gooreplacer/",
-    "createAt": "Tue Dec 01 2015 19:42:12 GMT+0800 (CST)",
+    "createAt": "Sat Dec 05 2015 17:06:53 GMT+0800 (CST)",
     "rules": {
-        "ajax.googleapis.com": {
-            "dstURL": "ajax.lug.ustc.edu.cn",
+        "//ajax.googleapis.com": {
+            "dstURL": "//ajax.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": true
         },
-        "fonts.googleapis.com": {
-            "dstURL": "fonts.lug.ustc.edu.cn",
+        "//fonts.googleapis.com": {
+            "dstURL": "//fonts.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": true
         },
-        "themes.googleusercontent.com": {
-            "dstURL": "google-themes.lug.ustc.edu.cn",
+        "//themes.googleusercontent.com": {
+            "dstURL": "//google-themes.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": true
         },
-        "fonts.gstatic.com": {
-            "dstURL": "fonts-gstatic.lug.ustc.edu.cn",
+        "//fonts.gstatic.com": {
+            "dstURL": "//fonts-gstatic.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": true
         },
-        "platform.twitter.com/widgets.js": {
-            "dstURL": "cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/widgets.js",
+        "//platform.twitter.com/widgets.js": {
+            "dstURL": "//cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/widgets.js",
             "kind": "wildcard",
             "enable": true
         },
-        "apis.google.com/js/api.js": {
-            "dstURL": "cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/api.js",
+        "//apis.google.com/js/api.js": {
+            "dstURL": "//cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/api.js",
             "kind": "wildcard",
             "enable": true
         },
-        "apis.google.com/js/plusone.js": {
-            "dstURL": "cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/plusone.js",
+        "//apis.google.com/js/plusone.js": {
+            "dstURL": "//cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/plusone.js",
+            "kind": "wildcard",
+            "enable": true
+        },
+        "//virustotalcloud.appspot.com/static/js/base.min-2013121902.js": {
+            "dstURL": "//cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/virustotalcloud_static/base.min.2013121902__71b97cb515f28420a8cb3708bbf869bda11fb85c.js",
+            "kind": "wildcard",
+            "enable": true
+        },
+        "//virustotalcloud.appspot.com/static/js/bootmin-2013092601.js": {
+            "dstURL": "//cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/virustotalcloud_static/bootmin.2013092601__d80341a36d3bf620e923bbfc4da9718a9c592652.js",
+            "kind": "wildcard",
+            "enable": true
+        },
+        "//virustotalcloud.appspot.com/static/js/indexmin-2015031001.js": {
+            "dstURL": "//cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/virustotalcloud_static/indexmin.2015031001__2a2b12514f1af39c07a14967d3420fb2d1188b77.js",
+            "kind": "wildcard",
+            "enable": true
+        },
+        "//virustotalcloud.appspot.com/static/js/sha256.min-2013111401.js": {
+            "dstURL": "//cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/virustotalcloud_static/sha256.min.2013111401__a99289d875d94a1923fd2a9001c5677622dfa261.js",
+            "kind": "wildcard",
+            "enable": true
+        },
+        "//virustotalcloud.appspot.com/static/img/wait.gif": {
+            "dstURL": "//cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/virustotalcloud_static/wait__428b995c83ddd75fadfc01476fb90d1df5e31766.gif",
+            "kind": "wildcard",
+            "enable": true
+        },
+        "//virustotalcloud.appspot.com/static/js/jquery.stream.js": {
+            "dstURL": "//cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/virustotalcloud_static/jquery.stream__700f59bf4f7c65f81ef435ce011a380cba2bdc26.js",
+            "kind": "wildcard",
+            "enable": true
+        },
+        "//virustotalcloud.appspot.com/static/css/bootstrap.min.css": {
+            "dstURL": "//cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/virustotalcloud_static/bootstrap.min__proxy_201512051641.css",
             "kind": "wildcard",
             "enable": true
         }
