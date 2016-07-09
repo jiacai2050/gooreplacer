@@ -12,6 +12,11 @@
             "kind": "wildcard",
             "enable": true
         },
+        "storage.googleapis.com": {
+            "dstURL": "storage-googleapis.lug.ustc.edu.cn",
+            "kind": "wildcard",
+            "enable": true
+        },
         "themes.googleusercontent.com": {
             "dstURL": "google-themes.lug.ustc.edu.cn",
             "kind": "wildcard",
@@ -19,6 +24,11 @@
         },
         "fonts.gstatic.com": {
             "dstURL": "fonts-gstatic.lug.ustc.edu.cn",
+            "kind": "wildcard",
+            "enable": true
+        },
+        "secure.gravatar.com": {
+            "dstURL": "gravatar.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": true
         },
