@@ -2,7 +2,7 @@
 
 > A replacer for google fonts/api/themes.... to load page faster!
 
-一个用于替换网页中 `Google Fonts/CSS/themes` 等的 Chrome/Firefox 插件，让你快速打开这些页面！
+一个用于替换网页中 `Google Fonts/CSS/themes` 等被墙服务的 Chrome/Firefox 插件，让你快速打开这些页面！
 
 - [Chrome版](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip)
 - [Firefox PC 版](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/)
@@ -14,17 +14,19 @@
 众所周知，Google 在某国造到全面封杀，导致无法访问 Google 的一切资源，如果一个网站引用了 Google 提供的 JS、CSS 库，那么页面加载就会变得巨慢。有图有真相：
 ![](http://liujiacai.net/gooreplacer/images/google-slow.png)
 
-除了 Google 被墙外，还有很多常用服务都被墙，比如：gravatar、twitter 等。
-gooreplacer 的作用就是在浏览器发起请求时，去检查该请求是否为被墙的服务，如果是，替换为国内的 CDN，目前使用的是[科大公共库](https://servers.ustclug.org/2015/09/google-revproxy-add-cache/)。感谢科大！🙏
+除了 Google 被墙外，还有很多常用服务也未能幸免，比如：gravatar、twitter 等。
+gooreplacer 的作用就是在浏览器发起请求时，去检查该请求是否为被墙服务，如果是，替换为国内的 CDN，目前使用的是[科大公共库](https://servers.ustclug.org/2015/09/google-revproxy-add-cache/)。感谢科大！🙏
 
 <a name="usage"></a>
 ## 使用说明
 
-1. 下载后，选中“开启重定向”选择。这样就会按照[默认规则](https://github.com/jiacai2050/gooreplacer4chrome/raw/master/gooreplacer.gson)进行替换替换了。
-![开启重定向](screenshot/turn_on.png)
+1. 下载后，选中“开启重定向”选择。这样就会按照[默认规则](https://github.com/jiacai2050/gooreplacer4chrome/raw/master/gooreplacer.gson)进行替换了。
 
-2. 为了方便自己添加新替换规则，除了[默认的在线规则](https://github.com/jiacai2050/gooreplacer4chrome/raw/master/gooreplacer.gson)外，还可以进行自定义。
-![自定义规则](screenshot/diy.png)
+    ![开启重定向](screenshot/turn_on.png)
+
+2. 除了[默认的在线规则](https://github.com/jiacai2050/gooreplacer4chrome/raw/master/gooreplacer.gson)外，用户还可以根据需要进行自定义本地规则。
+
+    ![自定义规则](screenshot/diy.png)
 
 在自定义规则时，支持两种类型：
 
@@ -63,8 +65,6 @@ baidu.com/$  ----通配符--->  baidu.com/?
 
 - 使用[Chrome extension webRequest](https://developer.chrome.com/extensions/webRequest)模块开发
 - 使用[科大公共库](https://servers.ustclug.org/2014/07/ustc-blog-force-google-fonts-proxy/)开替换Google资源,之前曾使用360公共库，但是[360并不支持https访问](https://servers.ustclug.org/2014/06/blog-googlefonts-speedup/)，所以最终选择了科大。
-
-如果你在使用 gooreplacer 过程中有任何问题与建议，欢迎在 [issue](https://github.com/jiacai2050/gooreplacer4chrome/issues) 中提出，让我们一起把 gooreplacer 做的更好。😊
 
 ## License
 
