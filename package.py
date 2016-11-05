@@ -5,7 +5,7 @@ import os
 os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 browers = ['chrome', 'firefox']
-package_cmd_template = r'zip -x *.DS_Store -r %(dest_zip)s src/*'
+package_cmd_template = r'cd src;zip -x *.DS_Store -r %(dest_zip)s *'
 zip_file = os.path.expanduser('~/Desktop/%s_gooreplacer.zip')
 origin_version = r'"version":.*'
 

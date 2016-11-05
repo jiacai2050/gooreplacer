@@ -8,7 +8,57 @@
 - [Firefox PC 版](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/)
 - [Firefox Android 版](https://github.com/jiacai2050/gooreplacer/tree/android)
 
-如果你在使用 gooreplacer 过程中有任何问题与建议，欢迎在 [issue](https://github.com/jiacai2050/gooreplacer4chrome/issues) 中提出，让我们一起把 gooreplacer 做的更好。😊
+<a name="intro"></a>
+## Why gooreplacer
+
+众所周知，Google 在某国造到全面封杀，导致无法访问 Google 的一切资源，如果一个网站引用了 Google 提供的 JS、CSS 库，那么页面加载就会变得巨慢。有图有真相：
+![](http://liujiacai.net/gooreplacer/images/google-slow.png)
+
+除了 Google 被墙外，还有很多常用服务都被墙，比如：gravatar、twitter 等。
+gooreplacer 的作用就是在浏览器发起请求时，去检查该请求是否为被墙的服务，如果是，替换为国内的 CDN，目前使用的是[科大公共库](https://servers.ustclug.org/2015/09/google-revproxy-add-cache/)。感谢科大！🙏
+
+<a name="usage"></a>
+## 使用说明
+
+1. 下载后，选中“开启重定向”选择。这样就会替换 Google 的服务了。
+
+![开启重定向](screenshot/turn_on.png)
+
+2. 为了方便自己添加新替换规则，除了默认的[在线规则](https://github.com/jiacai2050/gooreplacer4chrome/raw/master/gooreplacer.gson)外，还可以进行自定义。
+
+![自定义规则](screenshot/diy.png)
+
+在自定义规则时，支持两种类型：
+
+- 通配符，在 gooreplacer 内部用`kind: wildcard`标示
+- 正则式，在 gooreplacer 内部用`kind: regexp`标示
+
+### 通配符类型
+
+在通配符类型中，原始URL中可以使用`*`与`?`模糊匹配，如果需要表示这两个字符自身的含义，需要使用`\`进行转义。例如：
+
+```
+www.baidu.com/s\?wd=java   ----通配符--->  www.baidu.com/s?wd=lisp
+```
+
+此外，可以使用`^`、`$`表示字符的开始与结尾。例如：
+
+```
+baidu.com/$  ----通配符--->  baidu.com/?
+```
+这样就能够把`baidu.com/`重定向到`baidu.com/?`了，[据说](http://v2ex.com/t/169967#reply2)，这样能防止劫持吆 -:)
+
+### 正则式类型
+
+在正则式类型中，原始URL中可以使用JS中的[正则表达式](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp)语法定义，目的URL中如果要反引用原始URL中的分组，需要使用$1、$2、$3......。例如：
+
+```
+(weibo|ucloud)\.com  ----正则式--->  $1.cn
+```
+
+这样就把`weibo.com`、`ucloud.com`分别重定向到`weibo.cn`与`ucloud.cn`了。
+
+![DIY_demo](screenshot/diy_demo.png)
 
 <a name="dev"></a>
 ## 开发
@@ -16,7 +66,7 @@
 - 使用[Chrome extension webRequest](https://developer.chrome.com/extensions/webRequest)模块开发
 - 使用[科大公共库](https://servers.ustclug.org/2014/07/ustc-blog-force-google-fonts-proxy/)开替换Google资源,之前曾使用360公共库，但是[360并不支持https访问](https://servers.ustclug.org/2014/06/blog-googlefonts-speedup/)，所以最终选择了科大。
 
-PS：如果你的工作依赖Google Apps，可以试试[CubeBackup](http://www.cubebackup.com/).
+如果你在使用 gooreplacer 过程中有任何问题与建议，欢迎在 [issue](https://github.com/jiacai2050/gooreplacer4chrome/issues) 中提出，让我们一起把 gooreplacer 做的更好。😊
 
 ## License
 
