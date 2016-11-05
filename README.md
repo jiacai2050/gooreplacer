@@ -1,4 +1,4 @@
-## [gooreplacer For Chrome](http://liujiacai.net/gooreplacer)
+## [gooreplacer](http://liujiacai.net/gooreplacer)
 
 > A replacer for google fonts/api/themes.... to load page faster!
 
@@ -59,6 +59,21 @@ baidu.com/$  ----通配符--->  baidu.com/?
 这样就把`weibo.com`、`ucloud.com`分别重定向到`weibo.cn`与`ucloud.cn`了。
 
 ![DIY_demo](screenshot/diy_demo.png)
+
+<a name="test"></a>
+## 测试
+
+在浏览器地址栏中输入以下链接，如果能转到 `lug.ustc.edu.cn` 或 `cdn.rawgit.com` 相应的资源即说明替换成功。
+
+- https://fonts.googleapis.com/css?family=Open+Sans
+- http://fonts.googleapis.com/css?family=Open+Sans
+- http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquerymin.js
+- http://platform.twitter.com/widgets.js
+- http://platform.twitter.com/widgets.js
+- http://apis.google.com/js/api.js
+- http://apis.google.com/js/plusone.js
+- http://www.gravatar.com
+
 
 <a name="dev"></a>
 ## 开发
