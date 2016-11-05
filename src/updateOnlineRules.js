@@ -21,18 +21,18 @@ function fetchRules(cb) {
                         gooDB.addRule(new GooRule(key, jsonRules[key]), db);
                     }
                     var now = Date.now();
-                    gooDB.setLastUpdateTime(now);    
-                    cb({code: 0, msg: "更新成功！", updateTime: now});
+                    gooDB.setLastUpdateTime(now);
+                    cb({code: 0, msg: `在线规则更新成功！更新时间：${new Date(now).toLocaleString()}`, updateTime: now});
                 } else {
-                    cb({code: xhr.status, msg: "更新失败！Status Code: " + xhr.status});
+                    cb({code: xhr.status, msg: `更新失败！http_status_code: ${xhr.status}`});
                 }
             }
         }
-        xhr.send();    
+        xhr.send();
     };
 }
 chrome.alarms.onAlarm.addListener(function (alarm) {
-    if(alarmName === alarm.name) {     
+    if(alarmName === alarm.name) {
         fetchRules();
     }
 });

@@ -90,10 +90,10 @@ var gooRuleDAO = new(function() {
         tdKind.html(select);
         tdDstURL.html("<input class='form-control' spellcheck='false' type='text' size='" + dstURLVal.length + "' value='" + dstURLVal + "'/>");
 
-        td.html("<span>" + imageUtil.save + imageUtil.undo + "</span>");
+        td.html(imageUtil.save + imageUtil.undo);
         imageUtil.bindClick("save", function(e) {
             gooDB.deleteRule(ruleKey);
-            gooRuleDAO.save(e);    
+            gooRuleDAO.save(e);
         });
         imageUtil.bindClick("undo", function() {
             tdSrcURL.html(tdSrcURLOldHtml);
@@ -158,7 +158,7 @@ var imageUtil = new (function() {
             src: "img/save.png",
                glyphicon:"glyphicon-floppy-disk",
                color:"purple",
-            title: "保存",    
+            title: "保存",
             "class": "btnSave",
             onclick: gooRuleDAO.save
         },
@@ -196,7 +196,7 @@ var imageUtil = new (function() {
     var getGlyphiconByName = function(name) {
         var res = assets[name];
           return '<span title="'+res.title+'" class="'+res["class"]+' glyphicon '+res.glyphicon+'" style="font-size:1.5em;text-shadow:0 0 2px gray;color:'+(res.color?res.color:"black")+'"></span>'
-        //return "<img class='" + res["class"] + "' src='" + res.src + "' title='" + res.title + "' style='cursor: pointer;'/>";   
+        //return "<img class='" + res["class"] + "' src='" + res.src + "' title='" + res.title + "' style='cursor: pointer;'/>";
     }
     this.edit = getGlyphiconByName("edit");
     this.save = getGlyphiconByName("save");
@@ -213,11 +213,11 @@ var imageUtil = new (function() {
     }
 });
 var addEnterListener = function() {
-    $("table.gridtable input[type=text]").keyup(function(e){
+    $("table#rules input[type=text]").keyup(function(e){
         if(e.keyCode == 13){  //Enter键
             var par = $(e.target).parents("tr"); //tr
             var tdButtons = par.children("td:nth-child(4)");
-            tdButtons.children("img[class=btnSave]").click();
+            tdButtons.children("span").click();
         }
     });
 }
@@ -241,7 +241,7 @@ $(function() {
           open($("#onlineURL").val());
      });
      $("#reset").click(function() {
-          if(confirm("确定重置在线数据吗？")){
+          if(confirm("确定重置在线规则吗？")){
                gooDB.resetOnline();
                readOnline();
           }
@@ -257,7 +257,7 @@ $(function() {
     });
     $("#add").click(addRow);
      $("#removeAll").click(function(){
-          if(confirm("确定要清空吗？")){
+          if(confirm("确定要删除所有本地规则吗？")){
                gooDB.deleteRule();
                location.reload();
           }
@@ -274,13 +274,19 @@ $(function() {
         });
     });
     $("#onlineUpdate").click(function() {
-        chrome.runtime.sendMessage({onlineUpdate: "update"});
+        chrome.runtime.sendMessage({onlineUpdate: "update"}, function(response) {
+            if (response.isOK) {
+                var updateTime = new Date(response.updateTime).toLocaleString();
+                $("#lastUpdateTime").html(updateTime);
+            }
+            alert(response.msg);
+        });
     });
 
     initRules();
 });
 function readOnline(){
-     var onlineURL = gooDB.getOnlineURL();
+    var onlineURL = gooDB.getOnlineURL();
     $("#onlineURL").val(onlineURL.url);
     $("#onlineInterval").val(onlineURL.interval);
     document.getElementById("onlineEnable").checked = onlineURL.enable;
@@ -313,23 +319,9 @@ function initRules() {
             "<td><span>" + imageUtil[ruleStatus] + imageUtil.edit + imageUtil["delete"] + "</span></td>",
             "</tr>");
         $("#rules tbody").append(rowHTML.join(""));
-        
+
         imageUtil.bindClick(ruleStatus);
         imageUtil.bindClick("edit");
         imageUtil.bindClick("delete");
     }
 };
-
-// 听到"onlineUpdated"事件，更新信息
-// 改成这样，是为popup.html发出更新，options.html也能接收并更新时间显示、
-chrome.runtime.onMessage.addListener(
-     function(request, sender, sendResponse) {
-          if(request.hasOwnProperty("onlineUpdated")){
-               $("#lastUpdateTime")
-                    .html(new Date(parseInt(request.updateTime))
-                    .toLocaleString());
-          }else if(request.hasOwnProperty("onlineUpdateFail")){
-               
-          }
-     }
-);

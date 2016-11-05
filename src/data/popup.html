@@ -1,28 +1,38 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <link rel="shortcut icon" href="img/gooreplacer.ico">
     <script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
     <script type="text/javascript" src="js/db.js"></script>
     <script type="text/javascript" src="js/popup.js"></script>
-    <link rel="stylesheet" href="css/bootstrap.min.css" >
-    <link rel="stylesheet" href="css/bootstrap-theme.min.css" >
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
     <style type="text/css">
-        body{-webkit-user-select:none}
-        header{font-size:2em;margin-bottom:0.5em;padding:8px 16px}
-        input[type=checkbox]{margin-right:8px}
-        footer{margin-top:1em;padding:8px}
+        body {
+            -webkit-user-select: none
+        }
+
+        header {
+            font-size: 2em;
+            margin-bottom: 0.5em;
+            padding: 8px 16px;
+            cursor: pointer;
+        }
+
+        input[type=checkbox] {
+            margin-right: 8px;
+        }
     </style>
 </head>
+
 <body>
-<header class="btn-info navbar-static-top text-center">gooreplacer</header>
-<main class="container ">
-    <label  class="lead"><input type="checkbox" id="toggle"/>开启重定向</label>
-    <button class="btn btn-block btn-primary"   id="update">更新在线规则</button>
-</main>
-<footer class="navbar-inverse navbar-static-top">
-    <button id="gosetting" class="btn btn-block btn-default">自定义规则</button>
-</footer>
+    <header class="btn-info navbar-static-top text-center">gooreplacer</header>
+    <main class="container">
+        <label class="lead"><input type="checkbox" id="toggle"/>开启重定向</label>
+        <button id="gosetting" class="btn btn-block btn-default">自定义规则</button>
+    </main>
 </body>
+
 </html>

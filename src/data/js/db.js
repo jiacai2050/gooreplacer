@@ -18,7 +18,7 @@ var GooRule = function(srcURL, dstObj) {
         return this.kind === WILDCARD;
     }
     this.srcURL = this.isWildcard() ? replaceWildcard(srcURL) : srcURL;
-    
+
     this.toJson = function() {
         var json = {};
         json[this.getKey()] = this.getValue();
@@ -31,8 +31,8 @@ var GooRule = function(srcURL, dstObj) {
         return {
             dstURL : this.dstURL,
             kind: this.kind,
-            enable : this.enable    
-        }; 
+            enable : this.enable
+        };
     }
     this.getKindLabel = function() {
         if (this.isWildcard()) {
@@ -56,7 +56,7 @@ var GooOnlineURL = function(url, interval, enable) {
     this.toJson = function() {
         return {
             url: this.url,
-            interval: this.interval, 
+            interval: this.interval,
             enable: this.enable
         };
     }
@@ -67,11 +67,11 @@ var gooDB = new (function () {
         ISREDIRECT_KEY = "isRedirect";
     var ONLINE_URL_KEY = "onlineRulesURL",
         online_url = {
-            url: "https://raw.githubusercontent.com/jiacai2050/gooreplacer4chrome/master/gooreplacer.gson", 
-            interval: 60, 
+            url: "https://raw.githubusercontent.com/jiacai2050/gooreplacer4chrome/master/gooreplacer.gson",
+            interval: 60,
             enable: true
         };
-    var LAST_UPDATE_KEY = "onlineLastUpdateTime";    
+    var LAST_UPDATE_KEY = "onlineLastUpdateTime";
     var ONLINE_RULES_KEY = "onlineRules";
     this.init = function() {
         if(!localStorage.getItem(ISREDIRECT_KEY)) {
@@ -119,7 +119,7 @@ var gooDB = new (function () {
         var jsonRules = JSON.parse(localStorage.getItem(db));
         if (ruleKey) {
             delete jsonRules[ruleKey];
-            localStorage.setItem(db, JSON.stringify(jsonRules));    
+            localStorage.setItem(db, JSON.stringify(jsonRules));
         } else {
             //如果 ruleKey == null， 清空之前的所有规则
             localStorage.removeItem(db);
@@ -136,7 +136,7 @@ var gooDB = new (function () {
         var db = db || RULES_KEY;
         var jsonRules = JSON.parse(localStorage.getItem(db));
         jsonRules[ruleKey]["enable"] = ! jsonRules[ruleKey]["enable"];
-        localStorage.setItem(db, JSON.stringify(jsonRules));   
+        localStorage.setItem(db, JSON.stringify(jsonRules));
         return jsonRules[ruleKey]["enable"];
     }
     this.getIsRedirect = function() {
@@ -147,6 +147,6 @@ var gooDB = new (function () {
     }
     this.resetOnline = function() {
         gooDB.setOnlineURL(new GooOnlineURL(online_url.url, online_url.interval, online_url.enable));
-        alert("数据已经重置");
+        alert("在线规则已经重置！");
     }
 });
