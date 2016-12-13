@@ -16,6 +16,17 @@ def update_manifest_version(new_version):
     print(cmd)
     os.system(cmd)
 
+
+def update_online_status_to_false():
+    cmd = "sed -i '' 's#enable: true#enable: false#' src/data/js/db.js"
+    print(cmd)
+    os.system(cmd)
+
+def restore_online_status():
+    cmd = "sed -i '' 's#enable: false#enable: true#' src/data/js/db.js"
+    print(cmd)
+    os.system(cmd)
+
 if __name__ == '__main__':
     for brower in browers:
         with open('%s_version.txt' % brower) as f:
@@ -29,11 +40,17 @@ if __name__ == '__main__':
             print('remove old zip %s' % dest_zip)
             os.remove(dest_zip)
 
+        if brower == 'firefox':
+            update_online_status_to_false()
+
         cmd = package_cmd_template % {
             "dest_zip": dest_zip
         }
         print(cmd)
         os.system(cmd)
+
+        if brower == 'firefox':
+            restore_online_status()
 
     # 还原为初始化状态
     update_manifest_version('1.0')

@@ -29,7 +29,12 @@ chrome.runtime.onMessage.addListener(
             return true;
         } else if (request.hasOwnProperty("onlineSave")) {
             chrome.alarms.clear(alarmName, function(wasCleared) {
-                if (wasCleared) {
+                var updateInterval = parseInt(request["onlineSave"]);
+                if (updateInterval === 0) {
+                    sendResponse({
+                        msg: "关闭自动更新！"
+                    });
+                } else {
                     chrome.alarms.create(alarmName, {
                         when: Date.now() + 5000,
                         periodInMinutes: parseInt(request["onlineSave"])
@@ -37,13 +42,8 @@ chrome.runtime.onMessage.addListener(
                     sendResponse({
                         msg: "设置成功！更新频率为：" + request["onlineSave"] + "分钟"
                     });
-                } else {
-                    chrome.alarms.get(alarmName, function(alarm) {
-                        sendResponse({
-                            msg: "设置失败！更新频率为：" + alarm.periodInMinutes + "分钟"
-                        });
-                    });
                 }
+
             });
             return true;
         }

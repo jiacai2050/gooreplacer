@@ -1,10 +1,5 @@
-var alarmName = "updateOnlineRules",
-       interval = gooDB.getOnlineURL().interval;
+var alarmName = "updateOnlineRules";
 
-chrome.alarms.create(alarmName, {
-    when: Date.now() + 5000,
-    periodInMinutes: parseInt(interval)
-});
 function fetchRules(cb) {
     cb = cb || function () {};
     var onlineURL = gooDB.getOnlineURL().url;
@@ -31,6 +26,11 @@ function fetchRules(cb) {
         xhr.send();
     };
 }
+
+chrome.alarms.create(alarmName, {
+    when: Date.now() + 5000
+});
+
 chrome.alarms.onAlarm.addListener(function (alarm) {
     if(alarmName === alarm.name) {
         fetchRules();

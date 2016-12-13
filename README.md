@@ -14,13 +14,13 @@
 众所周知，Google 在某国造到全面封杀，导致无法访问 Google 的一切资源，如果一个网站引用了 Google 提供的 JS、CSS 库，那么页面加载就会变得巨慢。有图有真相：
 ![](http://liujiacai.net/gooreplacer/images/google-slow.png)
 
-除了 Google 被墙外，还有很多常用服务也未能幸免，比如：gravatar、twitter 等。
-gooreplacer 的作用就是在浏览器发起请求时，去检查该请求是否为被墙服务，如果是，替换为国内的 CDN，目前使用的是[科大公共库](https://servers.ustclug.org/2015/09/google-revproxy-add-cache/)。感谢科大！🙏
+除了 Google 被墙外，很多国外常用服务也未能幸免，比如：gravatar、twitter 等。
+gooreplacer 的作用就是在浏览器发起请求时，去检查该请求是否为被墙服务，如果是，替换为国内的反向代理，目前使用的是[科大公共库](https://servers.ustclug.org/2015/09/google-revproxy-add-cache/)。感谢科大！🙏
 
 <a name="usage"></a>
 ## 使用说明
 
-1. 下载后，选中“开启重定向”选择。这样就会按照[默认规则](https://github.com/jiacai2050/gooreplacer4chrome/raw/master/gooreplacer.gson)进行替换了。
+1. 下载后，选中“开启重定向”。这样就会按照[默认规则](https://github.com/jiacai2050/gooreplacer4chrome/raw/master/gooreplacer.gson)进行替换了。
 
     ![开启重定向](screenshot/turn_on.png)
 
@@ -67,7 +67,7 @@ baidu.com/$  ----通配符--->  baidu.com/?
 
 - https://fonts.googleapis.com/css?family=Open+Sans
 - http://fonts.googleapis.com/css?family=Open+Sans
-- http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquerymin.js
+- http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js
 - http://platform.twitter.com/widgets.js
 - http://platform.twitter.com/widgets.js
 - http://apis.google.com/js/api.js
