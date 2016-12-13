@@ -6,11 +6,24 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.min.css" >
     <link rel="stylesheet" href="css/bootstrap-theme.min.css" >
-    <link rel="stylesheet" type="text/css" href="css/options.css">
+    <link rel="stylesheet" href="css/jquery-ui.min.css">
+    <link rel="stylesheet" href="css/options.css">
     <script type="text/javascript" src="js/jquery-2.2.0.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.js"></script>
     <script type="text/javascript" src="js/db.js"></script>
     <script type="text/javascript" src="js/options.js"></script>
+    <style type="text/css">
+      #loadingScreen {
+          background: url(img/ajax-loader.gif) no-repeat 5px 8px;
+          padding-left: 25px;
+      }
+      /* hide the close x on the loading screen */
+      .loadingScreenWindow .ui-dialog-titlebar-close {
+          display: none;
+      }
+    </style>
+
 </head>
 <body class="container">
     <div class="jumbotron">
@@ -129,5 +142,7 @@
         </div>
     </div>
     <!-- 结束 -->
+
+    <div id="loadingScreen"></div>
 </body>
 </html>

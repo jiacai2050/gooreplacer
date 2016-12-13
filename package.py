@@ -18,12 +18,14 @@ def update_manifest_version(new_version):
 
 
 def update_online_status_to_false():
-    cmd = "sed -i '' 's#enable: true#enable: false#' src/data/js/db.js"
+    cmd = ("sed -i '' 's#localStorage.setItem(ISREDIRECT_KEY, true);#"
+           "localStorage.setItem(ISREDIRECT_KEY, false);#' src/data/js/db.js")
     print(cmd)
     os.system(cmd)
 
 def restore_online_status():
-    cmd = "sed -i '' 's#enable: false#enable: true#' src/data/js/db.js"
+    cmd = ("sed -i '' 's#localStorage.setItem(ISREDIRECT_KEY, false);#"
+           "localStorage.setItem(ISREDIRECT_KEY, true);#' src/data/js/db.js")
     print(cmd)
     os.system(cmd)
 

@@ -274,16 +274,39 @@ $(function() {
         });
     });
     $("#onlineUpdate").click(function() {
+        $("#loadingScreen").dialog('option', 'title', '规则加载中，请稍等.....');
+        $("#loadingScreen").dialog('open');
         chrome.runtime.sendMessage({onlineUpdate: "update"}, function(response) {
             if (response.isOK) {
                 var updateTime = new Date(response.updateTime).toLocaleString();
                 $("#lastUpdateTime").html(updateTime);
             }
+            $("#loadingScreen").dialog('close');
             alert(response.msg);
         });
     });
 
     initRules();
+
+    // create the loading window and set autoOpen to false
+    $("#loadingScreen").dialog({
+        autoOpen: false,    // set this to false so we can manually open it
+        dialogClass: "loadingScreenWindow",
+        closeOnEscape: false,
+        draggable: false,
+        minHeight: 150,
+        modal: true,
+        buttons: {},
+        resizable: false,
+        open: function() {
+            // scrollbar fix for IE
+            $('body').css('overflow','hidden');
+        },
+        close: function() {
+            // reset overflow
+            $('body').css('overflow','auto');
+        }
+    }); // end of dialog
 });
 function readOnline(){
     var onlineURL = gooDB.getOnlineURL();
