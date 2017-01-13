@@ -37,10 +37,10 @@
             "kind": "wildcard",
             "enable": true
         },
-        "apis.google.com/js/plusone.js": {
-            "dstURL": "cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/plusone.js",
+        "babelstone.blogspot.com": {
+            "dstURL": "babelstone.co.uk/Blog",
             "kind": "wildcard",
             "enable": true
-        }
+        },
     }
 }
