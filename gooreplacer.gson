@@ -1,29 +1,44 @@
 {
     "createBy": "http://liujiacai.net/gooreplacer/",
-    "createAt": "Tue Dec 01 2015 19:42:12 GMT+0800 (CST)",
+    "createAt": "Tue Jan 10 2017 17:45:39 GMT+0000",
     "rules": {
         "ajax.googleapis.com": {
-            "dstURL": "ajax.lug.ustc.edu.cn",
+            "dstURL": "ajax.proxy.ustclug.org",
             "kind": "wildcard",
             "enable": true
         },
         "fonts.googleapis.com": {
-            "dstURL": "fonts.lug.ustc.edu.cn",
+            "dstURL": "fonts.proxy.ustclug.org",
+            "kind": "wildcard",
+            "enable": true
+        },
+        "storage.googleapis.com": {
+            "dstURL": "storage-googleapis.proxy.ustclug.org",
+            "kind": "wildcard",
+            "enable": true
+        },
+        "gerrit.googlesource.com": {
+            "dstURL": "gerrit-googlesource.proxy.ustclug.org",
             "kind": "wildcard",
             "enable": true
         },
         "themes.googleusercontent.com": {
-            "dstURL": "google-themes.lug.ustc.edu.cn",
+            "dstURL": "google-themes.proxy.ustclug.org",
             "kind": "wildcard",
             "enable": true
         },
         "fonts.gstatic.com": {
-            "dstURL": "fonts-gstatic.lug.ustc.edu.cn",
+            "dstURL": "fonts-gstatic.proxy.ustclug.org",
             "kind": "wildcard",
             "enable": true
         },
         "www.gravatar.com": {
-            "dstURL": "gravatar.lug.ustc.edu.cn",
+            "dstURL": "gravatar.proxy.ustclug.org",
+            "kind": "wildcard",
+            "enable": true
+        },
+        "secure.gravatar.com": {
+            "dstURL": "gravatar.proxy.ustclug.org",
             "kind": "wildcard",
             "enable": true
         },
