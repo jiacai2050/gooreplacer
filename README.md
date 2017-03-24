@@ -1,3 +1,7 @@
+## WARN
+
+Firefox PC 较新版（2.0之后）没能通过 Mozilla 审核，他们认为重定向 JS 文件对用户危害较大（[review 流程邮件](https://drive.google.com/file/d/0B7zV3Ct1fa9dMWNPX05VREtDbkNRNk9neWtkLVctZ1B2ckZV/view)），不过幸好 Mozilla 提供了 [self-host](https://developer.mozilla.org/en-US/Add-ons/Distribution#Signing_your_add-on) 机制，想使用最新版的可直接下载 [gooreplacer-2.2-an+fx.xpi](src/web-ext-artifacts/gooreplacer-2.2-an+fx.xpi) 后拖到 Firefox 中即可。
+
 ## [gooreplacer](http://liujiacai.net/gooreplacer)
 
 > A replacer for google fonts/api/themes.... to load page faster!
@@ -7,6 +11,7 @@
 - [Chrome版](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip)
 - [Firefox PC 版](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/)
 - [Firefox Android 版](https://github.com/jiacai2050/gooreplacer/tree/android)
+
 
 <a name="intro"></a>
 ## Why gooreplacer
