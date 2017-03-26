@@ -68,16 +68,15 @@ baidu.com/$  ----通配符--->  baidu.com/?
 <a name="test"></a>
 ## 测试
 
-在浏览器地址栏中输入以下链接，如果能转到 `lug.ustc.edu.cn` 或 `cdn.rawgit.com` 相应的资源即说明替换成功。
+在浏览器地址栏中输入以下链接，如果能转到 `proxy.ustclug.org` 或 `cdn.rawgit.com` 相应的资源即说明替换成功。
 
-- https://fonts.googleapis.com/css?family=Open+Sans
-- http://fonts.googleapis.com/css?family=Open+Sans
-- http://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js
-- http://platform.twitter.com/widgets.js
-- http://platform.twitter.com/widgets.js
-- http://apis.google.com/js/api.js
-- http://apis.google.com/js/plusone.js
-- http://www.gravatar.com
+- https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js
+- https://storage.googleapis.com/io13/gcs_import/index.html
+- https://gerrit.googlesource.com
+- https://www.gravatar.com
+- https://apis.google.com/js/api.js
+- https://apis.google.com/js/plusone.js
+- https://platform.twitter.com/widgets.js
 
 
 <a name="dev"></a>

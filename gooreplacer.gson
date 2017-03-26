@@ -7,11 +7,6 @@
             "kind": "wildcard",
             "enable": true
         },
-        "fonts.googleapis.com": {
-            "dstURL": "fonts.proxy.ustclug.org",
-            "kind": "wildcard",
-            "enable": true
-        },
         "storage.googleapis.com": {
             "dstURL": "storage-googleapis.proxy.ustclug.org",
             "kind": "wildcard",
@@ -24,11 +19,6 @@
         },
         "themes.googleusercontent.com": {
             "dstURL": "google-themes.proxy.ustclug.org",
-            "kind": "wildcard",
-            "enable": true
-        },
-        "fonts.gstatic.com": {
-            "dstURL": "fonts-gstatic.proxy.ustclug.org",
             "kind": "wildcard",
             "enable": true
         },
