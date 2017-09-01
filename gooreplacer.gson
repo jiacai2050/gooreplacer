@@ -22,16 +22,6 @@
             "kind": "wildcard",
             "enable": true
         },
-        "www.gravatar.com": {
-            "dstURL": "gravatar.proxy.ustclug.org",
-            "kind": "wildcard",
-            "enable": true
-        },
-        "secure.gravatar.com": {
-            "dstURL": "gravatar.proxy.ustclug.org",
-            "kind": "wildcard",
-            "enable": true
-        },
         "platform.twitter.com/widgets.js": {
             "dstURL": "cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/widgets.js",
             "kind": "wildcard",
