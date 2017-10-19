@@ -36,6 +36,11 @@
             "dstURL": "cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/plusone.js",
             "kind": "wildcard",
             "enable": true
+        },
+        "google.com/recaptcha/api.js": {
+            "dstURL": "recaptcha.net/recaptcha/api.js",
+            "kind": "wildcard",
+            "enable": true
         }
     }
 }
