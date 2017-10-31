@@ -65,26 +65,56 @@ baidu.com/$  ----通配符--->  baidu.com/?
       "src": "v2ex.pub",
       "kind": "wildcard",
       "name": "Cookie",
-      "value": "ljc=very good",
+      "value": "gooreplacer=very good",
       "op": "modify",
       "enable": true
     }
   ],
   "response-headers": [
     {
-      "src": "v2ex.pub",
+      "src": "liujiacai.net",
       "kind": "wildcard",
-      "name": "content-type",
+      "name": "server",
       "op": "cancel",
       "enable": true
     }
   ]
 }
 ```
-对于规则中一些字段的枚举值：
+规则中一些字段含义：
 
 - `kind`: `wildcard`表示通配符，`regexp`表示正则式
 - `op`: `modify`表示修改 header，`cancel`表示删除 header
+- `name` header name，不区分大小写
+
+> NOTE: 为于老版本兼容，重定向规则的 key 也可以为 `rules`，格式如下：
+
+```
+"rules": {
+  "ajax.googleapis.com": {
+    "dstURL": "ajax.proxy.ustclug.org",
+    "enable": true,
+    "kind": "wildcard"
+  }
+}
+```
+
+根据 [Google Extension 文档](https://developer.chrome.com/extensions/webRequest)，以下 headers 不支持修改：
+
+- Authorization
+- Cache-Control
+- Connection
+- Content-Length
+- Host
+- If-Modified-Since
+- If-None-Match
+- If-Range
+- Partial-Data
+- Pragma
+- Proxy-Authorization
+- Proxy-Connection
+- Transfer-Encoding
+
 
 ## 迁移指南（v1.0-->v2.0）
 
