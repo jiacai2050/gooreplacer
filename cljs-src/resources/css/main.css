@@ -1,0 +1,12 @@
+body {
+    height: 100%;
+    background: -webkit-linear-gradient(top , #afcffe, #fff) no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+h2, h4 {
+    text-shadow: white 0.1em 0.1em 0.1em;
+    margin: 20px 0 0;
+    color: #555;
+}
+.jumbotron {
+  color: inhert;
+}

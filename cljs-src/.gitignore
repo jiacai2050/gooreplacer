@@ -1,0 +1,17 @@
+/target
+/classes
+/checkouts
+pom.xml
+pom.xml.asc
+*.jar
+*.class
+/.lein-*
+/.nrepl-port
+.hgignore
+.hg/
+.figwheel_*.log
+.cljs_rhino_repl
+doo-index.html
+node_modules/
+out/
+package-lock.json
