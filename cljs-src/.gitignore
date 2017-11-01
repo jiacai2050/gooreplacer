@@ -15,3 +15,5 @@ doo-index.html
 node_modules/
 out/
 package-lock.json
+resources/release/background/main.js
+resources/release/option/main.js

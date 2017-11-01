@@ -14,7 +14,7 @@
                     true))
     (.addListener js/chrome.browserAction.onClicked
                   (fn [_]
-                    (go (>! msg-ch #js {"url" "option/index.html"}))))
+                    (go (>! msg-ch #js {"url" "../option/index.html"}))))
     (go-loop []
       (match [(js->clj (<! msg-ch) :keywordize-keys true)]
              [{:url url}] (.create js/chrome.tabs (clj->js {:url url}))
