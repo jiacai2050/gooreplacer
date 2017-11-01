@@ -1,9 +1,7 @@
-## 功能介绍
+[English version](../README-en.md)
 
-本插件所有的功能依赖于 [webRequest](https://developer.chrome.com/extensions/webRequest) 接口，主要有以下两个功能：
+-------
 
-1. 重定向、删除某些 URL
-2. 修改、删除某些 http headers
 
 ## 匹配方式
 
@@ -141,5 +139,3 @@ console.log(JSON.stringify({"rules": exportRules}, null , 2));
 回车运行，会打印出本地规则，新建`gooreplacer.gson`文件，保存上面输出的内容，之后在导入时选择这个文件即可恢复原有规则。
 
 PS：如果在迁移过程中有任何问题，可以提 issue，我会尽量协助大家迁移。
-
-

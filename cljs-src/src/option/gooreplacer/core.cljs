@@ -31,10 +31,11 @@
      [bs/tab {:title "Request/Response Headers" :event-key 3} [lr/header-rules-table]]]))
 
 (defn main-body []
-  [:div.container
-   [top-menu]
-   [configure-online-form]
-   [tabs]])
+  [ant/locale-provider {:locale (ant/locales "en_US")}
+   [:div.container
+    [top-menu]
+    [configure-online-form]
+    [tabs]]])
 
 (r/render
  [main-body]

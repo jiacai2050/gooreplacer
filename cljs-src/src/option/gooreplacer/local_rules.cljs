@@ -54,9 +54,13 @@
                                                                                                          @which-db))}]))}
    {:title "Actions" :render (fn [_ record _] (r/as-element 
                                                [ant/button {:icon "delete" :type "danger"
-                                                            :on-click #(reset! which-db
-                                                                               (remove (fn [rule] (current-row? record rule))
-                                                                                       @which-db))}]))}])
+                                                            :on-click #(ant/modal-confirm {:title "Do you want delele this rule?"
+                                                                                           :on-ok (fn [] (reset! which-db
+                                                                                                                 (remove (fn [rule] (current-row? record rule))
+                                                                                                                         @which-db))
+                                                                                                    ;; https://ant.design/components/modal/
+                                                                                                    ;; return a Promise to close the dialog
+                                                                                                    (.resolve js/Promise 0))})}]))}])
 
 (defn gen-rules-table [{:keys [table-title columns add-new-form which-db switch row-key]}]
   (fn []
@@ -137,7 +141,7 @@
           [ant/form-item {:label "Source"}
            (ant/decorate-field new-rule-form "src" {:rules [{:required true}]}
                                [ant/input])]
-          [ant/form-item {:label "kind"}
+          [ant/form-item {:label "Kind"}
            (ant/decorate-field new-rule-form "kind" {:initial-value "wildcard"}
                                [ant/select kind-select-opts])]
           [ant/form-item {:label "Operation"}
@@ -145,10 +149,10 @@
                                [ant/select op-select-opts])]
           [ant/form-item {:label "Header name"}
            (ant/decorate-field new-rule-form "name" {:rules [{:required true}]}
-                               [ant/input])]
+                               [ant/input {:placeholder "case-insensitive"}])]
           [ant/form-item {:label "Header value"}
            (ant/decorate-field new-rule-form "value" {:rules [{:required false}]}
-                               [ant/input {:placeholder "When operation is cancel, This can be ignored."}])]
+                               [ant/input {:placeholder "Ignore this if operation is cancel"}])]
           [ant/form-item {:label "Enable"}
            (ant/decorate-field new-rule-form "enable" {:value-prop-name "checked" :initial-value true}
                                [ant/checkbox])]
