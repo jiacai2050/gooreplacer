@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cd "$(cd `dirname $0`;pwd)"
+
 set -x
 rm resources/release/option/main.js*
 rm resources/release/background/main.js*

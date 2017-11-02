@@ -57,9 +57,7 @@
               :cancel-rules (map tool/decode-rule (db/read-cancel-rules))
               :request-headers (map tool/decode-rule (db/read-request-headers))
               :response-headers (map tool/decode-rule (db/read-response-headers))}
-        js-data (clj->js data)
-        content-type "application/json"
-        content (js/Blob. [(.stringify js/JSON js-data nil 2)] (clj->js {:type content-type}))
-        file-export (gdom/getElement "gsonExport")]
-    (set! (.-href file-export) (.createObjectURL js/window.URL content))
-    (.click file-export)))
+        content (js/Blob. [(.stringify js/JSON (clj->js data) nil 2)] (clj->js {:type "application/json"}))]
+    (.download js/chrome.downloads (clj->js {:url (.createObjectURL js/window.URL content)
+                                             :saveAs true
+                                             :filename "gooreplacer.gson"}))))

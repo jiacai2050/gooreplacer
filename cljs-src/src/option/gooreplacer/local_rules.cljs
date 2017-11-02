@@ -3,6 +3,7 @@
             [reagent.core :as r]
             [gooreplacer.bootstrap :as bs]
             [gooreplacer.db :as db]
+            [gooreplacer.tool :as tool]
             [clojure.string :as str]
             [gooreplacer.tool :as tool]))
 
@@ -110,7 +111,7 @@
                                                                                                                        (:src (tool/decode-rule (js->clj record :keywordize-keys true)))))
                                       (gen-editable-column "Destination" "dst" db/redirect-rules current-row?)]
                                      (gen-common-columns db/redirect-rules current-row?)))
-                    :table-title "Redirect URL"
+                    :table-title "Redirect Rules"
                     :add-new-form (gen-new-url-form db/append-redirect-rules! true)
                     :which-db db/redirect-rules
                     :switch :redirect-enabled?
@@ -121,7 +122,7 @@
                                (into [(gen-editable-column "Source" "src" db/cancel-rules current-row? :display-fn (fn [record]
                                                                                                                      (:src (tool/decode-rule (js->clj record :keywordize-keys true)))))]
                                      (gen-common-columns db/cancel-rules current-row?)))
-                    :table-title "Cancel URL"
+                    :table-title "Cancel Rules"
                     :add-new-form (gen-new-url-form db/append-cancel-rules! false)
                     :which-db  db/cancel-rules
                     :switch :cancel-enabled?
@@ -187,10 +188,39 @@
                     :switch switch
                     :row-key #(str (aget % "src") (aget % "op"))}))
 
-(def request-header-rules-table (gen-headers-table "Request Header" db/request-headers :req-headers-enabled? db/append-request-headers!))
-(def response-header-rules-table (gen-headers-table "Response Header" db/response-headers :res-headers-enabled? db/append-response-headers!))
+(def request-header-rules-table (gen-headers-table "Request Header Rules " db/request-headers :req-headers-enabled? db/append-request-headers!))
+(def response-header-rules-table (gen-headers-table "Response Header Rules" db/response-headers :res-headers-enabled? db/append-response-headers!))
 
 (defn header-rules-table []
   [:div
    [request-header-rules-table]
    [response-header-rules-table]])
+
+(defn sandbox []
+  [ant/card (ant/create-form
+             (fn []
+               (let [sandbox-form (ant/get-form)]
+                 [ant/form {:layout "vertical"}
+                  [ant/form-item {:label "Test URL" :extra "Test redirect/cancel rules here. Headers rules not supported now."}
+                   (ant/decorate-field sandbox-form "test-url" {:rules [{:required true}]}
+                                       [ant/input {:placeholder "example.com"}])]
+                  [ant/form-item
+                   [ant/button {:type "primary" :on-click #(ant/validate-fields sandbox-form {:force true} (fn [err vals]
+                                                                                                             (when-not err
+                                                                                                               (let [{:keys [test-url]} (js->clj vals :keywordize-keys true)
+                                                                                                                     {:keys [global-enabled? redirect-enabled? cancel-enabled?]} (db/read-goo-conf)
+                                                                                                                     redirected? (atom false)]
+                                                                                                                 (if global-enabled?
+                                                                                                                   (do
+                                                                                                                     (if redirect-enabled?
+                                                                                                                       (when-let [test-ret (tool/url-match test-url @db/redirect-rules)]
+                                                                                                                         (ant/message-success (str "Matched! " test-url " is redirected to " (aget test-ret "redirectUrl")))
+                                                                                                                         (reset! redirected? true))
+                                                                                                                       (ant/message-warning "Redirects is OFF!"))
+                                                                                                                     (when-not @redirected?
+                                                                                                                       (if cancel-enabled?
+                                                                                                                         (if-let [test-ret (tool/url-match test-url @db/cancel-rules)]
+                                                                                                                           (ant/message-success (str "Matched! " test-url " is blocked!"))
+                                                                                                                           (ant/message-error "Ooops. No rules matched!"))
+                                                                                                                         (ant/message-warning "Cancels is OFF!"))))
+                                                                                                                   (ant/message-warning "Gooreplacer is off totally!!"))))))} "Test"]]])))])

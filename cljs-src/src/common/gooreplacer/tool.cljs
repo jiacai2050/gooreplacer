@@ -43,3 +43,32 @@
                    {:name header-name :value header-value})
     "cancel" (remove #(= (str/lower-case header-name) (str/lower-case (.-name %)))
                      raw-headers)))
+
+;; mainly used in background script
+(def supported-handler {"redirectUrl" try-redirect
+                        "cancel" try-cancel
+                        "responseHeaders" try-modify-header
+                        "requestHeaders" try-modify-header})
+
+(defn url-match [url rules & [purpose]]
+  ;; purpose priority
+  ;; purpose in one rule > purpose param > default purpose "redirectUrl"
+  (loop [[{:keys [purpose-in-rule] :as rule} & rest] rules]
+    (when (and url rule)
+      (let [purpose (or purpose-in-rule purpose "redirectUrl")]
+        (when-let [handler (supported-handler purpose)]
+          (if-let [resp (handler url rule)]
+            (clj->js {purpose resp})
+            (recur rest)))))))
+
+
+(defn headers-match [purpose url raw-headers rules]
+  (loop [[{:keys [enable src kind dst op] :as rule} & rest] rules]
+    (when rule
+      (if (and enable (re-find (re-pattern src) url))
+        (let [header-name kind
+              header-value dst
+              handler (supported-handler purpose)
+              new-headers (handler raw-headers header-name header-value op)]
+          (clj->js {purpose new-headers}))
+        (recur rest)))))

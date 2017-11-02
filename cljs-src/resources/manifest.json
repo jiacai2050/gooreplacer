@@ -1,13 +1,12 @@
 {
   "name": "gooreplacer",
-  "version": "3.2",
+  "version": "3.3",
   "description": "Redirect, block Requests; Modify, cancel request/response Headers",
   "permissions": [
-      "webRequest", "webRequestBlocking",
-      "storage",
-      "alarms",
-      "http://*/*",
-      "https://*/*"
+    "webRequest", "webRequestBlocking",
+    "downloads",
+    "http://*/*",
+    "https://*/*"
   ],
   "background": {
     "page": "background/index.html"

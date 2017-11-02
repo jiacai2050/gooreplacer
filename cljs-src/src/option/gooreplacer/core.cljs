@@ -28,7 +28,8 @@
     [bs/tabs {:active-key @which-active :on-select #(reset! which-active %) :id "nav"}
      [bs/tab {:title "Redirect URL" :event-key 1} [lr/redirect-rules-table]]
      [bs/tab {:title "Cancel URL" :event-key 2} [lr/cancel-rules-table]]
-     [bs/tab {:title "Request/Response Headers" :event-key 3} [lr/header-rules-table]]]))
+     [bs/tab {:title "Request/Response Headers" :event-key 3} [lr/header-rules-table]]
+     [bs/tab {:title "Sandbox" :event-key 4} [lr/sandbox]]]))
 
 (defn main-body []
   [ant/locale-provider {:locale (ant/locales "en_US")}
