@@ -13,7 +13,7 @@ gooreplacer 最初为解决国内无法访问 Google 资源（Ajax、API等）�
 
 [Chrome](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) / [Firefox](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/)
 
-此外，也可以直接下载本仓库的 [crx 文件](gooreplacer_v2.0.crx)。
+此外，也可以直接下载本仓库的 [crx 文件](gooreplacer.crx)。
 
 ## 特性
 
