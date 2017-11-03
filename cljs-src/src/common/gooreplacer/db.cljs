@@ -4,8 +4,7 @@
             [alandipert.storage-atom :refer [local-storage] :as st])
   (:require-macros [gooreplacer.macro :refer [def-database]]))
 
-(def default-conf {:url "https://raw.githubusercontent.com/jiacai2050/gooreplacer4chrome/master/gooreplacer.gson"
-                   :interval 0
+(def default-conf {:url ""
                    :online-update-time 0
                    :global-enabled? true
                    :online-enabled? true

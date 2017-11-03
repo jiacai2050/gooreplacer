@@ -11,7 +11,7 @@
                     (let [{:keys [global-enabled? online-enabled? redirect-enabled? cancel-enabled?]} (db/read-goo-conf)]
                       (when global-enabled?
                         (if-let [online-resp (when online-enabled?
-                                               (tool/url-match (aget req "url") (db/read-online-rules)))]
+                                               (tool/url-match (aget req "url") (filter #(#{"redirectUrl" "cancel"} (:purpose %)) (db/read-online-rules))))]
                           online-resp
                           (if-let [redirect-resp (when redirect-enabled?
                                                    (tool/url-match url (db/read-redirect-rules) "redirectUrl"))]
@@ -25,7 +25,7 @@
                   (let [{:keys [res-headers-enabled? online-enabled? global-enabled?]} (db/read-goo-conf)]
                     (when global-enabled?
                       (if-let [online-resp (when online-enabled?
-                                             (tool/url-match (aget req "url") (db/read-online-rules)))]
+                                             (tool/url-match (aget req "url") (filter #(= (:purpose %) "responseHeaders") (db/read-online-rules))))]
                         online-resp
                         (when res-headers-enabled?
                           (tool/headers-match "responseHeaders" (.-url req) (.-responseHeaders req) (db/read-response-headers)))))))
@@ -36,7 +36,7 @@
                   (let [{:keys [req-headers-enabled? global-enabled? online-enabled?]} (db/read-goo-conf)]
                     (when global-enabled?
                       (if-let [online-resp (when online-enabled?
-                                             (tool/url-match (aget req "url") (db/read-online-rules)))]
+                                             (tool/url-match (aget req "url") (filter #(= (:purpose %) "requestHeaders") (db/read-online-rules))))]
                         online-resp
                         (when req-headers-enabled?
                           (tool/headers-match "requestHeaders" (.-url req) (.-requestHeaders req) (db/read-request-headers)))))))

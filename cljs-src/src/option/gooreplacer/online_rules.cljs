@@ -30,10 +30,7 @@
                                                        (let [url (.-value @!online-url)]
                                                          (swap! db/goo-conf assoc :url url)
                                                          (reset! edit-or-ok-label "Edit"))
-                                                       (reset! edit-or-ok-label "OK")))} @edit-or-ok-label]
-         [bs/button {:bs-style "primary" :on-click (fn []
-                                                     (swap! db/goo-conf assoc :url (:url db/default-conf))
-                                                     (set! (.-value @!online-url) (:url db/default-conf)))} "Reset"]]]])))
+                                                       (reset! edit-or-ok-label "OK")))} @edit-or-ok-label]]]])))
 
 (defn update-url [loading?]
   (r/with-let [loading? (r/atom false)]
@@ -41,19 +38,28 @@
      [bs/col {:sm 2 :class "text-right"}
       [bs/control-label "Last  update"]]
      [bs/col {:sm 4} (:online-update-time @db/goo-conf)]
-     [bs/col {:sm 2} [bs/button {:bs-style "primary"
-                                 :on-click #(do (reset! loading? true)
-                                                (go (let [url (:url @db/goo-conf)
-                                                          {:keys [success error-text body] :as resp} (<! (http/get url {:with-credentials? false}))]
-                                                      (reset! loading? false)    
-                                                      (if success
-                                                        (try
-                                                          (let [online-rules (if (map? body) body (js->clj (.parse js/JSON body) :keywordize-keys true))]
-                                                            (io/import-online-rules! online-rules)
-                                                            (swap! db/goo-conf assoc :online-update-time (js/Date))
-                                                            (ant/message-success "Update done."))
-                                                          (catch js/Error e (ant/message-error (str "Parse rules error! " (.stringify js/JSON e)))))
-                                                        (ant/message-error (str "Connection Error! " error-text))))))} (if @loading? "Loading..." "Update Now")]]]))
+     [bs/col {:sm 3}
+      [bs/button-toolbar
+       [bs/button {:bs-style "primary"
+                   :on-click #(do (reset! loading? true)
+                                  (go (let [url (:url @db/goo-conf)
+                                            {:keys [success error-text body] :as resp} (<! (http/get url {:with-credentials? false}))]
+                                        (reset! loading? false)
+                                        (if success
+                                          (try
+                                            (let [online-rules (if (map? body) body (js->clj (.parse js/JSON body) :keywordize-keys true))]
+                                              (io/import-online-rules! online-rules)
+                                              (swap! db/goo-conf assoc :online-update-time (js/Date))
+                                              (ant/message-success "Update done."))
+                                            (catch js/Error e (ant/message-error (str "Parse rules error! " (.stringify js/JSON e)))))
+                                          (ant/message-error (str "Connection Error! " error-text))))))} (if @loading? "Loading..." "Update Now")]
+       [bs/button {:bs-style "primary"
+                   :on-click #(ant/modal-confirm {:title "Do you really want to clear online rules?"
+                                                  :on-ok (fn []
+                                                           (reset! db/online-rules [])
+                                                           (swap! db/goo-conf assoc :online-update-time 0)
+                                                           (ant/message-success "Online rules is empty now.")
+                                                           (.resolve js/Promise 0))})} "Clear"]]]]))
 
 (defn configure-online-form []
   [bs/panel {:header (r/as-element [ant/checkbox {:default-checked (:online-enabled? @db/goo-conf)

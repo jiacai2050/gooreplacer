@@ -17,20 +17,14 @@
   (doseq [rule rules] 
     (db/append-redirect-rules! (normalize-legacy-rule rule))))
 
-(defn append-rules! [new-rules which-db]
-  (when new-rules
-    (swap! which-db into (map tool/encode-rule new-rules))))
-
-;; (merge {:src (subs (str (key r)) 1)}
-;;        (set/rename-keys (val r) {:dstURL :dst}))
-
-(defn import-online-rules! [{:keys [redirect-rules cancel-rules request-headers response-headers rules] :as goo-rules}]
-  (append-rules! (map #(assoc % :purpose "redirectUrl") redirect-rules) db/online-rules)
-  (append-rules! (map #(assoc (normalize-legacy-rule %) :purpose "redirectUrl") rules) db/online-rules)
-  (append-rules! (map #(assoc % :purpose "cancel") cancel-rules) db/online-rules)
-  (append-rules! (map #(assoc % :purpose "cancel") cancel-rules) db/online-rules)
-  (append-rules! (map #(assoc % :purpose "requestHeaders") request-headers) db/online-rules)
-  (append-rules! (map #(assoc % :purpose "responseHeaders") response-headers) db/online-rules))
+(defn import-online-rules! [{:keys [redirect-rules cancel-rules request-headers response-headers rules] :as rs}]
+  (reset! db/online-rules [])
+  (doseq [r (concat (map #(assoc % :purpose "redirectUrl") redirect-rules)
+                    (map #(assoc (normalize-legacy-rule %) :purpose "redirectUrl") rules)
+                    (map #(assoc % :purpose "cancel") cancel-rules)
+                    (map #(assoc % :purpose "requestHeaders") request-headers)
+                    (map #(assoc % :purpose "responseHeaders") response-headers))]
+    (db/append-online-rules! r)))
 
 (defn import-rules []
   (let [file-choose (gdom/getElement "gsonChooser")]
@@ -42,10 +36,10 @@
                                                                     (let [goo-rules (js->clj (.parse js/JSON resp.target.result) :keywordize-keys true)
                                                                           {:keys [redirect-rules cancel-rules request-headers response-headers rules] :as goo-rules} goo-rules]
                                                                       (import-legacy-rules! rules)
-                                                                      (append-rules! redirect-rules db/redirect-rules)
-                                                                      (append-rules! cancel-rules db/cancel-rules)
-                                                                      (append-rules! request-headers db/request-headers)
-                                                                      (append-rules! response-headers db/response-headers))))
+                                                                      (doseq [r redirect-rules] (db/append-redirect-rules! r))
+                                                                      (doseq [r cancel-rules] (db/append-cancel-rules! r))
+                                                                      (doseq [r request-headers] (db/append-request-headers! r))
+                                                                      (doseq [r response-headers] (db/append-response-headers! r)))))
                                        (.readAsText reader file))))
     (.click file-choose)))
 

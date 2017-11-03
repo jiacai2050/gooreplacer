@@ -31,5 +31,3 @@
        (when-not ~no-append?
          (defn ~(symbol (str "append-" db-name "!")) [~'rule]
            (swap! ~db-name conj (gooreplacer.tool/encode-rule ~'rule)))))))
-
-;; (def-database goo-conf [{:a 1}] :no-append? true)

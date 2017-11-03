@@ -1,0 +1,40 @@
+{
+  "createBy": "http://liujiacai.net/gooreplacer/",
+  "version": "2.0",
+  "createAt": "Sun Oct 29 2017 19:55:32 GMT+0800 (CST)",
+  "redirect-rules": [
+    {
+      "src": "baidu.com",
+      "dst": "google.com",
+      "kind": "wildcard",
+      "enable": true
+    }
+  ],
+  "cancel-rules": [
+    {
+      "src": "weibo.com",
+      "kind": "wildcard",
+      "enable": true
+    }
+  ],
+  "request-headers": [
+    {
+      "src": "v2ex.pub",
+      "kind": "wildcard",
+      "name": "user-agent",
+      "value": "gooreplacer",
+      "op": "modify",
+      "enable": true
+    }
+  ],
+  "response-headers": [
+    {
+      "src": "v2ex.pub",
+      "kind": "wildcard",
+      "name": "cookie",
+      "value": "gooreplacer=very good",
+      "op": "modify",
+      "enable": true
+    }
+  ]
+}

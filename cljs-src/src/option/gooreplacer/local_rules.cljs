@@ -208,19 +208,27 @@
                    [ant/button {:type "primary" :on-click #(ant/validate-fields sandbox-form {:force true} (fn [err vals]
                                                                                                              (when-not err
                                                                                                                (let [{:keys [test-url]} (js->clj vals :keywordize-keys true)
-                                                                                                                     {:keys [global-enabled? redirect-enabled? cancel-enabled?]} (db/read-goo-conf)
-                                                                                                                     redirected? (atom false)]
+                                                                                                                     {:keys [global-enabled? online-enabled? redirect-enabled? cancel-enabled?]} (db/read-goo-conf)
+                                                                                                                     matched? (atom false)]
                                                                                                                  (if global-enabled?
                                                                                                                    (do
                                                                                                                      (if redirect-enabled?
                                                                                                                        (when-let [test-ret (tool/url-match test-url @db/redirect-rules)]
                                                                                                                          (ant/message-success (str "Matched! " test-url " is redirected to " (aget test-ret "redirectUrl")))
-                                                                                                                         (reset! redirected? true))
+                                                                                                                         (reset! matched? true))
                                                                                                                        (ant/message-warning "Redirects is OFF!"))
-                                                                                                                     (when-not @redirected?
+                                                                                                                     (when-not @matched?
                                                                                                                        (if cancel-enabled?
-                                                                                                                         (if-let [test-ret (tool/url-match test-url @db/cancel-rules)]
+                                                                                                                         (when-let [test-ret (tool/url-match test-url @db/cancel-rules)]
                                                                                                                            (ant/message-success (str "Matched! " test-url " is blocked!"))
+                                                                                                                           (reset! matched? true))
+                                                                                                                         (ant/message-warning "Cancels is OFF!")))
+                                                                                                                     (when-not @matched?
+                                                                                                                       (if online-enabled?
+                                                                                                                         (if-let [test-ret (tool/url-match test-url (filter (fn [r] (#{"redirectUrl" "cancel"} (:purpose r))) @db/online-rules))]
+                                                                                                                           (if-let [redirect-url (aget test-ret "redirectUrl")]
+                                                                                                                             (ant/message-success (str "Matched! " test-url " is redirected to " redirect-url))
+                                                                                                                             (ant/message-success (str "Matched! " test-url " is blocked!")))
                                                                                                                            (ant/message-error "Ooops. No rules matched!"))
-                                                                                                                         (ant/message-warning "Cancels is OFF!"))))
+                                                                                                                         (ant/message-warning "Online rules is OFF!"))))
                                                                                                                    (ant/message-warning "Gooreplacer is off totally!!"))))))} "Test"]]])))])

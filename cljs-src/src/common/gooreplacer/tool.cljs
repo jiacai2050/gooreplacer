@@ -50,12 +50,12 @@
                         "responseHeaders" try-modify-header
                         "requestHeaders" try-modify-header})
 
-(defn url-match [url rules & [purpose]]
+(defn url-match [url rules & [explict-purpose]]
   ;; purpose priority
   ;; purpose in one rule > purpose param > default purpose "redirectUrl"
-  (loop [[{:keys [purpose-in-rule] :as rule} & rest] rules]
+  (loop [[{:keys [purpose] :as rule} & rest] rules]
     (when (and url rule)
-      (let [purpose (or purpose-in-rule purpose "redirectUrl")]
+      (let [purpose (or purpose explict-purpose "redirectUrl")]
         (when-let [handler (supported-handler purpose)]
           (if-let [resp (handler url rule)]
             (clj->js {purpose resp})
