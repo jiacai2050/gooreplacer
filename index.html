@@ -8,112 +8,52 @@
     <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen"/>
     <link rel="shortcut icon" href="images/favicon.ico" />
 
-    <meta name="description" content="一个用于替换网页中Google Fonts/APIS/themes等的浏览器插件，让你快速打开引用这些资源的页面" />
+    <meta name="description" content="Redirect, block Requests; Modify, cancel request/response Headers" />
     <title>gooreplacer</title>
-    <script type="text/javascript">
-    var sizes = [240, 430];
-    var cursors = ["zoom-in", "zoom-out"];
-    var i = 0;
-    function changeSize(o) {
-        i = (i+1) % 2;
-        o.width = sizes[i];
-        o.height = sizes[i];
-        o.style.cursor = cursors[i];
-    }
-
-    </script>
+    
   </head>
 
   <body>
-    <!-- JiaThis Button BEGIN -->
-    <script type="text/javascript">
-    var jiathis_config = {data_track_clickback:'true'};
-    </script>
-    <script type="text/javascript" src="http://v3.jiathis.com/code/jiathis_r.js?type=left&amp;move=0&amp;btn=l1.gif&amp;uid=1567950" charset="utf-8"></script>
-    <!-- JiaThis Button END -->
     <a href="https://github.com/jiacai2050/gooreplacer4chrome"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://camo.githubusercontent.com/e7bbb0521b397edbd5fe43e7f760759336b5e05f/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f677265656e5f3030373230302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_green_007200.png"></a>
     <header>
       <div class="container">
         <h1>gooreplacer</h1>
-        <h2>一个用于替换网页中Google Fonts/APIS/themes等的浏览器插件，让你快速打开引用这些资源的页面 :-)</h2>
-
-        <section id="downloads">
-          <a href="https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip" class="btn">Chrome 版</a>
-          <a href="https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/" class="btn">Firefox PC 版</a>
-          <a href="https://github.com/jiacai2050/gooreplacer/tree/android" class="btn">Firefox Android 版</a>
-        </section>
-
+        <h2>Redirect, block Requests; Modify, cancel request/response Headers :-)</h2>
       </div>
     </header>
 
     <div class="container">
       <section id="main_content">
         <h2>
-<a name="backgroud" class="anchor" href="#backgroud"><span class="octicon octicon-link"></span></a>1. 为什么要开发gooreplacer？</h2>
+<a name="backgroud" class="anchor" href="#backgroud"><span class="octicon octicon-link"></span></a> Why gooreplacer</h2>
 
-<p> 众所周知，Google 在某国造到全面封杀，导致无法访问 Google 的一切资源，如果一个网站（比如<a href="http://stackoverflow.com">stackoverflow</a>、<a href="http://reddit.com">reddit</a>）引用了 Google 提供的 JS、CSS 库，那么页面加载就会变得巨慢。</p>
-<img src="images/google-slow.png"/>
-<img src="images/google-font-wp.png"/>
-<img src="images/google-font.png"/>
+<p> Gooreplacer is first created for redirecting Google Ajax/Api/Themes to other CDN since Google is blocked in my home. 😭</p>
+<p> For now, more features have been added to it, mainly:
+    <ol>
+        <li>Block url</li>
+        <li>Modify Headers</li>
+        <li>Test custom rule</li>
+        <li>A new UI built with ClojureScript + Reagent</li>
+    </ol>
 
-<p>除了 Google 被墙外，还有很多常用服务也未能幸免，比如：gravatar、twitter 等。 gooreplacer 的作用就是在浏览器发起请求时，去检查该请求是否为被墙服务，如果是，替换为国内的 CDN，目前使用的是<a href="https://servers.ustclug.org/2015/09/google-revproxy-add-cache/">科大公共库</a>。感谢科大！🙏
-</p>
-<p>gooreplacer 默认有以下替换规则：</p>
-<pre>
-<code>
-fonts.googleapis.com-------------->fonts.lug.ustc.edu.cn
-ajax.googleapis.com--------------->ajax.lug.ustc.edu.cn
-themes.googleusercontent.com------>google-themes.lug.ustc.edu.cn
-fonts.gstatic.com----------------->fonts-gstatic.lug.ustc.edu.cn
-www.gravatar.com------------------>gravatar.lug.ustc.edu.cn
-platform.twitter.com/widgets.js--->cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/widgets.js
-apis.google.com/js/api.js--------->cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/api.js
-apis.google.com/js/plusone.js----->cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/plusone.js
-</code>
-</pre>
+<img src="images/ui.png">
 <h2>
-<a name="why-gooreplacer" class="anchor" href="#why-gooreplacer"><span class="octicon octicon-link"></span></a>2. 为什么要使用gooreplacer？</h2>
+<a name="downloads" class="anchor" href="#downloads"><span class="octicon octicon-link"></span></a>Downloads</h2>
 
-<p>但如果你一直用的是免费的vpn、goagent等，那么gooreplacer绝对适合你，gooreplacer可以让你秒开：</p>
-<ol>
-    <li><a href="http://www.webhek.com/remove-wordpress-google-fonts/">一些wordpress博客</a></li>
-    <li><a href="http://stackoverflow.com/">stackoverflow</a></li>
-    <li><a href="http://sourceforge.net/">sourceforge</a></li>
-    <li><a href="http://www.reddit.com/">reddit</a></li>
-    <li><a href="http://hexo.io/">hexo</a></li>
-    <li><a href="http://expressjs.com/">expressjs</a></li>
-    <li>.......</li>
-</ol>
-
-<p>除了默认规则外，gooreplacer 还支持自定义规则</p>
-
-<img src="images/diy.png"/>
-
-<p>世界是残酷的， 我们(programmer)有理由把它变得美好些。Enjoy！</p>
+<section id="downloads">
+  <a href="https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip" class="btn">Chrome</a>
+  <a href="https://addons.mozilla.org/firefox/addon/gooreplacer/" class="btn">Firefox</a>
+</section>
 
 <h2>
-<a name="authors-and-contributors" class="anchor" href="#authors-and-contributors"><span class="octicon octicon-link"></span></a>3. 作者与贡献者</h2>
+<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support</h2>
 
-<p>gooreplacer由<a class="user-mention" href="http://liujiacai.net/about">@我</a>一个人独立开发，当然少不了网友的支持：</p>
-<ol>
-<li>感谢<a href="http://v2ex.com/member/jzhone" class="user-mention">@jzhone</a>耐心为gooreplacer测试，并推荐使用科大库；</li>
-<li>感谢<a href="http://v2ex.com/member/Semidio" class="user-metion">@Semidio</a>曾把Chrome版本上传到<a href="https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip">WebStore应用商店</a>中去，现已转交到我的 Google 账户下；</li>
-<li>感谢<a href="http://weibo.com/imancao" class="user-metion">@艾蔓草</a>为gooreplacer提的建议与测试。</li>
-</ol>
-
-<h2>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>4. 支持与维护</h2>
-
-<p>我最初开发gooreplacer是因为不能愉快地浏览国外一些网站，加上自己的热情，gooreplacer的功能越来越丰富，我是由衷的开心。虽然还<a href="https://github.com/jiacai2050/gooreplacer/issues">有些bug</a>没有解决，但是我今后一定会持续更新的。</p>
-<p>如果gooreplacer给你的生活、学习效率带来提高，我无耻地希望你能“慷慨解囊”，拿起你的支付宝钱包，打赏点零花钱请我吃个雪糕，当然这是完全自愿的。我只是想证明：我也在改变这个世界！</p>
-<div style="background:#d9e1ef; color:#000" align="center">
-<img onclick="changeSize(this)" style="cursor: zoom-in;" src="images/alipay.png" width="240" height="240">
-</div >
-<p>如果你有使用gooreplacer方面的任何问题，或有什么好的建议，可以在下面留言（非常不幸，本网站使用的 disqus 评论系统被墙）。</p>
-<p>除了评论外，还可以发<a href="mailto:jiacai2050@gmail.com?subject=gooreplacer建议反馈">邮件</a>或去 Github 提 <a href="https://github.com/jiacai2050/gooreplacer4chrome/issues">issues</a> 来与我交流。让我们一起改进、完善gooreplacer。:-) </p>
+<p>You can find more guides in <a href="https://github.com/jiacai2050/gooreplacer4chrome/blob/master/README-en.md">Github README</a>.
+<p>And if you have any question or suggestion, welcome to <a href="https://github.com/jiacai2050/gooreplacer4chrome/issues">open a issue</a> or <a href="mailto:jiacai2050@gmail.com?subject=gooreplacer suggestion">file me an email</a>. Thank you for your time. </p>
 
 <div id="disqus_thread"></div>
 <script type="text/javascript">
+
     var duoshuoQuery = {short_name:"gooreplacer"};
     (function() {
         var d = document, s = d.createElement('script');
@@ -126,5 +66,6 @@ apis.google.com/js/plusone.js----->cdn.rawgit.com/jiacai2050/gooreplacer/gh-page
     var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
     document.write(unescape("%3Cspan id='cnzz_stat_icon_1254310123'%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s11.cnzz.com/stat.php%3Fid%3D1254310123%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
 </script>
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-59fc76f572235789"></script> 
   </body>
 </html>
