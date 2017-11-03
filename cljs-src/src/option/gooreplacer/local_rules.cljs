@@ -73,7 +73,7 @@
                                                     :on-click #(reset! display-new-form? true)} "Add"]])
                  :bs-style "info"}
        [ant/table {:bordered true :dataSource @which-db
-                   :columns columns :pagination false :row-key "src"
+                   :columns columns :pagination false :row-key row-key
                    :footer #(str "Total: " (count @which-db))}]
        [ant/modal {:title (str "New " table-title) :visible @display-new-form? :footer false
                    :on-cancel #(reset! display-new-form? false)}
@@ -101,8 +101,8 @@
           [ant/form-item
            [ant/button {:type "primary" :on-click #(ant/validate-fields new-rule-form {:force true} (fn [err vals]
                                                                                                       (when-not err
-                                                                                                        (let [new-rule (js->clj vals :keywordize-keys true)]
-                                                                                                          (append-rule-fn! new-rule))
+                                                                                                        (append-rule-fn! (js->clj vals :keywordize-keys true))
+                                                                                                        (ant/reset-fields new-rule-form)
                                                                                                         (reset! display? false))))} "Submit"]]])))))
 
 (def redirect-rules-table
@@ -160,8 +160,8 @@
           [ant/form-item
            [ant/button {:type "primary" :on-click #(ant/validate-fields new-rule-form {:force true} (fn [err vals]
                                                                                                       (when-not err
-                                                                                                        (let [new-rule (js->clj vals :keywordize-keys true)]
-                                                                                                          (append-rule-fn! new-rule))
+                                                                                                        (append-rule-fn! (js->clj vals :keywordize-keys true))
+                                                                                                        (ant/reset-fields new-rule-form)
                                                                                                         (reset! display? false))))} "Submit"]]])))))
 
 (defn gen-header-rules-columns [current-row? which-db]
@@ -169,7 +169,7 @@
                                                                                                    :on-change  (fn [new-val]
                                                                                                                  (reset! which-db
                                                                                                                          (mapv (fn [rule] (if (current-row? record rule)
-                                                                                                                                            (assoc rule :kind new-val) rule))
+                                                                                                                                            (assoc rule :op new-val) rule))
                                                                                                                                @which-db))
                                                                                                                  (ant/message-success (str "Change to " new-val)))}
                                                                                        op-select-opts]))}
@@ -180,13 +180,13 @@
 
 (defn gen-headers-table [table-title which-db switch append-rule-fn!]
   (gen-rules-table {:columns (let [current-row? (fn [record rule] (and (= (aget record "src") (:src rule))
-                                                                       (= (aget record "op") (:op rule))))]
+                                                                       (= (aget record "name") (:name rule))))]
                                (gen-header-rules-columns current-row? which-db))
                     :table-title table-title
                     :add-new-form (gen-new-header-form append-rule-fn!)
                     :which-db which-db
                     :switch switch
-                    :row-key #(str (aget % "src") (aget % "op"))}))
+                    :row-key #(str (aget % "src") (aget % "name"))}))
 
 (def request-header-rules-table (gen-headers-table "Request Header Rules " db/request-headers :req-headers-enabled? db/append-request-headers!))
 (def response-header-rules-table (gen-headers-table "Response Header Rules" db/response-headers :res-headers-enabled? db/append-response-headers!))

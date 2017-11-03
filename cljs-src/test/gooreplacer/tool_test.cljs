@@ -47,16 +47,16 @@
 
 (deftest test-modify-header
   (testing "modify header"
-    (let [raw-header (clj->js [{:name "content-type" :value "text/html; charset=utf-8"}])
+    (let [old-header [{:name "content-type" :value "text/html; charset=utf-8"}]
           header-name "Content-Type"
           header-value "application/json"
           op "modify"]
       (is (= [{:name "Content-Type", :value "application/json"}]
-             (tool/try-modify-header raw-header header-name header-value op)))))
+             (tool/try-modify-header old-header header-name header-value op)))))
   (testing "cancel header"
-    (let [raw-header (clj->js [{:name "content-type" :value "text/html; charset=utf-8"}])
+    (let [old-header [{:name "content-type" :value "text/html; charset=utf-8"}]
           header-name "Content-Type"
           header-value nil
           op "cancel"]
       (is (= []
-             (tool/try-modify-header raw-header header-name header-value op))))))
+             (tool/try-modify-header old-header header-name header-value op))))))

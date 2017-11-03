@@ -44,7 +44,7 @@
                                  :repl true}
                       :cljsbuild {:builds [{:id "dev"
                                             :figwheel true
-                                            :source-paths ["src/background"]
+                                            :source-paths ["src/background" "src/common"]
                                             :compiler {:output-to "resources/dev/background/js/main.js"
                                                        :source-map true
                                                        :output-dir "resources/dev/background/js"

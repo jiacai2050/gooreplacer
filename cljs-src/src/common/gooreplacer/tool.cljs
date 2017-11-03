@@ -36,13 +36,13 @@
   (some? (when enable
            (re-find (re-pattern src) url))))
 
-(defn try-modify-header [raw-headers header-name header-value op]
+(defn try-modify-header [old-headers header-name header-value op]
   (case op
-    "modify" (conj (remove #(= (str/lower-case header-name) (str/lower-case (.-name %)))
-                           raw-headers)
+    "modify" (conj (remove #(= (str/lower-case header-name) (str/lower-case (:name %)))
+                           old-headers)
                    {:name header-name :value header-value})
-    "cancel" (remove #(= (str/lower-case header-name) (str/lower-case (.-name %)))
-                     raw-headers)))
+    "cancel" (remove #(= (str/lower-case header-name) (str/lower-case (:name %)))
+                     old-headers)))
 
 ;; mainly used in background script
 (def supported-handler {"redirectUrl" try-redirect
@@ -63,12 +63,12 @@
 
 
 (defn headers-match [purpose url raw-headers rules]
-  (loop [[{:keys [enable src kind dst op] :as rule} & rest] rules]
-    (when rule
+  (loop [[{:keys [enable src kind op name value] :as rule} & rest] rules
+         headers (js->clj raw-headers :keywordize-keys true)]
+    (if rule
       (if (and enable (re-find (re-pattern src) url))
-        (let [header-name kind
-              header-value dst
-              handler (supported-handler purpose)
-              new-headers (handler raw-headers header-name header-value op)]
-          (clj->js {purpose new-headers}))
-        (recur rest)))))
+        (let [handler (supported-handler purpose)
+              new-headers (handler headers name value op)]
+          (recur rest new-headers))
+        (recur rest headers))
+      (clj->js {purpose headers}))))
