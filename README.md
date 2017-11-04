@@ -20,7 +20,7 @@ gooreplacer 最初为解决国内无法访问 Google 资源（Ajax、API等）�
 - 支持在线规则，主要用于重定向 Google 资源，用户可更改
 - 本地规则
 - 导入导出规则，方便用户备份、同步（规则可在 Chrome/Firefox 种通用）
-- 支持规则测试
+- 支持测试
 
 对于只想重定向 Google 资源的同学，可以在`Online Rule List`处填上
 

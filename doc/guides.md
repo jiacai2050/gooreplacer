@@ -2,7 +2,6 @@
 
 -------
 
-
 ## 匹配方式
 
 为了做到细粒度控制，所有规则需要指定一个作用源，用于限定规则作用范围，支持两种匹配方式：
@@ -10,24 +9,41 @@
 - 通配符（wildcard），可以使用 `*`表示任意个字符，`?`表示任一字符。如需表示这两个字符自身的含义，需要使用`\`进行转义。
 
 ```
-www.baidu.com/s\?wd=java   ----通配符--->  www.baidu.com/s?wd=lisp
+{
+  "src": "www.baidu.com/s\?wd=java",
+  "dst": "www.baidu.com/s?wd=lisp",
+  "kind": "wildcard",
+  "enable": true
+}
 ```
 
 此外，可以使用`^`、`$`表示字符的开始与结尾。例如：
 
 ```
-baidu.com/$  ----通配符--->  baidu.com/?
+{
+  "src": "baidu.com/$",
+  "dst": "baidu.com/?",
+  "kind": "wildcard",
+  "enable": true
+}
 ```
-这样就能够把`baidu.com/`重定向到`baidu.com/?`了，[据说](http://v2ex.com/t/169967#reply2)，这样能防止劫持吆 -:)
+
+这样就能够把`baidu.com/`重定向到`baidu.com/?`了，[据说](http://v2ex.com/t/169967)，这样能防止劫持吆 -:)
 
 - 正则式（regexp），语法同[JS 的 RegExp](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp)，对于有分组的情况，在目标 URL 中可以使用 `$1`, `$2`... 反引用。例如
 
 ```
-(weibo|ucloud)\.com  ----正则式--->  $1.cn
+{
+  "src": "(weibo|ucloud)\.com",
+  "dst": "$1.cn",
+  "kind": "regex",
+  "enable": true
+}
 ```
 
 这样就把`weibo.com`、`ucloud.com`分别重定向到`weibo.cn`与`ucloud.cn`了。
 
+为了方便用户使用，在添加新规则后可以用 Sandbox 去测试是否有效。😊
 
 ## 内置规则
 
@@ -53,26 +69,26 @@ baidu.com/$  ----通配符--->  baidu.com/?
   ],
   "cancel-rules": [
     {
-      "src": "zhihu.com",
+      "src": "github.com",
       "kind": "wildcard",
       "enable": true
     }
   ],
   "request-headers": [
     {
-      "src": "v2ex.pub",
+      "src": "http://liujiacai.net/gooreplacer/",
       "kind": "wildcard",
-      "name": "Cookie",
-      "value": "gooreplacer=very good",
+      "name": "user-agent",
+      "value": "gooreplacer",
       "op": "modify",
       "enable": true
     }
   ],
   "response-headers": [
     {
-      "src": "liujiacai.net",
+      "src": "http://liujiacai.net/gooreplacer/",
       "kind": "wildcard",
-      "name": "server",
+      "name": "cookie",
       "op": "cancel",
       "enable": true
     }

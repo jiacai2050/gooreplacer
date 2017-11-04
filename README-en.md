@@ -1,15 +1,18 @@
 
-## gooreplacer
+## [gooreplacer](http://liujiacai.net/gooreplacer)
 
-> Redirect, block Requests; Modify, cancel request/response Headers
+> A Firefox/Chrome extension to modify HTTP requests :-)
 
-Gooreplacer is first created for redirecting Google Ajax/API to other CDN, since Google is blocked in my home.
+At first, Gooreplacer is created for redirecting Google Ajaxs/APIs/Fonts to other CDN to bypass [Great Firewall](https://en.wikipedia.org/wiki/Great_Firewall), since pages referring those are slow as molasses.
 
-Besides redirects, more features have been added to gooreplacer, mainly:
+Nowadays, more features have been added to gooreplacer, mainly:
 
-1. block some request based on some pattern
-2. modify request/response http header based on some pattern
-3. export/import user-defined rules
+1. Block request
+2. Modify headers
+3. Export/Import rules, sync between Firefox and Chrome.
+4. Live Test
+
+Most users prefer gooreplacer than other similar extensions, [HTTPS Everywhere](https://www.eff.org/https-everywhere)/[Redirector](http://einaregilsson.com/redirector/), for ease-of-use. Why not give it a try?
 
 ## Install
 
@@ -34,26 +37,26 @@ Currently gooreplacer support 4 functions. Take one exported rules as example:
   ],
   "cancel-rules": [
     {
-      "src": "zhihu.com",
+      "src": "facebook.com",
       "kind": "wildcard",
       "enable": true
     }
   ],
   "request-headers": [
     {
-      "src": "v2ex.pub",
+      "src": "google.com",
       "kind": "wildcard",
-      "name": "Cookie",
-      "value": "ljc=very good",
+      "name": "user-agent",
+      "value": "gooreplacer",
       "op": "modify",
       "enable": true
     }
   ],
   "response-headers": [
     {
-      "src": "v2ex.pub",
+      "src": "google.com",
       "kind": "wildcard",
-      "name": "content-type",
+      "name": "Cookie",
       "op": "cancel",
       "enable": true
     }
@@ -74,33 +77,50 @@ In each rule,
 - `op` required in `request-headers` `response-headers`, has two enum value: `cancel` or `modify`
 - `name`, `value` required in `request-headers` `response-headers`, means header name(case-insensitive), header value
 
-> NOTE: In order to be compatiable with old versions, `redirect-rules` key in JSON-rules file can be just `rules` and have following format:
+In redirects, you can use `$1` `$2` ... to backreference captured groups in case of `regexp` kind. For example:
 
 ```
-"rules": {
-  "ajax.googleapis.com": {
-    "dstURL": "ajax.proxy.ustclug.org",
-    "enable": true,
-    "kind": "wildcard"
-  }
+{
+  "src": "https://search.yahoo.com/search\?p=([a-z]+)",
+  "dst": "https://www.google.com/search?q=$1",
+  "kind": "regexp",
+  "enable": true
 }
 ```
 
-According to [Google Extension document](https://developer.chrome.com/extensions/webRequest)，headers below can't be modified:
+Then https://search.yahoo.com/search?p=gooreplacer will redirect to https://www.google.com/search?q=gooreplacer
 
-- Authorization
-- Cache-Control
-- Connection
-- Content-Length
-- Host
-- If-Modified-Since
-- If-None-Match
-- If-Range
-- Partial-Data
-- Pragma
-- Proxy-Authorization
-- Proxy-Connection
-- Transfer-Encoding
+If your rules don't work as expected, use sandbox to test, it can tell what's missing.
+
+## NOTE
+
+- In order to be compatiable with old versions, `redirect-rules` key in JSON-rules file can be just `rules` and have following format:
+
+  ```
+  "rules": {
+    "ajax.googleapis.com": {
+      "dstURL": "ajax.proxy.ustclug.org",
+      "enable": true,
+      "kind": "wildcard"
+    }
+  }
+  ```
+
+- According to [Google Extension document](https://developer.chrome.com/extensions/webRequest)，headers below can't be modified:
+
+    - Authorization
+    - Cache-Control
+    - Connection
+    - Content-Length
+    - Host
+    - If-Modified-Since
+    - If-None-Match
+    - If-Range
+    - Partial-Data
+    - Pragma
+    - Proxy-Authorization
+    - Proxy-Connection
+    - Transfer-Encoding
 
 
 ## Development
