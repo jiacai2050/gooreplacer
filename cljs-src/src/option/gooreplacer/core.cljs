@@ -21,7 +21,7 @@
      [bs/button {:bs-style "primary" :on-click #(.sendMessage js/chrome.runtime #js {"url" "http://liujiacai.net/gooreplacer/"})} [bs/glyphicon {:glyph "home"}] " Home"]
      [bs/button {:bs-style "primary" :on-click io/import-rules} [bs/glyphicon {:glyph "import"}] " Import"]
      [bs/button {:bs-style "primary" :on-click io/export-rules} [bs/glyphicon {:glyph "export"}] " Export"]
-     [bs/button {:bs-style "primary" :on-click #(.sendMessage js/chrome.runtime #js {"url" "https://github.com/jiacai2050/gooreplacer4chrome/tree/master/doc/guides.md"})} [bs/glyphicon {:glyph "question-sign"}] " Help"]]]])
+     [bs/button {:bs-style "primary" :on-click #(.sendMessage js/chrome.runtime #js {"url" "https://github.com/jiacai2050/gooreplacer/tree/master/doc/guides.md"})} [bs/glyphicon {:glyph "question-sign"}] " Help"]]]])
 
 (defn tabs []
   (r/with-let [which-active (r/atom 1)]

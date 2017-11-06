@@ -1,5 +1,5 @@
 
-## [gooreplacer](http://liujiacai.net/gooreplacer)
+## [gooreplacer](http://liujiacai.net/gooreplacer)  [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) [![Mozilla Add-on](https://img.shields.io/amo/v/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/)
 
 > 重定向/屏蔽 URL，修改/删除 headers
 
@@ -24,7 +24,7 @@ gooreplacer 最初为解决国内无法访问 Google 资源（Ajax、API等）�
 
 对于只想重定向 Google 资源的同学，可以在`Online Rule List`处填上
 
-> https://raw.githubusercontent.com/jiacai2050/gooreplacer4chrome/master/gooreplacer.gson
+> https://raw.githubusercontent.com/jiacai2050/gooreplacer/master/gooreplacer.gson
 
 然后点击更新就好了。如果想自定义规则，可参考 [guides.md](doc/guides.md)
 

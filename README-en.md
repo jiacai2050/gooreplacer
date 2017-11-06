@@ -1,5 +1,5 @@
 
-## [gooreplacer](http://liujiacai.net/gooreplacer)
+## [gooreplacer](http://liujiacai.net/gooreplacer)  [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) [![Mozilla Add-on](https://img.shields.io/amo/v/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/)
 
 > A Firefox/Chrome extension to modify HTTP requests :-)
 
@@ -24,7 +24,7 @@ Currently gooreplacer support 4 functions. Take one exported rules as example:
 
 ```
 {
-  "createBy": "https://github.com/jiacai2050/gooreplacer4chrome",
+  "createBy": "https://github.com/jiacai2050/gooreplacer",
   "version": "2.0",
   "createAt": "Sun Oct 29 2017 19:55:32 GMT+0800 (CST)",
   "redirect-rules": [

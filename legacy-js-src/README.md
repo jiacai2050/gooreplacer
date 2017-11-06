@@ -25,11 +25,11 @@ gooreplacer 的作用就是在浏览器发起请求时，去检查该请求是�
 <a name="usage"></a>
 ## 使用说明
 
-1. 下载后，选中“开启重定向”。这样就会按照[默认规则](https://github.com/jiacai2050/gooreplacer4chrome/raw/master/gooreplacer.gson)进行替换了。
+1. 下载后，选中“开启重定向”。这样就会按照[默认规则](https://github.com/jiacai2050/gooreplacer/raw/master/gooreplacer.gson)进行替换了。
 
     ![开启重定向](screenshot/turn_on.png)
 
-2. 除了[默认的在线规则](https://github.com/jiacai2050/gooreplacer4chrome/raw/master/gooreplacer.gson)外，用户还可以根据需要进行自定义本地规则。
+2. 除了[默认的在线规则](https://github.com/jiacai2050/gooreplacer/raw/master/gooreplacer.gson)外，用户还可以根据需要进行自定义本地规则。
 
     ![自定义规则](screenshot/diy.png)
 

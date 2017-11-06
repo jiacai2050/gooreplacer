@@ -67,7 +67,7 @@ var gooDB = new (function () {
         ISREDIRECT_KEY = "isRedirect";
     var ONLINE_URL_KEY = "onlineRulesURL",
         online_url = {
-            url: "https://raw.githubusercontent.com/jiacai2050/gooreplacer4chrome/master/gooreplacer.gson",
+            url: "https://raw.githubusercontent.com/jiacai2050/gooreplacer/master/gooreplacer.gson",
             interval: 0,
             enable: true
         };

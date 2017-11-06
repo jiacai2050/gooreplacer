@@ -1,6 +1,6 @@
 {
   "name": "gooreplacer",
-  "version": "3.5",
+  "version": "3.6",
   "description": "Redirect, block Requests; Modify, cancel request/response Headers",
   "permissions": [
     "webRequest", "webRequestBlocking",
@@ -30,7 +30,7 @@
     "open_in_tab": true
   },
   "author": "http://liujiacai.net",
-  "homepage_url": "https://github.com/jiacai2050/gooreplacer4chrome",
+  "homepage_url": "https://github.com/jiacai2050/gooreplacer",
   "content_security_policy": "default-src 'unsafe-eval' 'self'; style-src http://* https://* 'unsafe-inline' 'unsafe-eval'; connect-src http://* http://localhost:* ws://localhost:* ; font-src https://* ",
   "manifest_version": 2
 }

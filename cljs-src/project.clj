@@ -1,6 +1,6 @@
 (defproject gooreplacer "2.0.0"
   :description "Modify, block URLs & Headers"
-  :url "https://github.com/jiacai2050/gooreplacer4chrome"
+  :url "https://github.com/jiacai2050/gooreplacer"
   :license {:name "MIT"
             :url "http://liujiacai.net/license/MIT.html?year=2015"}
   :dependencies [[org.clojure/clojure "1.8.0"]
