@@ -1,6 +1,6 @@
 {
   "name": "gooreplacer",
-  "version": "3.6",
+  "version": "3.7",
   "description": "Redirect, block Requests; Modify, cancel request/response Headers",
   "permissions": [
     "webRequest", "webRequestBlocking",

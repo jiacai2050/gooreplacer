@@ -3,6 +3,7 @@
             [reagent.core :as r]
             [gooreplacer.bootstrap :as bs]
             [gooreplacer.db :as db]
+            [gooreplacer.table :as table]
             [gooreplacer.tool :as tool]
             [clojure.string :as str]
             [gooreplacer.tool :as tool]))
@@ -40,28 +41,25 @@
 
 (defn gen-common-columns [which-db current-row?]
   [{:title "Kind" :dataIndex "kind" :render (fn [val record _] (r/as-element [ant/select {:default-value val
-                                                                                         :on-change  (fn [new-val]
+                                                                                          :on-change (fn [new-val]
                                                                                                        (reset! which-db
                                                                                                                (mapv (fn [rule] (if (current-row? record rule)
                                                                                                                                   (assoc rule :kind new-val) rule))
                                                                                                                      @which-db))
                                                                                                        (ant/message-success (str "Change to " new-val)))}
-                                                                             kind-select-opts]))}
+                                                                              kind-select-opts]))}
    {:title "Enable" :dataIndex "enable" :render (fn [val record _]
                                                   (r/as-element [ant/checkbox {:default-checked val
                                                                                :on-change #(reset! which-db
                                                                                                    (mapv (fn [rule] (if (current-row? record rule)
                                                                                                                       (update rule :enable not) rule))
                                                                                                          @which-db))}]))}
-   {:title "Actions" :render (fn [_ record _] (r/as-element 
-                                               [ant/button {:icon "delete" :type "danger"
-                                                            :on-click #(ant/modal-confirm {:title "Do you want delele this rule?"
-                                                                                           :on-ok (fn [] (reset! which-db
-                                                                                                                 (remove (fn [rule] (current-row? record rule))
-                                                                                                                         @which-db))
-                                                                                                    ;; https://ant.design/components/modal/
-                                                                                                    ;; return a Promise to close the dialog
-                                                                                                    (.resolve js/Promise 0))})}]))}])
+   {:title "Actions" :render (fn [_ record _] (r/as-element
+                                               [ant/popconfirm {:title "Do you really want to delete this?"
+                                                                :on-confirm (fn [] (reset! which-db
+                                                                                           (remove (fn [rule] (current-row? record rule))
+                                                                                                   @which-db)))}
+                                                [ant/button {:icon "delete" :type "danger"}]]))}])
 
 (defn gen-rules-table [{:keys [table-title columns add-new-form which-db switch row-key]}]
   (fn []
@@ -69,12 +67,11 @@
       [bs/panel {:header (r/as-element [:div
                                         [ant/checkbox {:default-checked (switch @db/goo-conf)
                                                        :on-change #(swap! db/goo-conf update switch not)} table-title]
-                                        [bs/button {:bs-style "primary" :class "pull-right"
-                                                    :on-click #(reset! display-new-form? true)} "Add"]])
+                                        [ant/button {:class "pull-right" :type "primary" :on-click #(reset! display-new-form? true)} "Add"]])
                  :bs-style "info"}
        [ant/table {:bordered true :dataSource @which-db
-                   :columns columns :pagination false :row-key row-key
-                   :footer #(str "Total: " (count @which-db))}]
+                   :columns columns :row-key row-key
+                   :pagination table/pagination}]
        [ant/modal {:title (str "New " table-title) :visible @display-new-form? :footer false
                    :on-cancel #(reset! display-new-form? false)}
         [add-new-form display-new-form?]]])))
@@ -98,12 +95,12 @@
           [ant/form-item {:label "Enable"}
            (ant/decorate-field new-rule-form "enable" {:value-prop-name "checked" :initial-value true}
                                [ant/checkbox])]
-          [ant/form-item
-           [ant/button {:type "primary" :on-click #(ant/validate-fields new-rule-form {:force true} (fn [err vals]
-                                                                                                      (when-not err
-                                                                                                        (append-rule-fn! (js->clj vals :keywordize-keys true))
-                                                                                                        (ant/reset-fields new-rule-form)
-                                                                                                        (reset! display? false))))} "Submit"]]])))))
+          [:div.text-center
+           [ant/button {:type "primary" :size "large" :on-click #(ant/validate-fields new-rule-form {:force true} (fn [err vals]
+                                                                                                                    (when-not err
+                                                                                                                      (append-rule-fn! (js->clj vals :keywordize-keys true))
+                                                                                                                      (ant/reset-fields new-rule-form)
+                                                                                                                      (reset! display? false))))} "Submit"]]])))))
 
 (def redirect-rules-table
   (gen-rules-table {:columns (let [current-row? (fn [record rule] (= (aget record "src") (:src rule)))]
@@ -157,12 +154,12 @@
           [ant/form-item {:label "Enable"}
            (ant/decorate-field new-rule-form "enable" {:value-prop-name "checked" :initial-value true}
                                [ant/checkbox])]
-          [ant/form-item
-           [ant/button {:type "primary" :on-click #(ant/validate-fields new-rule-form {:force true} (fn [err vals]
-                                                                                                      (when-not err
-                                                                                                        (append-rule-fn! (js->clj vals :keywordize-keys true))
-                                                                                                        (ant/reset-fields new-rule-form)
-                                                                                                        (reset! display? false))))} "Submit"]]])))))
+          [:div.text-center
+           [ant/button {:type "primary" :size "large" :on-click #(ant/validate-fields new-rule-form {:force true} (fn [err vals]
+                                                                                                                    (when-not err
+                                                                                                                      (append-rule-fn! (js->clj vals :keywordize-keys true))
+                                                                                                                      (ant/reset-fields new-rule-form)
+                                                                                                                      (reset! display? false))))} "Submit"]]])))))
 
 (defn gen-header-rules-columns [current-row? which-db]
   (into [{:title "Operation" :dataIndex "op" :render (fn [val record _] (r/as-element [ant/select {:default-value val
@@ -175,7 +172,8 @@
                                                                                        op-select-opts]))}
          (gen-editable-column "Header Name" "name" which-db current-row?)
          (gen-editable-column "Header Value" "value" which-db current-row?)
-         (gen-editable-column "Source" "src" which-db current-row?)]
+         (gen-editable-column "Source" "src" which-db current-row? :display-fn (fn [record]
+                                                                                 (:src (tool/decode-rule (js->clj record :keywordize-keys true)))))]
         (gen-common-columns which-db current-row?)))
 
 (defn gen-headers-table [table-title which-db switch append-rule-fn!]
