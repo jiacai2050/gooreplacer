@@ -37,12 +37,16 @@
            (re-find (re-pattern src) url))))
 
 (defn try-modify-header [old-headers header-name header-value op]
-  (case op
-    "modify" (conj (remove #(= (str/lower-case header-name) (str/lower-case (:name %)))
-                           old-headers)
-                   {:name header-name :value header-value})
-    "cancel" (remove #(= (str/lower-case header-name) (str/lower-case (:name %)))
-                     old-headers)))
+  (let [header-name-lower-case (str/lower-case header-name)]
+    (case op
+      "modify" (reduce (fn [new-headers current-header]
+                         (conj new-headers (if (= header-name-lower-case (str/lower-case (:name current-header)))
+                                             {:name header-name :value header-value}
+                                             current-header)))
+                       []
+                       old-headers)
+      "cancel" (remove #(= (str/lower-case header-name) (str/lower-case (:name %)))
+                       old-headers))))
 
 ;; mainly used in background script
 (def supported-handler {"redirectUrl" try-redirect

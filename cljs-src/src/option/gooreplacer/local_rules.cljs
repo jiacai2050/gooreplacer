@@ -1,7 +1,6 @@
 (ns gooreplacer.local-rules
   (:require [antizer.reagent :as ant]
             [reagent.core :as r]
-            [gooreplacer.bootstrap :as bs]
             [gooreplacer.db :as db]
             [gooreplacer.table :as table]
             [gooreplacer.tool :as tool]
@@ -64,11 +63,9 @@
 (defn gen-rules-table [{:keys [table-title columns add-new-form which-db switch row-key]}]
   (fn []
     (r/with-let [display-new-form? (r/atom false)]
-      [bs/panel {:header (r/as-element [:div
-                                        [ant/checkbox {:default-checked (switch @db/goo-conf)
-                                                       :on-change #(swap! db/goo-conf update switch not)} table-title]
-                                        [ant/button {:class "pull-right" :type "primary" :on-click #(reset! display-new-form? true)} "Add"]])
-                 :bs-style "info"}
+      [ant/card {:title (r/as-element [ant/checkbox {:default-checked (switch @db/goo-conf)
+                                                     :on-change #(swap! db/goo-conf update switch not)} table-title])
+                 :extra (r/as-element [ant/button {:type "primary" :on-click #(reset! display-new-form? true)} "Add"])}
        [ant/table {:bordered true :dataSource @which-db
                    :columns columns :row-key row-key
                    :pagination table/pagination}]
@@ -203,30 +200,34 @@
                    (ant/decorate-field sandbox-form "test-url" {:rules [{:required true}]}
                                        [ant/input {:placeholder "example.com"}])]
                   [ant/form-item
-                   [ant/button {:type "primary" :on-click #(ant/validate-fields sandbox-form {:force true} (fn [err vals]
-                                                                                                             (when-not err
-                                                                                                               (let [{:keys [test-url]} (js->clj vals :keywordize-keys true)
-                                                                                                                     {:keys [global-enabled? online-enabled? redirect-enabled? cancel-enabled?]} (db/read-goo-conf)
-                                                                                                                     matched? (atom false)]
-                                                                                                                 (if global-enabled?
-                                                                                                                   (do
-                                                                                                                     (if redirect-enabled?
-                                                                                                                       (when-let [test-ret (tool/url-match test-url @db/redirect-rules)]
-                                                                                                                         (ant/message-success (str "Matched! " test-url " is redirected to " (aget test-ret "redirectUrl")))
-                                                                                                                         (reset! matched? true))
-                                                                                                                       (ant/message-warning "Redirects is OFF!"))
-                                                                                                                     (when-not @matched?
-                                                                                                                       (if cancel-enabled?
-                                                                                                                         (when-let [test-ret (tool/url-match test-url @db/cancel-rules)]
-                                                                                                                           (ant/message-success (str "Matched! " test-url " is blocked!"))
-                                                                                                                           (reset! matched? true))
-                                                                                                                         (ant/message-warning "Cancels is OFF!")))
-                                                                                                                     (when-not @matched?
-                                                                                                                       (if online-enabled?
-                                                                                                                         (if-let [test-ret (tool/url-match test-url (filter (fn [r] (#{"redirectUrl" "cancel"} (:purpose r))) @db/online-rules))]
-                                                                                                                           (if-let [redirect-url (aget test-ret "redirectUrl")]
-                                                                                                                             (ant/message-success (str "Matched! " test-url " is redirected to " redirect-url))
-                                                                                                                             (ant/message-success (str "Matched! " test-url " is blocked!")))
-                                                                                                                           (ant/message-error "Ooops. No rules matched!"))
-                                                                                                                         (ant/message-warning "Online rules is OFF!"))))
-                                                                                                                   (ant/message-warning "Gooreplacer is off totally!!"))))))} "Test"]]])))])
+                   [ant/button {:type "primary"
+                                :on-click #(ant/validate-fields
+                                            sandbox-form
+                                            {:force true}
+                                            (fn [err vals]
+                                              (when-not err
+                                                (let [{:keys [test-url]} (js->clj vals :keywordize-keys true)
+                                                      {:keys [global-enabled? online-enabled? redirect-enabled? cancel-enabled?]} @db/goo-conf
+                                                      matched? (atom false)]
+                                                  (if global-enabled?
+                                                    (do
+                                                      (if redirect-enabled?
+                                                        (when-let [test-ret (tool/url-match test-url @db/redirect-rules)]
+                                                          (ant/message-success (str "Matched! " test-url " is redirected to " (aget test-ret "redirectUrl")))
+                                                          (reset! matched? true))
+                                                        (ant/message-warning "Redirects is OFF!"))
+                                                      (when-not @matched?
+                                                        (if cancel-enabled?
+                                                          (when-let [test-ret (tool/url-match test-url @db/cancel-rules)]
+                                                            (ant/message-success (str "Matched! " test-url " is blocked!"))
+                                                            (reset! matched? true))
+                                                          (ant/message-warning "Cancels is OFF!")))
+                                                      (when-not @matched?
+                                                        (if online-enabled?
+                                                          (if-let [test-ret (tool/url-match test-url (filter (fn [r] (#{"redirectUrl" "cancel"} (:purpose r))) @db/online-rules))]
+                                                            (if-let [redirect-url (aget test-ret "redirectUrl")]
+                                                              (ant/message-success (str "Matched! " test-url " is redirected to " redirect-url))
+                                                              (ant/message-success (str "Matched! " test-url " is blocked!")))
+                                                            (ant/message-error "Ooops. No rules matched!"))
+                                                          (ant/message-warning "Online rules is OFF!"))))
+                                                    (ant/message-warning "Gooreplacer is off totally!!"))))))} "Test"]]])))])

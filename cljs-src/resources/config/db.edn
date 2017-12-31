@@ -1,0 +1,22 @@
+[{:name :goo-conf
+  :init-value {:url ""
+               :online-update-time 0
+               :global-enabled? true
+               :online-enabled? true
+               :redirect-enabled? true
+               :cancel-enabled? true
+               :req-headers-enabled? true
+               :res-headers-enabled? true}
+  :no-append? true}
+ {:name :online-rules
+  :init-value []}
+ {:name :redirect-rules
+  :init-value []}
+ {:name :cancel-rules
+  :init-value []}
+ {:name :request-headers
+  :init-value []}
+ {:name :response-headers
+  :init-value []}]
+
+

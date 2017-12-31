@@ -5,19 +5,19 @@
             :url "http://liujiacai.net/license/MIT.html?year=2015"}
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [org.clojure/clojurescript "1.9.946"]
-                 [reagent "0.8.0-alpha2"]
-                 [cljsjs/react-bootstrap "0.31.0-0"]
-                 [antizer "0.2.2"]
                  [com.cemerick/piggieback "0.2.1"]
                  [figwheel-sidecar "0.5.14"]
-                 [alandipert/storage-atom "2.0.1"]
                  [org.clojure/core.async "0.3.443"]
-                 [org.clojure/core.match "0.3.0-alpha5"]
-                 [cljs-http "0.1.43"]]
+                 [alandipert/storage-atom "2.0.1"]]
   :plugins [[lein-figwheel "0.5.14"]
             [lein-cljsbuild "1.1.7"]
             [lein-doo "0.1.8"]]
   :profiles {:dev {:repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}
+             :ui-deps {:dependencies [[cljsjs/antd "3.0.1-0" :exclusions [cljsjs/react cljsjs/react-dom]]
+                                      [antizer "0.2.2" :exclusions [cljsjs/antd]]
+                                      [cljs-http "0.1.43"]
+                                      [reagent "0.8.0-alpha2"]]}
+             :bg-deps {:dependencies [[org.clojure/core.match "0.3.0-alpha5"]]}
              :dev-option {:source-paths ["src/option"]
                           :clean-targets ^{:protect false} [:target-path "resources/dev/option/js"] 
                           :cljsbuild {:builds [{:id "dev"
@@ -53,32 +53,33 @@
                                                        :main gooreplacer.core
                                                        :optimizations :none
                                                        :verbose true}}]}}
-             :release-option {:source-paths ["src/option" "src/common"] 
-                              :clean-targets ^{:protect false} [:target-path "resources/release/option/js"] 
-                              :cljsbuild {:builds [{:source-paths ["src/option" "src/common"]
-                                                    :compiler {:output-to "resources/release/option/main.js"
-                                                               :output-dir "resources/release/option/js"
-                                                               :externs ["externs/chrome_extensions.js" "externs/chrome.js"]
-                                                               :optimizations :advanced
-                                                               :main gooreplacer.core}}]}}
-             :release-bg {:source-paths ["src/background" "src/common"] 
-                          :clean-targets ^{:protect false} [:target-path "resources/release/background/js"] 
-                          :cljsbuild {:builds [{:source-paths ["src/background" "src/common"]
-                                                :compiler {:output-to "resources/release/background/main.js"
-                                                           :output-dir "resources/release/background/js"
-                                                           :externs ["externs/chrome_extensions.js" "externs/chrome.js"]
-                                                           :optimizations :advanced
-                                                           :main gooreplacer.core}}]}}
-             :test { :cljsbuild {:builds [{:id "test"
-                                           :source-paths ["test" "src/common"]
-                                           :compiler {:output-to "out/main.js"
-                                                      :main gooreplacer.runner
-                                                      :optimizations :none}}]}}}
+             :release {:clean-targets ^{:protect false} [:target-path
+                                                         "resources/release/option/js"
+                                                         "resources/release/background/js"]
+                       :cljsbuild {:builds [{:id "option"
+                                             :source-paths ["src/option" "src/common"]
+                                             :compiler {:output-to "resources/release/option/main.js"
+                                                        :output-dir "resources/release/option/js"
+                                                        :externs ["externs/chrome_extensions.js" "externs/chrome.js"]
+                                                        :optimizations :advanced
+                                                        :main gooreplacer.core}}
+                                            {:id "background"
+                                             :source-paths ["src/background" "src/common"]
+                                             :compiler {:output-to "resources/release/background/main.js"
+                                                        :output-dir "resources/release/background/js"
+                                                        :externs ["externs/chrome_extensions.js" "externs/chrome.js"]
+                                                        :optimizations :advanced
+                                                        :main gooreplacer.core}}]}}
+             :test {:cljsbuild {:builds [{:id "test"
+                                          :source-paths ["test" "src/common"]
+                                          :compiler {:output-to "out/main.js"
+                                                     :main gooreplacer.runner
+                                                     :optimizations :none}}]}}}
   
-  :aliases {"option"   ["with-profile" "dev-option" "do"
+  :aliases {"option"   ["with-profile" "dev-option,ui-deps" "do"
                         ["clean"]
                         ["figwheel" "dev"]]
-            "bg"       ["with-profile" "dev-bg" "do"
+            "bg"       ["with-profile" "dev-bg,bg-deps" "do"
                         ["clean"]
                         ["figwheel" "dev"]]
             "test-all" ["with-profile" "test" "do"

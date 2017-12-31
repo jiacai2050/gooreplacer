@@ -1,37 +1,38 @@
 (ns gooreplacer.online-rules
   (:require [antizer.reagent :as ant]
             [reagent.core :as r]
-            [gooreplacer.bootstrap :as bs]
             [gooreplacer.db :as db]
             [gooreplacer.tool :as tool]
             [gooreplacer.table :as table]
             [cljs-http.client :as http]
             [cljs.core.async :refer [<!]]
             [clojure.set :as set]
-            [gooreplacer.io :as io])
+            [gooreplacer.io :as io]
+            [goog.dom :as gdom])
   (:require-macros [cljs.core.async.macros :refer [go]]))
 
 (defn edit-online-url []
   (r/with-let [online-editable? (r/atom false)
                edit-or-ok-label (r/atom "Edit")]
-    (let [!online-url (atom nil)
+    (let [online-url-id "online-url"
           save-fn (fn []
                     (swap! online-editable? not)
                     (if (= "OK" @edit-or-ok-label)
-                      (let [url (.. @!online-url -refs -input -value)]
+                      (let [url (-> (gdom/getElement online-url-id)
+                                    (.-value)
+                                    clojure.string/trim)]
                         (swap! db/goo-conf assoc :url url)
                         (reset! edit-or-ok-label "Edit"))
                       (reset! edit-or-ok-label "OK")))]
-      [bs/form-group {:control-id "online-url"}
-       [bs/col {:sm 2 :class "text-right"}
-        [bs/control-label "Rule List URL"]]
-       [bs/col {:sm 8}
-        [ant/input {:default-value (:url @db/goo-conf) :disabled (not @online-editable?) :ref #(reset! !online-url %)
-                    :on-press-enter save-fn
-                    :addon-after (r/as-element [ant/icon {:type "right" :style {:cursor "pointer"}
-                                                          :on-click #(.sendMessage js/chrome.runtime #js {"url" (:url @db/goo-conf)})}])}]]
-       [bs/col {:sm 2}
-        [ant/button {:on-click save-fn} @edit-or-ok-label]]])))
+        [ant/form-item {:label "Rule List URL"}
+         [ant/row {:gutter 10}
+          [ant/col {:span 20}
+           [ant/input {:default-value (:url @db/goo-conf) :disabled (not @online-editable?) :id online-url-id
+                       :on-press-enter save-fn
+                       :addon-after (r/as-element [ant/icon {:type "right" :style {:cursor "pointer"}
+                                                             :on-click #(.sendMessage js/chrome.runtime #js {"url" (:url @db/goo-conf)})}])}]]
+       [ant/col {:span 4}
+        [ant/button {:type "primary" :on-click save-fn} @edit-or-ok-label]]]])))
 
 (def common-columns
   [{:title "Purpose" :dataIndex "purpose"}
@@ -66,31 +67,34 @@
 (defn update-url [loading?]
   (r/with-let [loading? (r/atom false)
                display-rules? (r/atom false)]
-    [bs/form-group
-     [bs/col {:sm 2 :class "text-right"}
-      [bs/control-label "Last  update"]]
-     [bs/col {:sm 4} (:online-update-time @db/goo-conf)]
-     [bs/col {:sm 3}
-      [ant/button {:on-click #(do (reset! loading? true)
-                                  (go (let [url (:url @db/goo-conf)
-                                            {:keys [success error-text body] :as resp} (<! (http/get url {:with-credentials? false}))]
-                                        (reset! loading? false)
-                                        (if success
-                                          (try
-                                            (let [online-rules (if (map? body) body (js->clj (.parse js/JSON body) :keywordize-keys true))]
-                                              (io/import-online-rules! online-rules)
-                                              (swap! db/goo-conf assoc :online-update-time (js/Date))
-                                              (ant/message-success "Update done."))
-                                            (catch js/Error e (ant/message-error (str "Parse rules error! " (.stringify js/JSON e)))))
-                                          (ant/message-error (str "Connection Error! " error-text))))))} (if @loading? "Loading..." "Update Now")]
-      [ant/button {:on-click #(reset! display-rules? true)} "View"]
-      [ant/modal {:visible @display-rules? :footer nil :title "Online rules" :width "60%"
-                  :on-cancel #(reset! display-rules? false)} [online-rules-table display-rules?]]]]))
+    [:div
+     [ant/form-item {:label "Last update time"}
+      (:online-update-time @db/goo-conf)]
+     [ant/row {:type "flex" :justify "center" :gutter 10}
+      [ant/col
+       [ant/button {:on-click #(do (reset! loading? true)
+                                   (go (let [url (:url @db/goo-conf)
+                                             {:keys [success error-text body] :as resp} (<! (http/get url {:with-credentials? false}))]
+                                         (reset! loading? false)
+                                         (if success
+                                           (try
+                                             (let [online-rules (if (map? body) body (js->clj (.parse js/JSON body) :keywordize-keys true))]
+                                               (io/import-online-rules! online-rules)
+                                               (swap! db/goo-conf assoc :online-update-time (js/Date))
+                                               (ant/message-success "Update done."))
+                                             (catch js/Error e (ant/message-error (str "Parse rules error! " (.stringify js/JSON e)))))
+                                           (ant/message-error (str "Connection Error! " error-text))))))
+                    :type "primary"}
+        (if @loading? "Loading..." "Update Now")]]
+      [ant/col
+       [ant/button {:on-click #(reset! display-rules? true) :type "primary"} "View"]]
+      [ant/col
+       [ant/modal {:visible @display-rules? :footer nil :title "Online rules" :width "80%"
+                   :on-cancel #(reset! display-rules? false)} [online-rules-table display-rules?]]]]]))
 
 (defn configure-online-form []
-  [bs/panel {:header (r/as-element [ant/checkbox {:default-checked (:online-enabled? @db/goo-conf)
-                                                  :on-change #(swap! db/goo-conf update :online-enabled? not)} "Online Rule List"])
-             :bs-style "info"}
-   [bs/form {:class "form-horizontal" :on-submit #(.preventDefault %)}
+  [ant/card {:title (r/as-element [ant/checkbox {:default-checked (:online-enabled? @db/goo-conf)
+                                                  :on-change #(swap! db/goo-conf update :online-enabled? not)} "Online Rule List"])}
+   [ant/form {:on-submit #(.preventDefault %)}
     [edit-online-url]
     [update-url]]])

@@ -47,10 +47,10 @@
   (let [data {:createBy "http://liujiacai.net/gooreplacer/"
               :version (db/version)
               :createAt (js/Date)
-              :redirect-rules (map tool/decode-rule (db/read-redirect-rules))
-              :cancel-rules (map tool/decode-rule (db/read-cancel-rules))
-              :request-headers (map tool/decode-rule (db/read-request-headers))
-              :response-headers (map tool/decode-rule (db/read-response-headers))}
+              :redirect-rules (map tool/decode-rule @db/redirect-rules)
+              :cancel-rules (map tool/decode-rule @db/cancel-rules)
+              :request-headers (map tool/decode-rule @db/request-headers)
+              :response-headers (map tool/decode-rule @db/response-headers)}
         content (js/Blob. [(.stringify js/JSON (clj->js data) nil 2)] (clj->js {:type "application/json"}))]
     (.download js/chrome.downloads (clj->js {:url (.createObjectURL js/window.URL content)
                                              :saveAs true
