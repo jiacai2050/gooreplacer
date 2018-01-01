@@ -1,25 +1,32 @@
 (ns gooreplacer.core
   (:require [gooreplacer.tool :as tool]
-            [gooreplacer.listener :as listener]
             [clojure.string :as str]
-            [alandipert.storage-atom])
-  (:require-macros [gooreplacer.macro :refer [init-db-reader!]]))
+            [cljs.core.async :refer [<! >! chan]]
+            [alandipert.storage-atom]
+            [gooreplacer.dev]
+            [cljs.core.match :refer-macros [match]])
+  (:require-macros [gooreplacer.macro :refer [init-db-reader!]]
+                   [cljs.core.async.macros :refer [go-loop go]]))
+
+(init-db-reader!)
+
+(defn modify-url [url]
+  (let [{:keys [global-enabled? online-enabled? redirect-enabled? cancel-enabled?]} (read-goo-conf)]
+    (when global-enabled?
+      (if-let [redirect-resp (when redirect-enabled?
+                               (tool/url-match url (read-redirect-rules) "redirectUrl"))]
+        redirect-resp
+        (if-let [cancel-resp (when cancel-enabled?
+                               (tool/url-match url (read-cancel-rules) "cancel"))]
+          cancel-resp
+          (when online-enabled?
+            (tool/url-match url (filter #(#{"redirectUrl" "cancel"} (:purpose %)) (read-online-rules)))))))))
 
 (when-let [web-request (goog.object/getValueByKeys js/window "chrome" "webRequest")]
-  (init-db-reader!)
   (.addListener (.-onBeforeRequest web-request)
                 (fn [req]
                   (when-let [url (aget req "url")]
-                    (let [{:keys [global-enabled? online-enabled? redirect-enabled? cancel-enabled?]} (read-goo-conf)]
-                      (when global-enabled?
-                        (if-let [redirect-resp (when redirect-enabled?
-                                                 (tool/url-match url (read-redirect-rules) "redirectUrl"))]
-                          redirect-resp
-                          (if-let [cancel-resp (when cancel-enabled?
-                                                 (tool/url-match url (read-cancel-rules) "cancel"))]
-                            cancel-resp
-                            (when online-enabled?
-                              (tool/url-match (aget req "url") (filter #(#{"redirectUrl" "cancel"} (:purpose %)) (read-online-rules))))))))))
+                    (modify-url url)))
                 (clj->js {"urls" ["<all_urls>"]})
                 #js ["blocking"])
   (.addListener (.-onHeadersReceived web-request)
@@ -44,5 +51,16 @@
                           (tool/headers-match "requestHeaders" (.-url req) (.-requestHeaders req) (read-request-headers)))))))
                 (clj->js {"urls" ["<all_urls>"]})
                 #js ["blocking" "requestHeaders"])
-  (println "listen request done!"))
+  (println "listen request done!")
+  (let [msg-ch (chan)]
+    (.addListener js/chrome.runtime.onMessage
+                  (fn [msg sender send-response]
+                    (match [(js->clj msg :keywordize-keys true)]
+                           [{:sandbox test-url}] (send-response (modify-url test-url))
+                           [msg] (println "Unknown: " msg))
+                    ;; https://developer.chrome.com/extensions/runtime#event-onMessage
+                    true))
+    (.addListener js/chrome.browserAction.onClicked
+                  #(.create js/chrome.tabs (clj->js {:url "../option/index.html"})))
+    (println "listen message done!")))
 

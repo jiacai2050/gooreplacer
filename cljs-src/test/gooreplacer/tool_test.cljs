@@ -1,6 +1,5 @@
 (ns gooreplacer.tool-test
-  (:require [gooreplacer.db :as db]
-            [gooreplacer.tool :as tool]
+  (:require [gooreplacer.tool :as tool]
             [cljs.test :refer-macros [deftest is testing run-tests]]))
 
 (deftest test-try-redirect

@@ -39,12 +39,9 @@
 (defn try-modify-header [old-headers header-name header-value op]
   (let [header-name-lower-case (str/lower-case header-name)]
     (case op
-      "modify" (reduce (fn [new-headers current-header]
-                         (conj new-headers (if (= header-name-lower-case (str/lower-case (:name current-header)))
-                                             {:name header-name :value header-value}
-                                             current-header)))
-                       []
-                       old-headers)
+      "modify" (conj (remove #(= (str/lower-case header-name) (str/lower-case (:name %)))
+                             old-headers)
+                     {:name header-name :value header-value})
       "cancel" (remove #(= (str/lower-case header-name) (str/lower-case (:name %)))
                        old-headers))))
 

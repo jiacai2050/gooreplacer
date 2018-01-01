@@ -7,7 +7,7 @@
                  [org.clojure/clojurescript "1.9.946"]
                  [com.cemerick/piggieback "0.2.1"]
                  [figwheel-sidecar "0.5.14"]
-                 [org.clojure/core.async "0.3.443"]
+                 [org.clojure/core.match "0.3.0-alpha5"]
                  [alandipert/storage-atom "2.0.1"]]
   :plugins [[lein-figwheel "0.5.14"]
             [lein-cljsbuild "1.1.7"]
@@ -16,8 +16,9 @@
              :ui-deps {:dependencies [[cljsjs/antd "3.0.1-0" :exclusions [cljsjs/react cljsjs/react-dom]]
                                       [antizer "0.2.2" :exclusions [cljsjs/antd]]
                                       [cljs-http "0.1.43"]
+                                      [org.clojure/core.async "0.3.443"]
                                       [reagent "0.8.0-alpha2"]]}
-             :bg-deps {:dependencies [[org.clojure/core.match "0.3.0-alpha5"]]}
+             :bg-deps {:dependencies []}
              :dev-option {:source-paths ["src/option"]
                           :clean-targets ^{:protect false} [:target-path "resources/dev/option/js"] 
                           :cljsbuild {:builds [{:id "dev"
@@ -25,7 +26,6 @@
                                                 :source-paths ["src/option" "src/common"]
                                                 :compiler {:output-to "resources/dev/option/js/main.js"
                                                            :source-map true
-                                                           :preloads [gooreplacer.preloads]
                                                            :asset-path "js"
                                                            :output-dir "resources/dev/option/js"
                                                            :optimizations :none
@@ -48,7 +48,6 @@
                                             :compiler {:output-to "resources/dev/background/js/main.js"
                                                        :source-map true
                                                        :output-dir "resources/dev/background/js"
-                                                       :preloads [gooreplacer.preloads]
                                                        :asset-path "js"
                                                        :main gooreplacer.core
                                                        :optimizations :none
