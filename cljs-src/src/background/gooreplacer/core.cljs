@@ -52,15 +52,15 @@
                 (clj->js {"urls" ["<all_urls>"]})
                 #js ["blocking" "requestHeaders"])
   (println "listen request done!")
-  (let [msg-ch (chan)]
-    (.addListener js/chrome.runtime.onMessage
-                  (fn [msg sender send-response]
-                    (match [(js->clj msg :keywordize-keys true)]
-                           [{:sandbox test-url}] (send-response (modify-url test-url))
-                           [msg] (println "Unknown: " msg))
-                    ;; https://developer.chrome.com/extensions/runtime#event-onMessage
-                    true))
-    (.addListener js/chrome.browserAction.onClicked
-                  #(.create js/chrome.tabs (clj->js {:url "../option/index.html"})))
-    (println "listen message done!")))
+  (.addListener js/chrome.runtime.onMessage
+                (fn [msg sender send-response]
+                  (match [(js->clj msg :keywordize-keys true)]
+                         [{:sandbox test-url}] (send-response (modify-url test-url))
+                         [{:url goto-url}] (.create js/chrome.tabs (clj->js {:url goto-url}))
+                         [msg] (println "Unknown: " msg))
+                  ;; https://developer.chrome.com/extensions/runtime#event-onMessage
+                  true))
+  (.addListener js/chrome.browserAction.onClicked
+                #(.create js/chrome.tabs (clj->js {:url "../option/index.html"})))
+  (println "listen message done!"))
 
