@@ -1,6 +1,6 @@
 {
   "name": "gooreplacer",
-  "version": "3.9.1",
+  "version": "3.9.2",
   "description": "Redirect, block Requests; Modify, cancel request/response Headers",
   "permissions": [
     "webRequest", "webRequestBlocking",
@@ -31,6 +31,6 @@
   },
   "author": "http://liujiacai.net",
   "homepage_url": "https://github.com/jiacai2050/gooreplacer",
-  "content_security_policy": "default-src 'self'; style-src https://* 'unsafe-inline'; font-src https://* ",
+  "content_security_policy": "default-src 'self'; style-src https://* 'unsafe-inline'; font-src https://*; connect-src http://* https://*",
   "manifest_version": 2
 }
