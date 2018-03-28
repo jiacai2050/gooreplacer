@@ -1,0 +1,15 @@
+{
+    "createBy": "KrasnayaPloshchad",
+    "createAt": "Wed Mar 28 2018",
+    "rules": {
+            "fonts.googleapis.com": {
+		             "dstURL": "fonts.proxy.ustclug.org",
+		             "kind": "wildcard",
+		             "enable": true
+		         },
+             "fonts.gstatic.com": {
+		             "dstURL": "fonts-gstatic.proxy.ustclug.org",
+		             "kind": "wildcard",
+		             "enable": true
+		         },
+ }
