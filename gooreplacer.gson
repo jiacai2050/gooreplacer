@@ -7,6 +7,11 @@
             "kind": "wildcard",
             "enable": true
         },
+        "fonts.googleapis.com": {
+            "dstURL": "fonts.proxy.ustclug.org",
+            "kind": "wildcard",
+            "enable": false
+        }
         "storage.googleapis.com": {
             "dstURL": "storage-googleapis.proxy.ustclug.org",
             "kind": "wildcard",
@@ -22,18 +27,23 @@
             "kind": "wildcard",
             "enable": true
         },
+        "fonts.gstatic.com": {
+            "dstURL": "fonts-gstatic.proxy.ustclug.org",
+            "kind": "wildcard",
+            "enable": false
+        }
         "platform.twitter.com/widgets.js": {
-            "dstURL": "cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/widgets.js",
+            "dstURL": "cdn.jsdelivr.net/gh/jiacai2050/gooreplacer@gh-pages/proxy/widgets.js",
             "kind": "wildcard",
             "enable": true
         },
         "apis.google.com/js/api.js": {
-            "dstURL": "cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/api.js",
+            "dstURL": "cdn.jsdelivr.net/gh/jiacai2050/gooreplacer@gh-pages/proxy/api.js",
             "kind": "wildcard",
             "enable": true
         },
         "apis.google.com/js/plusone.js": {
-            "dstURL": "cdn.rawgit.com/jiacai2050/gooreplacer/gh-pages/proxy/plusone.js",
+            "dstURL": "cdn.jsdelivr.net/gh/jiacai2050/gooreplacer@gh-pages/proxy/plusone.js",
             "kind": "wildcard",
             "enable": true
         }
