@@ -73,7 +73,8 @@
                                           :source-paths ["test" "src/common"]
                                           :compiler {:output-to "out/main.js"
                                                      :main gooreplacer.runner
-                                                     :optimizations :none}}]}}}
+                                                     :optimizations :none}}]}
+                    :doo {:build "test"}}}
   
   :aliases {"option"   ["with-profile" "dev-option,ui-deps" "do"
                         ["clean"]
@@ -81,7 +82,7 @@
             "bg"       ["with-profile" "dev-bg,bg-deps" "do"
                         ["clean"]
                         ["figwheel" "dev"]]
-            "test-all" ["with-profile" "test" "do"
-                        ["clean"]
-                        ;; First install phantom
-                        ["doo" "phantom" "test"]]})
+            "test-and-watch" ["with-profile" "test" "do"
+                              ["clean"]
+                              ;; First install phantom
+                              ["doo" "phantom"]]})

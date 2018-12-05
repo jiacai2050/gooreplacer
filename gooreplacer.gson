@@ -1,6 +1,6 @@
 {
     "createBy": "http://liujiacai.net/gooreplacer/",
-    "createAt": "Tue Jan 10 2017 17:45:39 GMT+0000",
+    "createAt": "Wed Dec 05 2018 21:53:22 GMT+0800 (China Standard Time)",
     "rules": {
         "ajax.googleapis.com": {
             "dstURL": "ajax.proxy.ustclug.org",
@@ -11,7 +11,7 @@
             "dstURL": "fonts.proxy.ustclug.org",
             "kind": "wildcard",
             "enable": false
-        }
+        },
         "storage.googleapis.com": {
             "dstURL": "storage-googleapis.proxy.ustclug.org",
             "kind": "wildcard",
@@ -31,7 +31,7 @@
             "dstURL": "fonts-gstatic.proxy.ustclug.org",
             "kind": "wildcard",
             "enable": false
-        }
+        },
         "platform.twitter.com/widgets.js": {
             "dstURL": "cdn.jsdelivr.net/gh/jiacai2050/gooreplacer@gh-pages/proxy/widgets.js",
             "kind": "wildcard",
