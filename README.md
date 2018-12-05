@@ -1,5 +1,5 @@
 
-## [gooreplacer](http://liujiacai.net/gooreplacer)  [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) [![Mozilla Add-on](https://img.shields.io/amo/v/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/)
+## [gooreplacer](http://liujiacai.net/gooreplacer)  [![Build Status](https://travis-ci.org/jiacai2050/gooreplacer.svg?branch=master)](https://travis-ci.org/jiacai2050/gooreplacer) [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) [![Mozilla Add-on](https://img.shields.io/amo/v/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/)
 
 > 重定向/屏蔽 URL，修改/删除 headers
 
