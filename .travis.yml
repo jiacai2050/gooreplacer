@@ -1,12 +1,13 @@
-dist: trusty
 language: clojure
 jdk:
   - oraclejdk8
+env:
+  - NODE_VERSION=8 CC=clang CXX=clang++
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install -y nodejs npm
-  - sudo npm install jsonlint -g
+  - nvm install $NODE_VERSION
+  - npm install jsonlint -g
+  - cd cljs-src
 
 script:
-  - cd cljs-src; lein with-profile +test doo phantom once
-  - jsonlint gooreplacer.gson
+  - lein with-profile +test doo phantom once
+  - jsonlint ../gooreplacer.gson
