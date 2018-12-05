@@ -3,8 +3,8 @@ language: clojure
 jdk:
   - oraclejdk8
 before_install:
-  - apt-get install -y nodejs
-  - npm install jsonlint -g
+  - sudo apt-get install -y nodejs
+  - sudo npm install jsonlint -g
 
 script:
   - cd cljs-src; lein with-profile +test doo phantom once
