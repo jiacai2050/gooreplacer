@@ -1,5 +1,7 @@
 (ns gooreplacer.tool
-  (:require [clojure.string :as str]))
+  (:require [clojure.string :as str]
+            [goog.array :as garr]
+            [goog.object :as gobj]))
 
 (defn encode-rule [{:keys [kind] :as rule}]
   (if (= "wildcard" kind)
@@ -36,20 +38,25 @@
   (some? (when enable
            (re-find (re-pattern src) url))))
 
-(defn try-modify-header [old-headers header-name header-value op]
-  (let [header-name-lower-case (str/lower-case header-name)]
-    (case op
-      "modify" (conj (remove #(= (str/lower-case header-name) (str/lower-case (:name %)))
-                             old-headers)
-                     {:name header-name :value header-value})
-      "cancel" (remove #(= (str/lower-case header-name) (str/lower-case (:name %)))
-                       old-headers))))
+(defn try-modify-header!
+  "raw-headers is a js object for in-place update"
+  [raw-headers header-name header-value op]
+  (let [header-name-lower-case (str/lower-case header-name)
+        headers-length (alength raw-headers)]
+    (loop [i 0]
+      (when (< i headers-length)
+        (let [curr-header (aget raw-headers i)]
+          (if (= header-name-lower-case (str/lower-case (.-name curr-header)))
+            (case op
+              "modify" (set! (.-value curr-header) header-value)
+              "cancel" (garr/removeAt raw-headers i))
+            (recur (inc i))))))))
 
 ;; mainly used in background script
 (def supported-handler {"redirectUrl" try-redirect
                         "cancel" try-cancel
-                        "responseHeaders" try-modify-header
-                        "requestHeaders" try-modify-header})
+                        "responseHeaders" try-modify-header!
+                        "requestHeaders" try-modify-header!})
 
 (defn url-match [url rules & [explict-purpose]]
   ;; purpose priority
@@ -64,12 +71,12 @@
 
 
 (defn headers-match [purpose url raw-headers rules]
-  (loop [[{:keys [enable src kind op name value] :as rule} & rest] rules
-         headers (js->clj raw-headers :keywordize-keys true)]
-    (if rule
-      (if (and enable (re-find (re-pattern src) url))
-        (let [handler (supported-handler purpose)
-              new-headers (handler headers name value op)]
-          (recur rest new-headers))
-        (recur rest headers))
-      (clj->js {purpose headers}))))
+  (let [headers raw-headers]
+    (loop [[{:keys [enable src kind op name value] :as rule} & rest] rules]
+      (if rule
+        (if (and enable (re-find (re-pattern src) url))
+          (let [handler! (supported-handler purpose)]
+             (handler! headers name value op)
+            (recur rest))
+          (recur rest))
+        (gobj/create purpose headers)))))

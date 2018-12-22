@@ -46,16 +46,23 @@
 
 (deftest test-modify-header
   (testing "modify header"
-    (let [old-header [{:name "content-type" :value "text/html; charset=utf-8"}]
+    (let [old-header (clj->js [{:name "content-type" :value "text/html; charset=utf-8"}
+                               {:name "content-type2" :value "unchanged"}])
           header-name "Content-Type"
           header-value "application/json"
           op "modify"]
-      (is (= [{:name "Content-Type", :value "application/json"}]
-             (tool/try-modify-header old-header header-name header-value op)))))
+      (is (= [{:name "content-type", :value "application/json"}
+              {:name "content-type2" :value "unchanged"}]
+             (do
+               (tool/try-modify-header! old-header header-name header-value op)
+               (js->clj old-header :keywordize-keys true))))))
   (testing "cancel header"
-    (let [old-header [{:name "content-type" :value "text/html; charset=utf-8"}]
+    (let [old-header (clj->js [{:name "content-type" :value "text/html; charset=utf-8"}
+                               {:name "content-type2" :value "unchanged"}])
           header-name "Content-Type"
           header-value nil
           op "cancel"]
-      (is (= []
-             (tool/try-modify-header old-header header-name header-value op))))))
+      (is (= [{:name "content-type2" :value "unchanged"}]
+             (do
+               (tool/try-modify-header! old-header header-name header-value op)
+               (js->clj old-header :keywordize-keys true)))))))
