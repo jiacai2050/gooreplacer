@@ -1,10 +1,10 @@
-(defproject gooreplacer "2.0.0"
+(defproject gooreplacer "3.10.0"
   :description "Modify, block URLs & Headers"
   :url "https://github.com/jiacai2050/gooreplacer"
   :license {:name "MIT"
             :url "http://liujiacai.net/license/MIT.html?year=2015"}
-  :dependencies [[org.clojure/clojure "1.8.0"]
-                 [org.clojure/clojurescript "1.9.946"]
+  :dependencies [[org.clojure/clojure "1.9.0"]
+                 [org.clojure/clojurescript "1.10.439"]
                  [com.cemerick/piggieback "0.2.1"]
                  [figwheel-sidecar "0.5.14"]
                  [org.clojure/core.match "0.3.0-alpha5"]
@@ -13,11 +13,11 @@
             [lein-cljsbuild "1.1.7"]
             [lein-doo "0.1.8"]]
   :profiles {:dev {:repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}
-             :ui-deps {:dependencies [[cljsjs/antd "3.0.1-0" :exclusions [cljsjs/react cljsjs/react-dom]]
-                                      [antizer "0.2.2" :exclusions [cljsjs/antd]]
+             :ui-deps {:dependencies [[antizer "0.2.2" :exclusions [cljsjs/antd]]
+                                      [cljsjs/antd "3.0.1-0" :exclusions [cljsjs/react cljsjs/react-dom]]
                                       [cljs-http "0.1.43"]
                                       [org.clojure/core.async "0.3.443"]
-                                      [reagent "0.8.0-alpha2"]]}
+                                      [reagent "0.8.1"]]}
              :bg-deps {:dependencies []}
              :dev-option {:source-paths ["src/option"]
                           :clean-targets ^{:protect false} [:target-path "resources/dev/option/js"] 
