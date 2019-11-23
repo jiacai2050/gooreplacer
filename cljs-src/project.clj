@@ -3,18 +3,18 @@
   :url "https://github.com/jiacai2050/gooreplacer"
   :license {:name "MIT"
             :url "http://liujiacai.net/license/MIT.html?year=2015"}
-  :dependencies [[org.clojure/clojure "1.9.0"]
-                 [org.clojure/clojurescript "1.10.439"]
+  :dependencies [[org.clojure/clojure "1.10.0"]
+                 [org.clojure/clojurescript "1.10.597"]
                  [com.cemerick/piggieback "0.2.1"]
                  [figwheel-sidecar "0.5.14"]
                  [org.clojure/core.match "0.3.0-alpha5"]
+                 [org.clojure/data.json "0.2.7"]
                  [alandipert/storage-atom "2.0.1"]]
   :plugins [[lein-figwheel "0.5.14"]
             [lein-cljsbuild "1.1.7"]
             [lein-doo "0.1.8"]]
   :profiles {:dev {:repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}
-             :ui-deps {:dependencies [[antizer "0.2.2" :exclusions [cljsjs/antd]]
-                                      [cljsjs/antd "3.0.1-0" :exclusions [cljsjs/react cljsjs/react-dom]]
+             :ui-deps {:dependencies [[antizer "0.3.0"]
                                       [cljs-http "0.1.43"]
                                       [org.clojure/core.async "0.3.443"]
                                       [reagent "0.8.1"]]}
