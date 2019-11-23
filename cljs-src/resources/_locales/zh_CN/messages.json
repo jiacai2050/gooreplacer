@@ -1,0 +1,193 @@
+{
+  "appName": {
+    "message": "Gooreplacer"
+  },
+  "appDesc": {
+    "message": "拦截/重定向 URL && 修改 Headers"
+  },
+  "btnHome": {
+    "message": "主页"
+  },
+  "btnImport": {
+    "message": "导入"
+  },
+  "btnExport": {
+    "message": "导出"
+  },
+  "btnHelp": {
+    "message": "帮助"
+  },
+  "tabUrl": {
+    "message": "重定向/拦截"
+  },
+  "tabRedirectUrl": {
+    "message": "重定向"
+  },
+  "tabCancelUrl": {
+    "message": "拦截"
+  },
+  "tabHeaders": {
+    "message": "请求/响应头"
+  },
+  "titleReqHeaders": {
+    "message": "请求头"
+  },
+  "titleRespHeaders": {
+    "message": "响应头"
+  },
+  "tabOnlineRule": {
+    "message": "在线规则"
+  },
+  "tabSandbox": {
+    "message": "沙箱测试"
+  },
+  "tipEdit": {
+    "message": "编辑"
+  },
+  "tipOk": {
+    "message": "确认"
+  },
+  "colSrc": {
+    "message": "匹配模式"
+  },
+  "colKind": {
+    "message": "匹配类型"
+  },
+  "colDst": {
+    "message": "目标地址"
+  },
+  "colEnable": {
+    "message": "是否开启"
+  },
+  "colAction": {
+    "message": "操作"
+  },
+  "colHeaderName": {
+    "message": "键名"
+  },
+  "colHeaderValue": {
+    "message": "键值"
+  },
+  "colOperation": {
+    "message": "动作类型"
+  },
+  "colPurpose": {
+    "message": "规则类型"
+  },
+  "cfmDelete": {
+    "message": "真的要删除吗？"
+  },
+  "cfmCase": {
+    "message": "不区分大小写"
+  },
+  "tmplIgnore": {
+    "message": "如果动作类型是$OP_CANCEL$，这里可以为空",
+    "placeholders": {
+      "op_cancel": {"content": "$1"}
+    }
+  },
+  "btnAdd": {
+    "message": "新增"
+  },
+  "kindWildcard": {
+    "message": "通配符"
+  },
+  "kindRegexp": {
+    "message": "正则表达式"
+  },
+  "opModify": {
+    "message": "修改"
+  },
+  "opCancel": {
+    "message": "拦截"
+  },
+  "txtNoMatch": {
+    "message": "囧，没有匹配到任何规则！"
+  },
+  "txtTestUrl": {
+    "message": "测试 URL"
+  },
+  "txtTestHelp": {
+    "message": "测试重定向/拦截规则. 目前不支持测试请求/响应头规则！"
+  },
+  "tmplChangeTo": {
+    "message": "改变为 $NEW_VAL$",
+    "placeholders": {
+      "new_val": {"content": "$1"}
+    }
+  },
+  "tmplRuleOff": {
+    "message": "$RULE_TYPE$ 没有开启！",
+    "placeholders": {
+      "rule_type": {"content": "$1"}
+    }
+  },
+  "tmplRedirect": {
+    "message": "匹配成功！$TEST_URL$ 被重定向到 $REDIRECT_URL$",
+    "placeholders": {
+      "test_url": {"content": "$1"},
+      "redirect_url": {"content": "$2"}
+    }
+  },
+  "tmplBlock": {
+    "message": "匹配成功！$TEST_URL$ 已被拦截",
+    "placeholders": {
+      "test_url": {"content": "$1"}
+    }
+  },
+  "btnSubmit": {
+    "message": "提交"
+  },
+  "btnTest": {
+    "message": "测试"
+  },
+  "btnClearAll": {
+    "message": "清除所有数据"
+  },
+  "tmplDeleteOk": {
+    "message": "$OBJECT$ 删除成功！",
+    "placeholders": {
+      "object": {"content": "$1"}
+    }
+  },
+  "tmplUpdateOk": {
+    "message": "$OBJECT$ 更新成功！",
+    "placeholders": {
+      "object": {"content": "$1"}
+    }
+  },
+  "tmplDeleteFail": {
+    "message": "$OBJECT$ 删除失败。$CAUSE$",
+    "placeholders": {
+      "object": {"content": "$1"},
+      "cause": {"content": "$2"}
+    }
+  },
+  "tmplUpdateFail": {
+    "message": "$OBJECT$ 更新失败。$CAUSE$",
+    "placeholders": {
+      "object": {"content": "$1"},
+      "cause": {"content": "$2"}
+    }
+  },
+  "txtLastUpdate": {
+    "message": "上次更新"
+  },
+  "txtLoading": {
+    "message": "加载中..."
+  },
+  "btnUpdateNow": {
+    "message": "立刻更新"
+  },
+  "btnView": {
+    "message": "查看"
+  },
+  "tmplPagination": {
+    "message": "共 $TOTAL$ 条规则",
+    "placeholders": {
+      "total": {
+        "content": "$1"
+      }
+    }
+  }
+}

@@ -46,7 +46,7 @@
 (defn export-rules []
   (let [data {:createBy "http://liujiacai.net/gooreplacer/"
               :version (db/version)
-              :createAt (js/Date)
+              :createAt (.toLocaleString (js/Date.))
               :redirect-rules (map tool/decode-rule @db/redirect-rules)
               :cancel-rules (map tool/decode-rule @db/cancel-rules)
               :request-headers (map tool/decode-rule @db/request-headers)

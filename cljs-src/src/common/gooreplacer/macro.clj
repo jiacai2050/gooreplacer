@@ -1,6 +1,7 @@
 (ns gooreplacer.macro
   (:require [clojure.string :as str]
             [clojure.java.io :as io]
+            [clojure.data.json :as json]
             [clojure.edn :as edn]))
 
 (defn- load-db-conf []
@@ -34,4 +35,25 @@
                        (alandipert.storage-atom/load-local-storage ~(keyword str-name)))))
           entries))))
 
+(defn- camelcase->kebab [s]
+  (->> (clojure.string/split s #"(?=[A-Z])")
+       (map clojure.string/lower-case)
+       (clojure.string/join "-")))
+
+(defmacro init-i18n!
+  "Define vars extracted from locales messages"
+  []
+  (let [msgs (json/read-str (slurp (io/resource "_locales/en/messages.json")))]
+    `(do
+       ~@(map (fn [[name {:strs [placeholders]}]]
+                (let [sname (symbol (camelcase->kebab name))]
+                  ;; https://developer.chrome.com/extensions/i18n-messages#placeholders
+                  (if placeholders
+                    `(defn ~sname [& ~'args]
+                       (js/chrome.i18n.getMessage ~name (~'clj->js ~'args)))
+                    `(def ~sname
+                       (js/chrome.i18n.getMessage ~name)))))
+              msgs))))
+
 ;; (init-database!)
+

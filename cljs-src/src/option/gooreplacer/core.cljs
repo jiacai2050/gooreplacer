@@ -4,6 +4,7 @@
             [reagent.core :as r]
             [gooreplacer.db :as db]
             [gooreplacer.io :as io]
+            [gooreplacer.i18n :as i18n]
             [gooreplacer.local-rules :as lr]
             [gooreplacer.online-rules :refer [configure-online-form]]))
 
@@ -11,36 +12,37 @@
   [:div
    [ant/row {:type "flex" :justify "center"}
     [ant/col 
-     [:h1 "Gooreplacer"]]]
+     [:h1 i18n/app-name]]]
    [ant/row {:type "flex" :justify "center"}
     [ant/col
-     [:h3 "Modify, block URLs & Headers"]]]
+     [:h3 i18n/app-desc]]]
    [ant/row {:type "flex" :justify "center" :gutter 8}
     [ant/col
-     [ant/button {:type "primary" :on-click #(.sendMessage js/chrome.runtime #js {"url" "http://liujiacai.net/gooreplacer/"})} [ant/icon {:type "home"}] " Home"]]
+     [ant/button {:type "primary" :on-click #(.sendMessage js/chrome.runtime #js {"url" "http://liujiacai.net/gooreplacer/"})} [ant/icon {:type "home"}] i18n/btn-home]]
     [ant/col
-     [ant/button {:type "primary" :on-click io/import-rules} [ant/icon {:type "upload"}] " Import"]]
+     [ant/button {:type "primary" :on-click io/import-rules} [ant/icon {:type "upload"}] i18n/btn-import]]
     [ant/col
-     [ant/button {:type "primary" :on-click io/export-rules} [ant/icon {:type "download"}] " Export"]]
+     [ant/button {:type "primary" :on-click io/export-rules} [ant/icon {:type "download"}] i18n/btn-export]]
     [ant/col
-     [ant/button {:type "primary" :on-click #(.sendMessage js/chrome.runtime #js {"url" "https://github.com/jiacai2050/gooreplacer/tree/master/doc/guides.md"})} [ant/icon {:type "question"}] " Help"]]]])
+     [ant/button {:type "primary" :on-click #(.sendMessage js/chrome.runtime #js {"url" "https://github.com/jiacai2050/gooreplacer/tree/master/doc/guides.md"})} [ant/icon {:type "question"}] i18n/btn-help]]]])
 
 
 (defn tabs []
   [ant/tabs {:active-key @db/opened-tab :on-change #(reset! db/opened-tab %)}
-   (for [[tab-name tab-key tab-ui] [["Redirect URL" "redirect-tab" lr/redirect-rules-table]
-                                    ["Cancel URL" "cancel-tab" lr/cancel-rules-table]
-                                    ["Request/Response Headers" "header-tab" lr/header-rules-table]
-                                    ["Online-rules" "online-tab" configure-online-form]
-                                    ["Sandbox" "sanbox-tab" lr/sandbox]]]
+   (for [[tab-name tab-key tab-ui] [[i18n/tab-redirect-url "redirect-tab" lr/redirect-rules-table]
+                                    [i18n/tab-cancel-url "cancel-tab" lr/cancel-rules-table]
+                                    [i18n/tab-headers "header-tab" lr/header-rules-table]
+                                    [i18n/tab-online-rule "online-tab" configure-online-form]
+                                    [i18n/tab-sandbox "sanbox-tab" lr/sandbox]]]
      ^{:key tab-key} [ant/tabs-tab-pane {:tab (r/as-element [:h4 tab-name])} [tab-ui]])])
 
 (defn main-body []
   [:div
    [top-menu]
-   [ant/row {:type "flex" :justify "center" :style {:margin-top "20px"}}
-    [ant/col {:span 20} 
-     [tabs]]]])
+   [ant/locale-provider {:locale (ant/locales db/locale)}
+    [ant/row {:type "flex" :justify "center" :style {:margin-top "20px"}}
+     [ant/col {:span 20}
+      [tabs]]]]])
 
 (r/render
  [main-body]

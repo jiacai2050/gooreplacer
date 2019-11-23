@@ -1,0 +1,194 @@
+{
+  "appName": {
+    "message": "Gooreplacer"
+  },
+  "appDesc": {
+    "message": "Modify, block URLs & Headers"
+  },
+  "btnHome": {
+    "message": "Home"
+  },
+  "btnImport": {
+    "message": "Import"
+  },
+  "btnExport": {
+    "message": "Export"
+  },
+  "btnHelp": {
+    "message": "Help"
+  },
+  "tabUrl": {
+    "message": "Redirect/Cancel URL"
+  },
+  "tabRedirectUrl": {
+    "message": "Redirect URL"
+  },
+  "tabCancelUrl": {
+    "message": "Cancel URL"
+  },
+  "tabHeaders": {
+    "message": "Request/Response Headers"
+  },
+  "titleReqHeaders": {
+    "message": "Request Headers Rules"
+  },
+  "titleRespHeaders": {
+    "message": "Response Headers Rules"
+  },
+  "tabOnlineRule": {
+    "message": "Online Rule"
+  },
+  "tabSandbox": {
+    "message": "Sandbox"
+  },
+  "tipEdit": {
+    "message": "Edit"
+  },
+  "tipOk": {
+    "message": "OK"
+  },
+  "colSrc": {
+    "message": "Source"
+  },
+  "colKind": {
+    "message": "Kind"
+  },
+  "colDst": {
+    "message": "Destination"
+  },
+  "colEnable": {
+    "message": "Enable"
+  },
+  "colAction": {
+    "message": "Action"
+  },
+  "colHeaderName": {
+    "message": "Header Name"
+  },
+  "colHeaderValue": {
+    "message": "Header Value"
+  },
+  "colOperation": {
+    "message": "Operation"
+  },
+  "colPurpose": {
+    "message": "Purpose"
+  },
+  "cfmDelete": {
+    "message": "Do you really want to delete this?"
+  },
+  "cfmCase": {
+    "message": "case-insensitive"
+  },
+  "tmplIgnore": {
+    "message": "Ignore this if operation is $OP_CANCEL$",
+    "placeholders": {
+      "op_cancel": {"content": "$1"}
+    }
+  },
+  "btnAdd": {
+    "message": "Add"
+  },
+  "kindWildcard": {
+    "message": "wildcard"
+  },
+  "kindRegexp": {
+    "message": "regexp"
+  },
+  "opModify": {
+    "message": "modify"
+  },
+  "opCancel": {
+    "message": "cancel"
+  },
+  "txtNoMatch": {
+    "message": "Ooops. No rules matched!"
+  },
+  "txtTestUrl": {
+    "message": "Test URL"
+  },
+  "txtTestHelp": {
+    "message": "Test redirect/cancel rules here. Headers rules not supported now"
+  },
+  "tmplChangeTo": {
+    "message": "Change to $NEW_VAL$",
+    "placeholders": {
+      "new_val": {"content": "$1"}
+    }
+  },
+  "tmplRuleOff": {
+    "message": "$RULE_TYPE$ is OFF!",
+    "placeholders": {
+      "rule_type": {"content": "$1"}
+    }
+  },
+  "tmplRedirect": {
+    "message": "Matched! $TEST_URL$ is redirected to $REDIRECT_URL$",
+    "placeholders": {
+      "test_url": {"content": "$1"},
+      "redirect_url": {"content": "$2"}
+    }
+  },
+  "tmplBlock": {
+    "message": "Matched! $TEST_URL$ is blocked.",
+    "placeholders": {
+      "test_url": {"content": "$1"}
+    }
+  },
+  "btnSubmit": {
+    "message": "Submit"
+  },
+  "btnTest": {
+    "message": "Test"
+  },
+  "btnClearAll": {
+    "message": "Clear ALL"
+  },
+  "tmplDeleteOk": {
+    "message": "$OBJECT$ deleted!",
+    "placeholders": {
+      "object": {"content": "$1"}
+    }
+  },
+  "tmplUpdateOk": {
+    "message": "$OBJECT$ updated!",
+    "placeholders": {
+      "object": {"content": "$1"}
+    }
+  },
+  "tmplDeleteFail": {
+    "message": "$OBJECT$ deleted failed. $CAUSE$",
+    "placeholders": {
+      "object": {"content": "$1"},
+      "cause": {"content": "$2"}
+    }
+  },
+  "tmplUpdateFail": {
+    "message": "$OBJECT$ updated failed. $CAUSE$",
+    "placeholders": {
+      "object": {"content": "$1"},
+      "cause": {"content": "$2"}
+    }
+  },
+  "txtLastUpdate": {
+    "message": "Last update"
+  },
+  "txtLoading": {
+    "message": "Loading..."
+  },
+  "btnUpdateNow": {
+    "message": "Update Now"
+  },
+  "btnView": {
+    "message": "View"
+  },
+  "tmplPagination": {
+    "message": "Total: $TOTAL$ rules",
+    "placeholders": {
+      "total": {
+        "content": "$1"
+      }
+    }
+  }
+}
+

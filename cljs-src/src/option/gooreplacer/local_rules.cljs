@@ -1,16 +1,16 @@
 (ns gooreplacer.local-rules
   (:require [antizer.reagent :as ant]
+            [clojure.string :as str]
             [reagent.core :as r]
             [gooreplacer.db :as db]
             [gooreplacer.table :as table]
             [gooreplacer.tool :as tool]
-            [clojure.string :as str]
-            [gooreplacer.tool :as tool]
+            [gooreplacer.i18n :as i18n]
             [cljs.core.match :refer-macros [match]]))
 
 (def kind-select-opts
   (for [k ["wildcard" "regexp"]]
-    ^{:key k} [ant/select-option {:value k} k]))
+    ^{:key k} [ant/select-option {:value k} (db/label-mapping k)]))
 
 (defn editable-cell [value update-row-fn]
   (r/with-let [editable? (r/atom false)]
@@ -27,7 +27,7 @@
                         :on-press-enter save-handler}])]
          [:div.editable-cell-text-wrapper
           value
-          [ant/tooltip {:title "Edit"}
+          [ant/tooltip {:title i18n/tip-edit}
            [ant/icon {:type "edit" :class "pull-right"
                       :on-click #(reset! editable? true)}]]]))]))
 
@@ -40,37 +40,39 @@
                                                                                                    @which-db)))])})
 
 (defn gen-common-columns [which-db current-row?]
-  [{:title "Kind" :dataIndex "kind" :render (fn [val record _] (r/as-element [ant/select {:default-value val
-                                                                                          :on-change (fn [new-val]
-                                                                                                       (reset! which-db
-                                                                                                               (mapv (fn [rule] (if (current-row? record rule)
-                                                                                                                                  (assoc rule :kind new-val) rule))
-                                                                                                                     @which-db))
-                                                                                                       (ant/message-success (str "Change to " new-val)))}
-                                                                              kind-select-opts]))}
-   {:title "Enable" :dataIndex "enable" :render (fn [val record _]
-                                                  (r/as-element [ant/checkbox {:default-checked val
-                                                                               :on-change #(reset! which-db
-                                                                                                   (mapv (fn [rule] (if (current-row? record rule)
-                                                                                                                      (update rule :enable not) rule))
-                                                                                                         @which-db))}]))}
-   {:title "Actions" :render (fn [_ record _] (r/as-element
-                                               [ant/popconfirm {:title "Do you really want to delete this?"
-                                                                :on-confirm (fn [] (reset! which-db
-                                                                                           (remove (fn [rule] (current-row? record rule))
-                                                                                                   @which-db)))}
-                                                [ant/button {:icon "delete" :type "danger"}]]))}])
+  [{:title i18n/col-kind :dataIndex "kind" :render (fn [val record _]
+                                                     (r/as-element [ant/select {:default-value val
+                                                                                :on-change (fn [new-val]
+                                                                                             (reset! which-db
+                                                                                                     (mapv (fn [rule] (if (current-row? record rule)
+                                                                                                                        (assoc rule :kind new-val) rule))
+                                                                                                           @which-db))
+                                                                                             (ant/message-success (i18n/tmpl-change-to (db/label-mapping new-val))))}
+                                                                    kind-select-opts]))}
+   {:title i18n/col-enable :dataIndex "enable" :render (fn [val record _]
+                                                         (r/as-element [ant/checkbox {:default-checked val
+                                                                                      :on-change #(reset! which-db
+                                                                                                          (mapv (fn [rule] (if (current-row? record rule)
+                                                                                                                             (update rule :enable not) rule))
+                                                                                                                @which-db))}]))}
+   {:title i18n/col-action :render (fn [_ record _]
+                                     (r/as-element
+                                      [ant/popconfirm {:title i18n/cfm-delete
+                                                       :on-confirm (fn [] (reset! which-db
+                                                                                  (remove (fn [rule] (current-row? record rule))
+                                                                                          @which-db)))}
+                                       [ant/button {:icon "delete" :type "danger"}]]))}])
 
 (defn gen-rules-table [{:keys [table-title columns add-new-form which-db switch row-key]}]
   (fn []
     (r/with-let [display-new-form? (r/atom false)]
       [ant/card {:title (r/as-element [ant/checkbox {:default-checked (switch @db/goo-conf)
                                                      :on-change #(swap! db/goo-conf update switch not)} table-title])
-                 :extra (r/as-element [ant/button {:type "primary" :on-click #(reset! display-new-form? true)} "Add"])}
+                 :extra (r/as-element [ant/button {:type "primary" :on-click #(reset! display-new-form? true)} i18n/btn-add])}
        [ant/table {:bordered true :dataSource @which-db
                    :columns columns :row-key row-key
                    :pagination table/pagination}]
-       [ant/modal {:title (str "New " table-title) :visible @display-new-form? :footer false
+       [ant/modal {:title (str i18n/btn-add " " table-title) :visible @display-new-form? :footer false
                    :on-cancel #(reset! display-new-form? false)}
         [add-new-form display-new-form?]]])))
 
@@ -80,17 +82,17 @@
      (fn []
        (let [new-rule-form (ant/get-form)]
          [ant/form {:layout "vertical"}
-          [ant/form-item {:label "Source"}
+          [ant/form-item {:label i18n/col-src}
            (ant/decorate-field new-rule-form "src" {:rules [{:required true}]}
                                [ant/input])]
-          [ant/form-item {:label "Kind"}
+          [ant/form-item {:label i18n/col-kind}
            (ant/decorate-field new-rule-form "kind" {:initial-value "wildcard"}
                                [ant/select  kind-select-opts])]
           (when need-dst?
-            [ant/form-item {:label "Destination"}
+            [ant/form-item {:label i18n/col-dst}
              (ant/decorate-field new-rule-form "dst" {:rules [{:required true}]}
                                  [ant/input])])
-          [ant/form-item {:label "Enable"}
+          [ant/form-item {:label i18n/col-enable}
            (ant/decorate-field new-rule-form "enable" {:value-prop-name "checked" :initial-value true}
                                [ant/checkbox])]
           [:div.text-center
@@ -98,15 +100,15 @@
                                                                                                                     (when-not err
                                                                                                                       (append-rule-fn! (js->clj vals :keywordize-keys true))
                                                                                                                       (ant/reset-fields new-rule-form)
-                                                                                                                      (reset! display? false))))} "Submit"]]])))))
+                                                                                                                      (reset! display? false))))} i18n/btn-submit]]])))))
 
 (def redirect-rules-table
   (gen-rules-table {:columns (let [current-row? (fn [record rule] (= (aget record "src") (:src rule)))]
-                               (into [(gen-editable-column "Source" "src" db/redirect-rules current-row? :display-fn (fn [record]
-                                                                                                                       (:src (tool/decode-rule (js->clj record :keywordize-keys true)))))
-                                      (gen-editable-column "Destination" "dst" db/redirect-rules current-row?)]
+                               (into [(gen-editable-column i18n/col-src "src" db/redirect-rules current-row? :display-fn (fn [record]
+                                                                                                                           (:src (tool/decode-rule (js->clj record :keywordize-keys true)))))
+                                      (gen-editable-column i18n/col-dst "dst" db/redirect-rules current-row?)]
                                      (gen-common-columns db/redirect-rules current-row?)))
-                    :table-title "Redirect Rules"
+                    :table-title i18n/tab-redirect-url
                     :add-new-form (gen-new-url-form db/append-redirect-rules! true)
                     :which-db db/redirect-rules
                     :switch :redirect-enabled?
@@ -114,10 +116,10 @@
 
 (def cancel-rules-table
   (gen-rules-table {:columns (let [current-row? (fn [record rule] (= (aget record "src") (:src rule)))]
-                               (into [(gen-editable-column "Source" "src" db/cancel-rules current-row? :display-fn (fn [record]
-                                                                                                                     (:src (tool/decode-rule (js->clj record :keywordize-keys true)))))]
+                               (into [(gen-editable-column i18n/col-src "src" db/cancel-rules current-row? :display-fn (fn [record]
+                                                                                                                         (:src (tool/decode-rule (js->clj record :keywordize-keys true)))))]
                                      (gen-common-columns db/cancel-rules current-row?)))
-                    :table-title "Cancel Rules"
+                    :table-title i18n/tab-cancel-url
                     :add-new-form (gen-new-url-form db/append-cancel-rules! false)
                     :which-db  db/cancel-rules
                     :switch :cancel-enabled?
@@ -126,7 +128,7 @@
 
 (def op-select-opts
   (for [k ["modify" "cancel"]]
-    ^{:key k} [ant/select-option {:value k} k]))
+    ^{:key k} [ant/select-option {:value k} (db/label-mapping k)]))
 
 (defn gen-new-header-form [append-rule-fn!]
   (fn [display?]
@@ -134,22 +136,22 @@
      (fn []
        (let [new-rule-form (ant/get-form)]
          [ant/form {:layout "vertical"}
-          [ant/form-item {:label "Source"}
+          [ant/form-item {:label i18n/col-src}
            (ant/decorate-field new-rule-form "src" {:rules [{:required true}]}
                                [ant/input])]
-          [ant/form-item {:label "Kind"}
+          [ant/form-item {:label i18n/col-kind}
            (ant/decorate-field new-rule-form "kind" {:initial-value "wildcard"}
                                [ant/select kind-select-opts])]
-          [ant/form-item {:label "Operation"}
+          [ant/form-item {:label i18n/col-operation}
            (ant/decorate-field new-rule-form "op" {:initial-value "modify"}
                                [ant/select op-select-opts])]
-          [ant/form-item {:label "Header name"}
+          [ant/form-item {:label i18n/col-header-name}
            (ant/decorate-field new-rule-form "name" {:rules [{:required true}]}
-                               [ant/input {:placeholder "case-insensitive"}])]
-          [ant/form-item {:label "Header value"}
+                               [ant/input {:placeholder i18n/cfm-case}])]
+          [ant/form-item {:label i18n/col-header-value}
            (ant/decorate-field new-rule-form "value" {:rules [{:required false}]}
-                               [ant/input {:placeholder "Ignore this if operation is cancel"}])]
-          [ant/form-item {:label "Enable"}
+                               [ant/input {:placeholder (i18n/tmpl-ignore i18n/op-cancel)}])]
+          [ant/form-item {:label i18n/col-enable}
            (ant/decorate-field new-rule-form "enable" {:value-prop-name "checked" :initial-value true}
                                [ant/checkbox])]
           [:div.text-center
@@ -157,21 +159,22 @@
                                                                                                                     (when-not err
                                                                                                                       (append-rule-fn! (js->clj vals :keywordize-keys true))
                                                                                                                       (ant/reset-fields new-rule-form)
-                                                                                                                      (reset! display? false))))} "Submit"]]])))))
+                                                                                                                      (reset! display? false))))} i18n/btn-submit]]])))))
 
 (defn gen-header-rules-columns [current-row? which-db]
-  (into [{:title "Operation" :dataIndex "op" :render (fn [val record _] (r/as-element [ant/select {:default-value val
-                                                                                                   :on-change  (fn [new-val]
-                                                                                                                 (reset! which-db
-                                                                                                                         (mapv (fn [rule] (if (current-row? record rule)
-                                                                                                                                            (assoc rule :op new-val) rule))
-                                                                                                                               @which-db))
-                                                                                                                 (ant/message-success (str "Change to " new-val)))}
-                                                                                       op-select-opts]))}
-         (gen-editable-column "Header Name" "name" which-db current-row?)
-         (gen-editable-column "Header Value" "value" which-db current-row?)
-         (gen-editable-column "Source" "src" which-db current-row? :display-fn (fn [record]
-                                                                                 (:src (tool/decode-rule (js->clj record :keywordize-keys true)))))]
+  (into [{:title i18n/col-operation :dataIndex "op" :render (fn [val record _]
+                                                              (r/as-element [ant/select {:default-value val
+                                                                                         :on-change  (fn [new-val]
+                                                                                                       (reset! which-db
+                                                                                                               (mapv (fn [rule] (if (current-row? record rule)
+                                                                                                                                  (assoc rule :op new-val) rule))
+                                                                                                                     @which-db))
+                                                                                                       (ant/message-success (i18n/tmpl-change-to (db/label-mapping new-val))))}
+                                                                             op-select-opts]))}
+         (gen-editable-column i18n/col-header-name "name" which-db current-row?)
+         (gen-editable-column i18n/col-header-value "value" which-db current-row?)
+         (gen-editable-column i18n/col-src "src" which-db current-row? :display-fn (fn [record]
+                                                                                     (:src (tool/decode-rule (js->clj record :keywordize-keys true)))))]
         (gen-common-columns which-db current-row?)))
 
 (defn gen-headers-table [table-title which-db switch append-rule-fn!]
@@ -184,8 +187,8 @@
                     :switch switch
                     :row-key #(str (aget % "src") (aget % "name"))}))
 
-(def request-header-rules-table (gen-headers-table "Request Header Rules " db/request-headers :req-headers-enabled? db/append-request-headers!))
-(def response-header-rules-table (gen-headers-table "Response Header Rules" db/response-headers :res-headers-enabled? db/append-response-headers!))
+(def request-header-rules-table (gen-headers-table i18n/title-req-headers db/request-headers :req-headers-enabled? db/append-request-headers!))
+(def response-header-rules-table (gen-headers-table i18n/title-resp-headers db/response-headers :res-headers-enabled? db/append-response-headers!))
 
 (defn header-rules-table []
   [:div
@@ -204,19 +207,19 @@
                        (fn [resp]
                          (match [(js->clj resp :keywordize-keys true)]
                                 [{:redirectUrl redirect-url}]
-                                (ant/message-success (str "Matched! " test-url " is redirected to " redirect-url))
+                                (ant/message-success (i18n/tmpl-redirect test-url redirect-url))
                                 [{:cancel _}]
-                                (ant/message-success (str "Matched! " test-url " is blocked."))
+                                (ant/message-success (i18n/tmpl-block test-url))
                                 [nothing] (let [{:keys [global-enabled? online-enabled? redirect-enabled? cancel-enabled?]} @db/goo-conf]
                                             (when-not global-enabled?
-                                              (ant/message-warning "Gooreplacer is OFF totally!!"))
+                                              (ant/message-warning (i18n/tmpl-rule-off i18n/app-name)))
                                             (when-not redirect-enabled?
-                                              (ant/message-warning "Redirect rules is OFF !!"))
+                                              (ant/message-warning (i18n/tmpl-rule-off i18n/tab-redirect-url)))
                                             (when-not cancel-enabled?
-                                              (ant/message-warning "Cancel rules is OFF !!"))
+                                              (ant/message-warning (i18n/tmpl-rule-off i18n/tab-cancel-url)))
                                             (when-not online-enabled?
-                                              (ant/message-warning "Online rules is OFF !!"))
-                                            (ant/message-error "Ooops. No rules matched!"))))))))))
+                                              (ant/message-warning (i18n/tmpl-rule-off i18n/tab-online-rule)))
+                                            (ant/message-error i18n/txt-no-match))))))))))
 
 (defn sandbox []
   [ant/card (ant/create-form
@@ -224,10 +227,11 @@
                (let [sandbox-form (ant/get-form)
                      test-handler (partial do-test sandbox-form)]
                  [ant/form {:layout "vertical"}
-                  [ant/form-item {:label "Test URL" :extra "Test redirect/cancel rules here. Headers rules not supported now."}
+                  [ant/form-item {:label i18n/txt-test-url :extra i18n/txt-test-help}
                    (ant/decorate-field sandbox-form "test-url" {:rules [{:required true}]}
                                        [ant/input {:placeholder "example.com"
                                                    :on-press-enter test-handler}])]
                   [ant/form-item
                    [ant/button {:type "primary"
-                                :on-click test-handler} "Test"]]])))])
+                                :on-click test-handler} i18n/btn-test]]])))])
+
