@@ -1,6 +1,6 @@
 language: clojure
 jdk:
-  - oraclejdk8
+  - openjdk8
 env:
   - NODE_VERSION=8 CC=clang CXX=clang++
 before_install:
