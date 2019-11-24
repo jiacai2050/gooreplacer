@@ -11,6 +11,7 @@ Nowadays, more features have been added to gooreplacer, mainly:
 2. Modify headers
 3. Export/Import rules, sync between Firefox and Chrome.
 4. Live Test
+5. i18n
 
 Most users prefer gooreplacer than other similar extensions, [HTTPS Everywhere](https://www.eff.org/https-everywhere)/[Redirector](http://einaregilsson.com/redirector/), for ease-of-use. Why not give it a try?
 
