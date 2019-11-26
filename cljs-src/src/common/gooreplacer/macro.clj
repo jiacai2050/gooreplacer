@@ -36,9 +36,9 @@
           entries))))
 
 (defn- camelcase->kebab [s]
-  (->> (clojure.string/split s #"(?=[A-Z])")
-       (map clojure.string/lower-case)
-       (clojure.string/join "-")))
+  (->> (str/split s #"(?=[A-Z])")
+       (map str/lower-case)
+       (str/join "-")))
 
 (defmacro init-i18n!
   "Define vars extracted from locales messages"
@@ -56,4 +56,3 @@
               msgs))))
 
 ;; (init-database!)
-

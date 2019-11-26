@@ -5,7 +5,6 @@
             :url "http://liujiacai.net/license/MIT.html?year=2015"}
   :dependencies [[org.clojure/clojure "1.10.0"]
                  [org.clojure/clojurescript "1.10.597"]
-                 [com.cemerick/piggieback "0.2.1"]
                  [figwheel-sidecar "0.5.14"]
                  [org.clojure/core.match "0.3.0-alpha5"]
                  [org.clojure/data.json "0.2.7"]
@@ -13,7 +12,11 @@
   :plugins [[lein-figwheel "0.5.14"]
             [lein-cljsbuild "1.1.7"]
             [lein-doo "0.1.8"]]
-  :profiles {:dev {:repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}
+  :profiles {
+             ;; https://docs.cider.mx/cider/0.23/basics/clojurescript.html#_piggieback
+             ;; cider will jack in piggieback automatically
+             ;; :dev {:repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}}
+             :dev {:source-paths ["src/common"]}
              :ui-deps {:dependencies [[antizer "0.3.0"]
                                       [cljs-http "0.1.43"]
                                       [org.clojure/core.async "0.3.443"]
