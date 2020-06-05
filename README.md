@@ -28,7 +28,8 @@ gooreplacer 最初为解决国内无法访问 Google 资源（Ajax、API等）�
 
 > https://raw.githubusercontent.com/jiacai2050/gooreplacer/master/gooreplacer.gson
 
-然后点击更新就好了。如果想自定义规则，可参考 [guides.md](doc/guides.md)
+然后点击更新就好了，目前会重定向到[中科大的代理](https://lug.ustc.edu.cn/wiki/lug/services/revproxy)。
+如果想自定义规则，可参考 [guides.md](doc/guides.md)
 
 ## 实现
 

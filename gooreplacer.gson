@@ -3,34 +3,39 @@
     "createAt": "Wed Dec 05 2018 21:53:22 GMT+0800 (China Standard Time)",
     "rules": {
         "ajax.googleapis.com": {
-            "dstURL": "ajax.proxy.ustclug.org",
+            "dstURL": "ajax.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": true
         },
         "fonts.googleapis.com": {
-            "dstURL": "fonts.proxy.ustclug.org",
+            "dstURL": "fonts.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": false
         },
         "storage.googleapis.com": {
-            "dstURL": "storage-googleapis.proxy.ustclug.org",
+            "dstURL": "storage-googleapis.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": true
         },
         "gerrit.googlesource.com": {
-            "dstURL": "gerrit-googlesource.proxy.ustclug.org",
+            "dstURL": "gerrit-googlesource.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": true
         },
         "themes.googleusercontent.com": {
-            "dstURL": "google-themes.proxy.ustclug.org",
+            "dstURL": "google-themes.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": true
         },
         "fonts.gstatic.com": {
-            "dstURL": "fonts-gstatic.proxy.ustclug.org",
+            "dstURL": "fonts-gstatic.lug.ustc.edu.cn",
             "kind": "wildcard",
             "enable": false
+        },
+        "secure.gravatar.com": {
+            "dstURL": "gravatar.lug.ustc.edu.cn",
+            "kind": "wildcard",
+            "enable": true
         },
         "platform.twitter.com/widgets.js": {
             "dstURL": "cdn.jsdelivr.net/gh/jiacai2050/gooreplacer@gh-pages/proxy/widgets.js",
