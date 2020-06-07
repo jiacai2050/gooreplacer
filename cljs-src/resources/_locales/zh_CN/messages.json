@@ -189,5 +189,7 @@
         "content": "$1"
       }
     }
-  }
+  },
+  "titleGlobalSwitch": {"message" : "全局开关"},
+  "tabSetting": {"message" : "设置" }
 }

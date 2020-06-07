@@ -23,7 +23,7 @@
                                       [reagent "0.8.1"]]}
              :bg-deps {:dependencies []}
              :dev-option {:source-paths ["src/option"]
-                          :clean-targets ^{:protect false} [:target-path "resources/dev/option/js"] 
+                          :clean-targets ^{:protect false} [:target-path "resources/dev/option/js"]
                           :cljsbuild {:builds [{:id "dev"
                                                 :figwheel true
                                                 :source-paths ["src/option" "src/common"]
@@ -39,9 +39,9 @@
                                      :css-dirs ["resources/dev/option/css"]
                                      :server-logfile ".figwheel_option.log"
                                      :repl true}}
-             :dev-bg {:source-paths ["src/background" "src/common"] 
-                      :clean-targets ^{:protect false} [:target-path "resources/dev/background/js"] 
-                      :figwheel {:server-port 8081
+             :dev-bg {:source-paths ["src/background" "src/common"]
+                      :clean-targets ^{:protect false} [:target-path "resources/dev/background/js"]
+                      :figwheel {:server-port 8089
                                  :http-server-root "dev/background"
                                  :server-logfile ".figwheel_bg.log"
                                  :repl true}
@@ -78,7 +78,7 @@
                                                      :main gooreplacer.runner
                                                      :optimizations :none}}]}
                     :doo {:build "test"}}}
-  
+
   :aliases {"option"   ["with-profile" "dev-option,ui-deps" "do"
                         ["clean"]
                         ["figwheel" "dev"]]

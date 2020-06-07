@@ -16,7 +16,7 @@
                    (let [str-name (clojure.core/name name)
                          sym-name (symbol str-name)]
                      [`(def ~sym-name
-                         (alandipert.storage-atom/local-storage 
+                         (alandipert.storage-atom/local-storage
                           (reagent.core/atom ~init-value)
                           ~(keyword str-name)))
                       (when-not no-append?
@@ -47,6 +47,8 @@
     `(do
        ~@(map (fn [[name {:strs [placeholders]}]]
                 (let [sname (symbol (camelcase->kebab name))]
+                  ;; can't print here, output will go to dev/option/js/gooreplacer/i18n.js file
+                  ;; (println sname)
                   ;; https://developer.chrome.com/extensions/i18n-messages#placeholders
                   (if placeholders
                     `(defn ~sname [& ~'args]
