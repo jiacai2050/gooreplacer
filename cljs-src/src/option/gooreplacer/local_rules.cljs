@@ -212,7 +212,7 @@
                                 (ant/message-success (i18n/tmpl-block test-url))
                                 [nothing] (let [{:keys [global-enabled? online-enabled? redirect-enabled? cancel-enabled?]} @db/goo-conf]
                                             (when-not global-enabled?
-                                              (ant/message-warning (i18n/tmpl-rule-off i18n/app-name)))
+                                              (ant/message-warning (i18n/tmpl-rule-off i18n/title-global-switch)))
                                             (when-not redirect-enabled?
                                               (ant/message-warning (i18n/tmpl-rule-off i18n/tab-redirect-url)))
                                             (when-not cancel-enabled?
@@ -234,4 +234,3 @@
                   [ant/form-item
                    [ant/button {:type "primary"
                                 :on-click test-handler} i18n/btn-test]]])))])
-

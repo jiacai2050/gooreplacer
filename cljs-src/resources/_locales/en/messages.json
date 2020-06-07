@@ -189,6 +189,7 @@
         "content": "$1"
       }
     }
-  }
+  },
+  "titleGlobalSwitch": {"message" : "Master Switch"},
+  "tabSetting": {"message" : "Settings" }
 }
-
