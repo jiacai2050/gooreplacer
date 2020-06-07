@@ -1,6 +1,6 @@
 {
   "name": "__MSG_appName__",
-  "version": "3.11.1",
+  "version": "3.11.2",
   "description": "__MSG_appDesc__",
   "default_locale": "en",
   "permissions": [
@@ -32,6 +32,6 @@
   },
   "author": "http://liujiacai.net",
   "homepage_url": "https://github.com/jiacai2050/gooreplacer",
-  "content_security_policy": "default-src 'self'; style-src https://* 'unsafe-inline'; font-src https://* ",
+  "content_security_policy": "object-src 'self'; script-src 'self'; style-src https://* 'unsafe-inline'; font-src https://* ",
   "manifest_version": 2
 }
