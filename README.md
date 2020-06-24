@@ -11,7 +11,7 @@ gooreplacer 最初为解决国内无法访问 Google 资源（Ajax、API等）�
 
 首推在浏览器的插件商店去下载：
 
-[Chrome](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) / [Firefox](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/)
+[Chrome](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) / [Firefox](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/) / [Edge](https://microsoftedge.microsoft.com/addons/detail/gooreplacer/cidbonnpjopamnhfjdgfcmjmlmehjnej)
 
 此外，也可以在 [release](https://github.com/jiacai2050/gooreplacer/releases) 页面下载对应的 zip 文件，本地解压。之后在 `chrome://extensions/` 选中开发者模式，选择「加载已解压的扩展程序」即可。Firefox 过程类似，这里不再赘述。
 

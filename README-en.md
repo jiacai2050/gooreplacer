@@ -1,7 +1,7 @@
 
 ## [gooreplacer](http://liujiacai.net/gooreplacer)  [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) [![Mozilla Add-on](https://img.shields.io/amo/v/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/)
 
-> A Firefox/Chrome extension to modify HTTP requests :-)
+> A Firefox/Chrome/Edge extension to modify HTTP requests :-)
 
 At first, Gooreplacer is created for redirecting Google Ajaxs/APIs/Fonts to other CDN to bypass [Great Firewall](https://en.wikipedia.org/wiki/Great_Firewall), since pages referring those are slow as molasses.
 
@@ -17,7 +17,7 @@ Most users prefer gooreplacer than other similar extensions, [HTTPS Everywhere](
 
 ## Install
 
-[Chrome](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) / [Firefox](https://addons.mozilla.org/firefox/addon/gooreplacer/)
+[Chrome](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) / [Firefox](https://addons.mozilla.org/firefox/addon/gooreplacer/) / [Edge](https://microsoftedge.microsoft.com/addons/detail/gooreplacer/cidbonnpjopamnhfjdgfcmjmlmehjnej)
 
 ## Guides
 
