@@ -1,5 +1,5 @@
-(ns gooreplacer.macro-test
-  (:require [gooreplacer.macro :as m]
+(ns gooreplacer.common.macro-test
+  (:require [gooreplacer.common.macro :as m]
             [clojure.test :refer [deftest is are]]))
 
 (deftest test-camelcase->kebab

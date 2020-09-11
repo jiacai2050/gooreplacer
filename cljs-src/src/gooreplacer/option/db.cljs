@@ -1,9 +1,9 @@
-(ns gooreplacer.db
+(ns gooreplacer.option.db
   (:require [reagent.core :as r]
-            [gooreplacer.i18n :as i18n]
-            [gooreplacer.tool]
+            [gooreplacer.common.i18n :as i18n]
+            [gooreplacer.common.tool]
             [alandipert.storage-atom :refer [local-storage] :as st])
-  (:require-macros [gooreplacer.macro :refer [init-database!]]))
+  (:require-macros [gooreplacer.common.macro :refer [init-database!]]))
 
 (init-database!)
 

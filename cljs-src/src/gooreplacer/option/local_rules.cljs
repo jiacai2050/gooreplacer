@@ -1,11 +1,11 @@
-(ns gooreplacer.local-rules
+(ns gooreplacer.option.local-rules
   (:require [antizer.reagent :as ant]
             [clojure.string :as str]
             [reagent.core :as r]
-            [gooreplacer.db :as db]
-            [gooreplacer.table :as table]
-            [gooreplacer.tool :as tool]
-            [gooreplacer.i18n :as i18n]
+            [gooreplacer.option.db :as db]
+            [gooreplacer.option.table :as table]
+            [gooreplacer.common.tool :as tool]
+            [gooreplacer.common.i18n :as i18n]
             [cljs.core.match :refer-macros [match]]))
 
 (def kind-select-opts

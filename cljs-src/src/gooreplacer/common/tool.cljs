@@ -1,4 +1,4 @@
-(ns gooreplacer.tool
+(ns gooreplacer.common.tool
   (:require [clojure.string :as str]
             [goog.array :as garr]
             [goog.object :as gobj]))

@@ -1,12 +1,12 @@
-(ns gooreplacer.core
+(ns gooreplacer.option.core
   (:require [goog.dom :as gdom]
             [antizer.reagent :as ant]
             [reagent.core :as r]
-            [gooreplacer.db :as db]
-            [gooreplacer.io :as io]
-            [gooreplacer.i18n :as i18n]
-            [gooreplacer.local-rules :as lr]
-            [gooreplacer.online-rules :refer [configure-online-form]]))
+            [gooreplacer.option.db :as db]
+            [gooreplacer.option.io :as io]
+            [gooreplacer.common.i18n :as i18n]
+            [gooreplacer.option.local-rules :as lr]
+            [gooreplacer.option.online-rules :refer [configure-online-form]]))
 
 (defn top-menu []
   [:div
