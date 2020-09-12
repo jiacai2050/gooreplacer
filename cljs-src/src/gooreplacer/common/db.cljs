@@ -51,6 +51,9 @@
     light-key (.disable js/DarkReader)
     auto-key (.auto js/DarkReader)))
 
+;; https://github.com/darkreader/darkreader/issues/1802
+(defonce _init (.setFetchMethod js/DarkReader js/window.fetch))
+
 (defn config-icon [enable]
   (if enable
     (.setIcon js/chrome.browserAction
