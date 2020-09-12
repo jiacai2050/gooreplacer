@@ -1,11 +1,11 @@
-(ns gooreplacer.core
-  (:require [gooreplacer.tool :as tool]
+(ns gooreplacer.background
+  (:require [gooreplacer.common.tool :as tool]
             [clojure.string :as str]
             [cljs.core.async :refer [<! >! chan]]
             [alandipert.storage-atom]
-            [gooreplacer.dev]
+            [gooreplacer.common.dev]
             [cljs.core.match :refer-macros [match]])
-  (:require-macros [gooreplacer.macro :refer [init-db-reader!]]
+  (:require-macros [gooreplacer.common.macro :refer [init-db-reader!]]
                    [cljs.core.async.macros :refer [go-loop go]]))
 
 (init-db-reader!)
@@ -63,4 +63,3 @@
   (.addListener js/chrome.browserAction.onClicked
                 #(.create js/chrome.tabs (clj->js {:url "../option/index.html"})))
   (println "listen message done!"))
-

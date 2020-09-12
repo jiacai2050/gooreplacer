@@ -1,4 +1,4 @@
-(ns gooreplacer.macro
+(ns gooreplacer.common.macro
   (:require [clojure.string :as str]
             [clojure.java.io :as io]
             [clojure.data.json :as json]
@@ -21,7 +21,7 @@
                           ~(keyword str-name)))
                       (when-not no-append?
                         `(defn ~(symbol (str "append-" str-name "!")) [~'rule]
-                           (swap! ~sym-name conj (gooreplacer.tool/encode-rule ~'rule))))]))
+                           (swap! ~sym-name conj (gooreplacer.common.tool/encode-rule ~'rule))))]))
           entries))))
 
 (defmacro init-db-reader!

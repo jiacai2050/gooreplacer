@@ -1,11 +1,11 @@
-(ns gooreplacer.online-rules
+(ns gooreplacer.option.online-rules
   (:require [antizer.reagent :as ant]
             [reagent.core :as r]
-            [gooreplacer.db :as db]
-            [gooreplacer.tool :as tool]
-            [gooreplacer.table :as table]
-            [gooreplacer.i18n :as i18n]
-            [gooreplacer.io :as io]
+            [gooreplacer.common.db :as db]
+            [gooreplacer.common.tool :as tool]
+            [gooreplacer.option.table :as table]
+            [gooreplacer.common.i18n :as i18n]
+            [gooreplacer.option.io :as io]
             [cljs-http.client :as http]
             [cljs.core.async :refer [<!]]
             [clojure.set :as set]

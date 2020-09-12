@@ -191,5 +191,10 @@
     }
   },
   "titleGlobalSwitch": {"message" : "全局开关"},
+  "titleTheme": {"message" : "主题"},
+  "titleDark": {"message" : "黑"},
+  "titleLight": {"message" : "白"},
+  "titleAuto": {"message" : "跟随系统"},
+  "titleConfigRule": {"message" : "配置规则"},
   "tabSetting": {"message" : "设置" }
 }

@@ -1,8 +1,8 @@
-(ns gooreplacer.io
+(ns gooreplacer.option.io
   (:require [goog.dom :as gdom]
-            [gooreplacer.db :as db]
+            [gooreplacer.common.db :as db]
             [antizer.reagent :as ant]
-            [gooreplacer.tool :as tool]))
+            [gooreplacer.common.tool :as tool]))
 
 (defn normalize-legacy-rule [rule]
   (let [src (key rule)
@@ -14,7 +14,7 @@
      :enable enable}))
 
 (defn import-legacy-rules! [rules]
-  (doseq [rule rules] 
+  (doseq [rule rules]
     (db/append-redirect-rules! (normalize-legacy-rule rule))))
 
 (defn import-online-rules! [{:keys [redirect-rules cancel-rules request-headers response-headers rules] :as rs}]

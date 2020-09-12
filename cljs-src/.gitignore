@@ -16,4 +16,5 @@ node_modules/
 out/
 package-lock.json
 resources/release/background/main.js
-resources/release/option/main.js
+resources/release/ui/*js
+resources/dev/ui/*js

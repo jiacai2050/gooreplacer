@@ -1,5 +1,4 @@
-
-## [gooreplacer](http://liujiacai.net/gooreplacer)  [![Build Status](https://travis-ci.org/jiacai2050/gooreplacer.svg?branch=master)](https://travis-ci.org/jiacai2050/gooreplacer) [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) [![Mozilla Add-on](https://img.shields.io/amo/v/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/)
+## [gooreplacer](http://liujiacai.net/gooreplacer)  [![Build Status](https://travis-ci.org/jiacai2050/gooreplacer.svg?branch=master)](https://travis-ci.org/jiacai2050/gooreplacer)
 
 > 重定向/屏蔽 URL，修改/屏蔽 header
 
@@ -7,20 +6,10 @@ gooreplacer 最初为解决国内无法访问 Google 资源（Ajax、API等）�
 
 [English Version](README-en.md)
 
-## 安装
-
-首推在浏览器的插件商店去下载：
-
-[Chrome](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) / [Firefox](https://addons.mozilla.org/zh-CN/firefox/addon/gooreplacer/)
-
-此外，也可以在 [release](https://github.com/jiacai2050/gooreplacer/releases) 页面下载对应的 zip 文件，本地解压。之后在 `chrome://extensions/` 选中开发者模式，选择「加载已解压的扩展程序」即可。Firefox 过程类似，这里不再赘述。
-
-
 ## 特性
-
 - 支持在线规则，主要用于重定向 Google 资源，用户可更改
 - 本地规则
-- 导入导出规则，方便用户备份、同步（规则可在 Chrome/Firefox 种通用）
+- 导入导出规则，方便用户备份、同步（规则可在 Chrome/Firefox/Edge.. 通用）
 - 支持测试
 - i18n
 
@@ -30,6 +19,20 @@ gooreplacer 最初为解决国内无法访问 Google 资源（Ajax、API等）�
 
 然后点击更新就好了，目前会重定向到[中科大的代理](https://lug.ustc.edu.cn/wiki/lug/services/revproxy)。
 如果想自定义规则，可参考 [guides.md](doc/guides.md)
+
+## 安装
+
+### 插件商店
+推荐在浏览器的插件商店去下载，欢迎打分～
+
+| 浏览器 | 评分 | 用户数 |
+|---|---|---|
+| [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) | [![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) | [![Chrome Web Store](https://img.shields.io/chrome-web-store/users/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) |
+| [![Mozilla Add-on](https://img.shields.io/amo/v/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/) | [![Mozilla Add-on](https://img.shields.io/amo/rating/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/) | [![Mozilla Add-on](https://img.shields.io/amo/users/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/) |
+| [![Microsoft Edge](https://img.shields.io/badge/dynamic/json?label=edge%20add-on&prefix=v&query=%24.version&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fcidbonnpjopamnhfjdgfcmjmlmehjnej)](https://microsoftedge.microsoft.com/addons/detail/gooreplacer/cidbonnpjopamnhfjdgfcmjmlmehjnej) | [![Microsoft Edge](https://img.shields.io/badge/dynamic/json?label=rating&suffix=/5&query=%24.averageRating&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fcidbonnpjopamnhfjdgfcmjmlmehjnej)](https://microsoftedge.microsoft.com/addons/detail/gooreplacer/cidbonnpjopamnhfjdgfcmjmlmehjnej) |  |
+
+### zip 包
+在 [release](https://github.com/jiacai2050/gooreplacer/releases) 页面下载对应打包好的 zip 文件，本地解压。之后在 `chrome://extensions/` 选中开发者模式，选择「加载已解压的扩展程序」即可。
 
 ## 实现
 

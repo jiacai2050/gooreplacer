@@ -191,5 +191,10 @@
     }
   },
   "titleGlobalSwitch": {"message" : "Master Switch"},
+  "titleTheme": {"message" : "Theme"},
+  "titleDark": {"message" : "Dark"},
+  "titleLight": {"message" : "Light"},
+  "titleAuto": {"message" : "Auto"},
+  "titleConfigRule": {"message" : "Config Rules"},
   "tabSetting": {"message" : "Settings" }
 }

@@ -1,7 +1,6 @@
 
-## [gooreplacer](http://liujiacai.net/gooreplacer)  [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) [![Mozilla Add-on](https://img.shields.io/amo/v/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/)
-
-> A Firefox/Chrome extension to modify HTTP requests :-)
+## [gooreplacer](http://liujiacai.net/gooreplacer)
+> A browser extension to modify HTTP requests :-)
 
 At first, Gooreplacer is created for redirecting Google Ajaxs/APIs/Fonts to other CDN to bypass [Great Firewall](https://en.wikipedia.org/wiki/Great_Firewall), since pages referring those are slow as molasses.
 
@@ -9,7 +8,7 @@ Nowadays, more features have been added to gooreplacer, mainly:
 
 1. Block request
 2. Modify headers
-3. Export/Import rules, sync between Firefox and Chrome.
+3. Export/Import rules, sync between Firefox/Chrome/Edge...
 4. Live Test
 5. i18n
 
@@ -17,7 +16,11 @@ Most users prefer gooreplacer than other similar extensions, [HTTPS Everywhere](
 
 ## Install
 
-[Chrome](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) / [Firefox](https://addons.mozilla.org/firefox/addon/gooreplacer/)
+| Browser| Rate | User |
+|---|---|---|
+| [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) | [![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) | [![Chrome Web Store](https://img.shields.io/chrome-web-store/users/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) |
+| [![Mozilla Add-on](https://img.shields.io/amo/v/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/) | [![Mozilla Add-on](https://img.shields.io/amo/rating/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/) | [![Mozilla Add-on](https://img.shields.io/amo/users/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/) |
+| [![Microsoft Edge](https://img.shields.io/badge/dynamic/json?label=edge%20add-on&prefix=v&query=%24.version&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fcidbonnpjopamnhfjdgfcmjmlmehjnej)](https://microsoftedge.microsoft.com/addons/detail/gooreplacer/cidbonnpjopamnhfjdgfcmjmlmehjnej) | [![Microsoft Edge](https://img.shields.io/badge/dynamic/json?label=rating&suffix=/5&query=%24.averageRating&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fcidbonnpjopamnhfjdgfcmjmlmehjnej)](https://microsoftedge.microsoft.com/addons/detail/gooreplacer/cidbonnpjopamnhfjdgfcmjmlmehjnej) |  |
 
 ## Guides
 
@@ -70,7 +73,7 @@ Currently gooreplacer support 4 functions. Take one exported rules as example:
 - `request-headers` used for modify/cancel http request headers
 - `response-headers` used for modify/cancel http response headers
 
-In each rule, 
+In each rule,
 
 - `src` limit which request it will work on, and it has two types: wildcard and regexp, which is defined in `kind` key.
 - `dst` only required in redirects, means destination
