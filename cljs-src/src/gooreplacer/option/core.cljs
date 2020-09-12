@@ -2,10 +2,11 @@
   (:require [goog.dom :as gdom]
             [antizer.reagent :as ant]
             [reagent.core :as r]
-            [gooreplacer.option.db :as db]
+            [gooreplacer.common.db :as db]
             [gooreplacer.option.io :as io]
             [gooreplacer.common.i18n :as i18n]
             [gooreplacer.option.local-rules :as lr]
+            [gooreplacer.option.setting :refer [setting-body]]
             [gooreplacer.option.online-rules :refer [configure-online-form]]))
 
 (defn top-menu []
@@ -26,31 +27,8 @@
     [ant/col
      [ant/button {:type "primary" :on-click #(.sendMessage js/chrome.runtime #js {"url" "https://github.com/jiacai2050/gooreplacer/tree/master/doc/guides.md"})} [ant/icon {:type "question"}] i18n/btn-help]]]])
 
-(defn setting-body []
-  [ant/card
-   [ant/form {:layout "vertical"}
-    (let [conf @db/goo-conf]
-      (for [[title switch] [[i18n/title-global-switch :global-enabled?]
-                            [i18n/tab-online-rule :online-enabled?]
-                            [i18n/tab-redirect-url :redirect-enabled?]
-                            [i18n/tab-cancel-url :cancel-enabled?]
-                            [i18n/title-req-headers :req-headers-enabled?]
-                            [i18n/title-resp-headers :res-headers-enabled?]]]
-        ^{:key title}
-        [ant/form-item {:label title}
-         [ant/switch {:checked-children "on" :un-checked-children "off"
-                      :default-checked (switch conf)
-                      :on-change (fn [checked]
-                                   (swap! db/goo-conf update switch not)
-                                   (println title checked))}]]
-        ))
-    ;; [ant/form-item {:label "Locale"}
-    ;;  [ant/select {:style {:width "150px"} :default-value @db/locale
-    ;;               :on-change #(do (reset! db/locale %)
-    ;;                               (ant/message-success %))}
-    ;;   [ant/select-option {:value "en_US"} "English"]
-    ;;   [ant/select-option {:value "zh_CN"} "简体中文"]]]
-    ]])
+(defn setting-tab []
+  [ant/card [setting-body]])
 
 (defn tabs []
   [ant/tabs {:active-key @db/opened-tab :on-change #(reset! db/opened-tab %)}
@@ -59,11 +37,13 @@
                                     [i18n/tab-headers "header-tab" lr/header-rules-table]
                                     [i18n/tab-online-rule "online-tab" configure-online-form]
                                     [i18n/tab-sandbox "sanbox-tab" lr/sandbox]
-                                    [i18n/tab-setting "setting-tab" setting-body]]]
+                                    [i18n/tab-setting "setting-tab" setting-tab]]]
      ^{:key tab-key} [ant/tabs-tab-pane {:tab (r/as-element [:h4 tab-name])} [tab-ui]])])
 
 
 (defn main-body []
+  (db/config-darkmode @db/theme)
+  (db/config-icon (:global-enabled? @db/goo-conf))
   [:div
    [top-menu]
    [ant/locale-provider {:locale (ant/locales db/locale)}

@@ -1,2 +1,2 @@
 goog.require("figwheel.connect.build_dev");
-goog.require("gooreplacer.background");
+goog.require("gooreplacer.popup");

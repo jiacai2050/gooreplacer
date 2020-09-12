@@ -1,7 +1,7 @@
 (ns gooreplacer.option.online-rules
   (:require [antizer.reagent :as ant]
             [reagent.core :as r]
-            [gooreplacer.option.db :as db]
+            [gooreplacer.common.db :as db]
             [gooreplacer.common.tool :as tool]
             [gooreplacer.option.table :as table]
             [gooreplacer.common.i18n :as i18n]

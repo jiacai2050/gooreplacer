@@ -13,25 +13,26 @@
     "page": "background/index.html"
   },
   "icons": {
-    "32": "option/img/32.png",
-    "16": "option/img/16.png",
-    "48": "option/img/48.png"
+    "32": "ui/img/32.png",
+    "16": "ui/img/16.png",
+    "48": "ui/img/48.png"
   },
   "browser_action": {
     "default_icon": {
-      "32": "option/img/32.png",
-      "16": "option/img/16.png",
-      "48": "option/img/48.png"
+      "32": "ui/img/32.png",
+      "16": "ui/img/16.png",
+      "48": "ui/img/48.png"
     },
-    "default_title": "Modify, block URLs & Headers"
+    "default_title": "Modify, block URLs & Headers",
+    "default_popup": "ui/popup.html"
   },
   "options_ui": {
-    "page": "option/index.html",
+    "page": "ui/option.html",
     "chrome_style": false,
     "open_in_tab": true
   },
   "author": "http://liujiacai.net",
   "homepage_url": "https://github.com/jiacai2050/gooreplacer",
-  "content_security_policy": "default-src 'unsafe-eval' 'self' http://localhost:8097; style-src http://* https://* 'unsafe-inline' 'unsafe-eval'; connect-src http://* http://localhost:* ws://localhost:* ; font-src https://*",
+  "content_security_policy": "default-src 'unsafe-eval' 'self' https://cdn.jsdelivr.net http://localhost:8097; style-src http://* https://* 'unsafe-inline' 'unsafe-eval'; connect-src http://* http://localhost:* ws://localhost:* ; font-src https://*; img-src 'self' data:",
   "manifest_version": 2
 }

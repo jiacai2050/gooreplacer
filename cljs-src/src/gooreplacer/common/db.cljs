@@ -1,4 +1,4 @@
-(ns gooreplacer.option.db
+(ns gooreplacer.common.db
   (:require [reagent.core :as r]
             [gooreplacer.common.i18n :as i18n]
             [gooreplacer.common.tool]
@@ -40,3 +40,24 @@
    "requestHeaders" i18n/title-req-headers
    "responseHeaders" i18n/title-resp-headers
    })
+
+(def dark-key "dark")
+(def light-key "light")
+(def auto-key "auto")
+
+(defn config-darkmode [theme]
+  (condp = theme
+    dark-key (.enable js/DarkReader)
+    light-key (.disable js/DarkReader)
+    auto-key (.auto js/DarkReader)))
+
+(defn config-icon [enable]
+  (if enable
+    (.setIcon js/chrome.browserAction
+              (clj->js {:path {"32" "img/32.png"
+                               "16" "img/16.png"
+                               "48" "img/48.png"}}))
+      (.setIcon js/chrome.browserAction
+                (clj->js {:path {"32" "img/32-off.png"
+                                 "16" "img/16-off.png"
+                                 "48" "img/48-off.png"}}))))

@@ -2,7 +2,7 @@
   (:require [antizer.reagent :as ant]
             [clojure.string :as str]
             [reagent.core :as r]
-            [gooreplacer.option.db :as db]
+            [gooreplacer.common.db :as db]
             [gooreplacer.option.table :as table]
             [gooreplacer.common.tool :as tool]
             [gooreplacer.common.i18n :as i18n]

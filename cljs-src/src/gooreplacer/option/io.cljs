@@ -1,6 +1,6 @@
 (ns gooreplacer.option.io
   (:require [goog.dom :as gdom]
-            [gooreplacer.option.db :as db]
+            [gooreplacer.common.db :as db]
             [antizer.reagent :as ant]
             [gooreplacer.common.tool :as tool]))
 

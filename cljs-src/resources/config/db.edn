@@ -17,6 +17,6 @@
  {:name :request-headers
   :init-value []}
  {:name :response-headers
-  :init-value []}]
-
-
+  :init-value []}
+ {:name :theme
+  :init-value "auto"}]
