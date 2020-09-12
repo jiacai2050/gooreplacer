@@ -1,4 +1,4 @@
-(defproject gooreplacer "3.10.0"
+(defproject gooreplacer "3.12.0"
   :description "Modify, block URLs & Headers"
   :url "https://github.com/jiacai2050/gooreplacer"
   :license {:name "MIT"
@@ -95,6 +95,7 @@
                                                         :optimizations :advanced
                                                         :main gooreplacer.background}}]}}
              :test {:cljsbuild {:builds [{:id "test"
+                                          :source-paths ["src" "test"]
                                           :compiler {:output-to "out/main.js"
                                                      :main gooreplacer.runner
                                                      :optimizations :none}}]}
@@ -109,7 +110,7 @@
             "bg"       ["with-profile" "dev-bg" "do"
                         ["clean"]
                         ["figwheel" "dev"]]
-            "test-and-watch" ["with-profile" "test" "do"
-                              ["clean"]
-                              ;; First install phantom
-                              ["doo" "phantom"]]})
+            "test" ["with-profile" "test" "do"
+                    ["clean"]
+                    ;; First install phantom
+                    ["doo" "phantom"]]})

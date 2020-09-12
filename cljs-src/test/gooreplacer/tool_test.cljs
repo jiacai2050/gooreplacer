@@ -1,24 +1,24 @@
 (ns gooreplacer.tool-test
-  (:require [gooreplacer.tool :as tool]
-            [cljs.test :refer-macros [deftest is testing run-tests]]))
+  (:require [gooreplacer.common.tool :as tool]
+            [cljs.test :refer-macros [deftest is testing]]))
 
 (deftest test-try-redirect
   (testing "wildcard.."
-    (let [req-url "https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js" 
+    (let [req-url "https://ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"
           r {:src "ajax.googleapis.com"
              :dst "ajax.proxy.ustclug.org"
              :kind "wildcard"
              :enable true}]
       (is (= "https://ajax.proxy.ustclug.org/ajax/libs/jquery/1.8.1/jquery.min.js" (tool/try-redirect req-url r)))))
   (testing "regexp without group.."
-    (let [req-url "http://weibo.com/welcome" 
+    (let [req-url "http://weibo.com/welcome"
           r {:src "weibo.com"
              :dst "liujiacai.net"
              :kind "regexp"
              :enable true}]
       (is (= "http://liujiacai.net/welcome" (tool/try-redirect req-url r)))))
   (testing "regexp with group.."
-    (let [req-url "weibo.com" 
+    (let [req-url "weibo.com"
           r {:src "(weibo).com"
              :dst "$1.cn"
              :kind "regexp"
