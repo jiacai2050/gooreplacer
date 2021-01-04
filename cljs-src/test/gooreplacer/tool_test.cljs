@@ -55,6 +55,15 @@
               {:name "content-type2" :value "unchanged"}]
              (do
                (tool/try-modify-header! old-header header-name header-value op)
+               (js->clj old-header :keywordize-keys true)))))
+    (let [old-header (clj->js [{:name "content-type" :value "text/html; charset=utf-8"}])
+          header-name "Referer"
+          header-value "http://liujiacai.net"
+          op "modify"]
+      (is (= [{:name "content-type", :value "text/html; charset=utf-8"}
+              {:name header-name :value header-value}]
+             (do
+               (tool/try-modify-header! old-header header-name header-value op)
                (js->clj old-header :keywordize-keys true))))))
   (testing "cancel header"
     (let [old-header (clj->js [{:name "content-type" :value "text/html; charset=utf-8"}

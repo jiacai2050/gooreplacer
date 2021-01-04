@@ -44,13 +44,16 @@
   (let [header-name-lower-case (str/lower-case header-name)
         headers-length (alength raw-headers)]
     (loop [i 0]
-      (when (< i headers-length)
+      (if (< i headers-length)
         (let [curr-header (aget raw-headers i)]
           (if (= header-name-lower-case (str/lower-case (.-name curr-header)))
             (case op
               "modify" (set! (.-value curr-header) header-value)
               "cancel" (garr/removeAt raw-headers i))
-            (recur (inc i))))))))
+            (recur (inc i))))
+        ;; for modify, if no headers matched, add to it
+        (when (= op "modify")
+          (.push raw-headers #js {"name" header-name "value" header-value}))))))
 
 ;; mainly used in background script
 (def supported-handler {"redirectUrl" try-redirect
