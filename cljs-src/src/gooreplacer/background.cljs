@@ -28,7 +28,7 @@
                   (when-let [url (aget req "url")]
                     (modify-url url)))
                 (clj->js {"urls" ["<all_urls>"]})
-                #js ["blocking"])
+                #js ["blocking" "extraHeaders"])
   (.addListener (.-onHeadersReceived web-request)
                 (fn [req]
                   (let [{:keys [res-headers-enabled? online-enabled? global-enabled?]} (read-goo-conf)]
@@ -39,7 +39,7 @@
                         (when res-headers-enabled?
                           (tool/headers-match "responseHeaders" (.-url req) (.-responseHeaders req) (read-response-headers)))))))
                 (clj->js {"urls" ["<all_urls>"]})
-                #js ["blocking" "responseHeaders"])
+                #js ["blocking" "responseHeaders" "extraHeaders"])
   (.addListener (.-onBeforeSendHeaders web-request)
                 (fn [req]
                   (let [{:keys [req-headers-enabled? global-enabled? online-enabled?]} (read-goo-conf)]
@@ -50,7 +50,7 @@
                         (when req-headers-enabled?
                           (tool/headers-match "requestHeaders" (.-url req) (.-requestHeaders req) (read-request-headers)))))))
                 (clj->js {"urls" ["<all_urls>"]})
-                #js ["blocking" "requestHeaders"])
+                #js ["blocking" "requestHeaders" "extraHeaders"])
   (println "listen request done!")
   (.addListener js/chrome.runtime.onMessage
                 (fn [msg sender send-response]
