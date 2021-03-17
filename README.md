@@ -1,4 +1,8 @@
-## [gooreplacer](http://liujiacai.net/gooreplacer)  [![Build Status](https://travis-ci.org/jiacai2050/gooreplacer.svg?branch=master)](https://travis-ci.org/jiacai2050/gooreplacer)
+## gooreplacer
+
+[![Build Status](https://badging.tk/github/repos/jiacai2050/gooreplacer)](http://liujiacai.net/gooreplacer)
+
+[![Build Status](https://travis-ci.org/jiacai2050/gooreplacer.svg?branch=master)](https://travis-ci.org/jiacai2050/gooreplacer)
 
 > 重定向/屏蔽 URL，修改/屏蔽 header
 
@@ -29,18 +33,19 @@ gooreplacer 最初为解决国内无法访问 Google 资源（Ajax、API等）�
 
 | 浏览器 | 评分 | 用户数 |
 |---|---|---|
-| [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) | [![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) | [![Chrome Web Store](https://img.shields.io/chrome-web-store/users/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) |
-| [![Mozilla Add-on](https://img.shields.io/amo/v/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/) | [![Mozilla Add-on](https://img.shields.io/amo/rating/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/) | [![Mozilla Add-on](https://img.shields.io/amo/users/gooreplacer.svg?style=plastic)](https://addons.mozilla.org/firefox/addon/gooreplacer/) |
-| [![Microsoft Edge](https://img.shields.io/badge/dynamic/json?label=edge%20add-on&prefix=v&query=%24.version&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fcidbonnpjopamnhfjdgfcmjmlmehjnej)](https://microsoftedge.microsoft.com/addons/detail/gooreplacer/cidbonnpjopamnhfjdgfcmjmlmehjnej) | [![Microsoft Edge](https://img.shields.io/badge/dynamic/json?label=rating&suffix=/5&query=%24.averageRating&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fcidbonnpjopamnhfjdgfcmjmlmehjnej)](https://microsoftedge.microsoft.com/addons/detail/gooreplacer/cidbonnpjopamnhfjdgfcmjmlmehjnej) |  |
+| [![Chrome Web Store](https://img.shields.io/chrome-web-store/v/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic&logo=google%20chrome&logoColor=FFF)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) | [![Chrome Web Store](https://img.shields.io/chrome-web-store/rating/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic&logo=google%20chrome&logoColor=FFF)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) | [![Chrome Web Store](https://img.shields.io/chrome-web-store/users/jnlkjeecojckkigmchmfoigphmgkgbip.svg?style=plastic&logo=google%20chrome&logoColor=FFF)](https://chrome.google.com/webstore/detail/gooreplacer/jnlkjeecojckkigmchmfoigphmgkgbip) |
+| [![Mozilla Add-on](https://img.shields.io/amo/v/gooreplacer.svg?style=plastic&logo=mozilla)](https://addons.mozilla.org/firefox/addon/gooreplacer/) | [![Mozilla Add-on](https://img.shields.io/amo/rating/gooreplacer.svg?style=plastic&logo=mozilla)](https://addons.mozilla.org/firefox/addon/gooreplacer/) | [![Mozilla Add-on](https://img.shields.io/amo/users/gooreplacer.svg?style=plastic&logo=mozilla)](https://addons.mozilla.org/firefox/addon/gooreplacer/) |
+| [![Microsoft Edge](https://img.shields.io/badge/dynamic/json?label=edge%20add-on&prefix=v&query=%24.version&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fcidbonnpjopamnhfjdgfcmjmlmehjnej&logo=microsoft%20edge)](https://microsoftedge.microsoft.com/addons/detail/gooreplacer/cidbonnpjopamnhfjdgfcmjmlmehjnej) | [![Microsoft Edge](https://img.shields.io/badge/dynamic/json?label=rating&suffix=/5&query=%24.averageRating&url=https%3A%2F%2Fmicrosoftedge.microsoft.com%2Faddons%2Fgetproductdetailsbycrxid%2Fcidbonnpjopamnhfjdgfcmjmlmehjnej&logo=microsoft%20edge)](https://microsoftedge.microsoft.com/addons/detail/gooreplacer/cidbonnpjopamnhfjdgfcmjmlmehjnej) |  |
 
 ### zip 包
 在 [release](https://github.com/jiacai2050/gooreplacer/releases) 页面下载对应打包好的 zip 文件，本地解压。之后在 `chrome://extensions/` 选中开发者模式，选择「加载已解压的扩展程序」即可。
 
 ## 实现
-
 在 v1.0 之前采用纯 JavaScript 实现，代码在 [legacy-js-src](legacy-js-src) 目录，在 v2.0 之后采用 [ClojureScript](https://github.com/clojure/clojurescript) + [Reagent](https://github.com/reagent-project/reagent) + [Antd](https://ant.design/) + [React-Bootstrap](https://react-bootstrap.github.io/)，在 [cljs-src](cljs-src) 目录。
 
+## 贡献者
+[![Build Status](https://badging.tk/github/contributors/jiacai2050/gooreplacer)](../../graphs/contributors)
 
 ## License
 
-[MIT License](http://liujiacai.net/license/MIT.html?year=2015) © Jiacai Liu
+[![MIT License](https://badging.tk/static/License/555/MIT/fe7d37)](http://liujiacai.net/license/MIT.html?year=2015) © Jiacai Liu
