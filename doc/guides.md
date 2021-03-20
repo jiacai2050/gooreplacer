@@ -30,7 +30,7 @@
 }
 ```
 
-这样就能够把`baidu.com/`重定向到`baidu.com/?`了，[据说](http://v2ex.com/t/169967)，这样能防止劫持吆 -:)
+这样就能够把`baidu.com/`重定向到`baidu.com/?`了，[据说](http://v2ex.com/t/169967)，这样能防止劫持吆 :-)
 
 - 正则式（regexp），语法同[JS 的 RegExp](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp)，对于有分组的情况，在目标 URL 中可以使用 `$1`, `$2`... 反引用。例如
 
