@@ -47,6 +47,11 @@
             "kind": "wildcard",
             "enable": true
         },
+        "www.google.com/recaptcha": {
+            "dstURL": "recaptcha.net/recaptcha",
+            "kind": "wildcard",
+            "enable": true
+        },
         "apis.google.com/js/plusone.js": {
             "dstURL": "cdn.jsdelivr.net/gh/jiacai2050/gooreplacer@gh-pages/proxy/plusone.js",
             "kind": "wildcard",
