@@ -10,7 +10,7 @@
         "fonts.googleapis.com": {
             "dstURL": "fonts.lug.ustc.edu.cn",
             "kind": "wildcard",
-            "enable": false
+            "enable": true
         },
         "storage.googleapis.com": {
             "dstURL": "storage-googleapis.lug.ustc.edu.cn",
@@ -30,7 +30,7 @@
         "fonts.gstatic.com": {
             "dstURL": "fonts-gstatic.lug.ustc.edu.cn",
             "kind": "wildcard",
-            "enable": false
+            "enable": true
         },
         "secure.gravatar.com": {
             "dstURL": "gravatar.lug.ustc.edu.cn",
