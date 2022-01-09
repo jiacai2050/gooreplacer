@@ -20,7 +20,7 @@ gooreplacer 最初为解决国内无法访问 Google 资源（Ajax、API等）�
 然后点击更新就好了，目前会重定向到[中科大的代理](https://lug.ustc.edu.cn/wiki/lug/services/revproxy)。
 如果想自定义规则，可参考 [guides.md](doc/guides.md)。实用小技巧：
 - [自动跳转知乎链接](doc/guides.md#自动跳转知乎链接)
-- [放运营商劫持](doc/guides.md#防止运营商劫持)
+- [防运营商劫持](doc/guides.md#防止运营商劫持)
 
 ## 安装
 
