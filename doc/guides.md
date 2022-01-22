@@ -52,7 +52,7 @@
     "enable": true,
     "dst": "http$1://$2",
     "kind": "regexp",
-    "src": "https://link\.zhihu\.com/\?target=http(s)?%3A\/\/(.*)"
+    "src": "https://link\.zhihu\.com/\?target=http(s?)%3A\/\/(.*)"
 }
 ```
 
