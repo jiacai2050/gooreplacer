@@ -13,12 +13,12 @@
             "enable": false
         },
         "themes.googleusercontent.com": {
-            "dstURL": "	themes.loli.net",
+            "dstURL": "themes.loli.net",
             "kind": "wildcard",
             "enable": true
         },
         "google.com/recaptcha": {
-            "dstURL": "	recaptcha.net/recaptcha",
+            "dstURL": "recaptcha.net/recaptcha",
             "kind": "wildcard",
             "enable": true
         },
