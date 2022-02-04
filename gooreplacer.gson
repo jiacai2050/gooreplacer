@@ -17,6 +17,11 @@
             "kind": "wildcard",
             "enable": true
         },
+        "google.com/recaptcha": {
+            "dstURL": "	recaptcha.net/recaptcha",
+            "kind": "wildcard",
+            "enable": true
+        },
         "fonts.gstatic.com": {
             "dstURL": "gstatic.loli.net",
             "kind": "wildcard",
