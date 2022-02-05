@@ -1,39 +1,34 @@
 {
     "createBy": "http://liujiacai.net/gooreplacer/",
-    "createAt": "Wed Dec 05 2018 21:53:22 GMT+0800 (China Standard Time)",
+    "createAt": "Fri Feb 04 2022 00:00:00 GMT+0800 (China Standard Time)",
     "rules": {
         "ajax.googleapis.com": {
-            "dstURL": "ajax.lug.ustc.edu.cn",
+            "dstURL": "ajax.loli.net",
             "kind": "wildcard",
             "enable": true
         },
         "fonts.googleapis.com": {
-            "dstURL": "fonts.lug.ustc.edu.cn",
+            "dstURL": "fonts.loli.net",
             "kind": "wildcard",
             "enable": false
         },
-        "storage.googleapis.com": {
-            "dstURL": "storage-googleapis.lug.ustc.edu.cn",
-            "kind": "wildcard",
-            "enable": true
-        },
-        "gerrit.googlesource.com": {
-            "dstURL": "gerrit-googlesource.lug.ustc.edu.cn",
-            "kind": "wildcard",
-            "enable": true
-        },
         "themes.googleusercontent.com": {
-            "dstURL": "google-themes.lug.ustc.edu.cn",
+            "dstURL": "themes.loli.net",
+            "kind": "wildcard",
+            "enable": true
+        },
+        "google.com/recaptcha": {
+            "dstURL": "recaptcha.net/recaptcha",
             "kind": "wildcard",
             "enable": true
         },
         "fonts.gstatic.com": {
-            "dstURL": "fonts-gstatic.lug.ustc.edu.cn",
+            "dstURL": "gstatic.loli.net",
             "kind": "wildcard",
             "enable": false
         },
         "secure.gravatar.com": {
-            "dstURL": "gravatar.lug.ustc.edu.cn",
+            "dstURL": "gravatar.loli.net",
             "kind": "wildcard",
             "enable": true
         },
