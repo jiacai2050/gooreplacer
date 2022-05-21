@@ -1,4 +1,4 @@
-(defproject gooreplacer "3.12.0"
+(defproject gooreplacer "3.13.0"
   :description "Modify, block URLs & Headers"
   :url "https://github.com/jiacai2050/gooreplacer"
   :license {:name "MIT"
