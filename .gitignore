@@ -1,2 +1,4 @@
 .DS_Store
 src/.web-extension-id
+cljs-src/resources/js/option.js
+cljs-src/resources/js/pop.js

@@ -27,7 +27,7 @@
     (db/append-online-rules! r)))
 
 (defn import-rules []
-  (let [file-choose (gdom/getElement "gsonChooser")]
+  (let [file-choose (gdom/getElement "jsonChooser")]
     (set! (.-value file-choose) "")
     (set! (.-onchange file-choose) (fn []
                                      (let [file (aget file-choose "files" 0)
@@ -54,4 +54,4 @@
         content (js/Blob. [(.stringify js/JSON (clj->js data) nil 2)] (clj->js {:type "application/json"}))]
     (.download js/chrome.downloads (clj->js {:url (.createObjectURL js/window.URL content)
                                              :saveAs true
-                                             :filename "gooreplacer.gson"}))))
+                                             :filename "gooreplacer.json"}))))

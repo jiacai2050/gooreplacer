@@ -18,12 +18,12 @@
              :enable true}]
       (is (= "http://liujiacai.net/welcome" (tool/try-redirect req-url r)))))
   (testing "regexp with group.."
-    (let [req-url "weibo.com"
-          r {:src "(weibo).com"
-             :dst "$1.cn"
+    (let [req-url "weibo.com?keyword=clojure"
+          r {:src "(weibo).com\\?keyword=(\\w+)"
+             :dst "$1.cn?word=$2"
              :kind "regexp"
              :enable true}]
-      (is (= "weibo.cn" (tool/try-redirect req-url r))))))
+      (is (= "weibo.cn?word=clojure" (tool/try-redirect req-url r))))))
 
 (deftest test-try-cancel
   (let [req-url "http://liujiacai.net"
