@@ -16,4 +16,4 @@ lein with-profile release do clean, cljsbuild once popup
 lein with-profile release clean
 
 cd resources/release
-zip -x *.DS_Store -r ~/gooreplacer_`date +%s`.zip *
+zip -x *.DS_Store -r ~/firefox_gooreplacer_`date +%s`.zip *
