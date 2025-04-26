@@ -1,3 +1,9 @@
+
+
+> [!TIP]
+> Repo Move to https://github.com/jiacai2050/my-works/tree/main/gooreplacer
+
+
 ## [gooreplacer](http://liujiacai.net/gooreplacer)  [![Build Status](https://travis-ci.org/jiacai2050/gooreplacer.svg?branch=master)](https://travis-ci.org/jiacai2050/gooreplacer)
 
 > 重定向/屏蔽 URL，修改/屏蔽 header
